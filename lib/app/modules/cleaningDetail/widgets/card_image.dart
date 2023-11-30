@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:get/get.dart';
 
-Widget cardImage(File file, String title) {
+Widget cardImageCamera(File file, String title) {
   return Center(
     child: Container(
       width: Get.width * 0.8,
@@ -18,19 +17,51 @@ Widget cardImage(File file, String title) {
   );
 }
 
-Widget cardNoImage(String status) {
+Widget cardImageAPI(dynamic urlImage) {
   return Center(
-    child: Container(
-      width: Get.width * 0.8,
-      height: 250,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(10),
-        image: const DecorationImage(image: NetworkImage("http://192.168.100.160:8080/api/images/5qILx8MuaGzVVy7iH78lGbTPLpMuRl.png"), fit: BoxFit.cover)
-      ),
-      child: Center(
-          child: text("Belum ada gambar", 14, Colors.black87, FontWeight.normal,
-              TextAlign.center)),
-    ),
+    child: FutureBuilder(
+        future: GetConnect()
+            .get("http://192.168.100.160:8080/api/images/$urlImage"),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+                width: Get.width * 0.8,
+                height: 250,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Center(child: CircularProgressIndicator()));
+          } else if (snapshot.hasError ||
+              snapshot.data == null ||
+              snapshot.error == "404" ||
+              urlImage == "" ||
+              urlImage == null) {
+            return Container(
+              width: Get.width * 0.8,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(10),
+                image: const DecorationImage(
+                    image: AssetImage("assets/images/no_image.jpg"),
+                    fit: BoxFit.cover),
+              ),
+            );
+          } else {
+            return Container(
+              width: Get.width * 0.8,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    image: NetworkImage(
+                        "http://192.168.100.160:8080/api/images/$urlImage"),
+                    fit: BoxFit.cover),
+              ),
+            );
+          }
+        }),
   );
 }

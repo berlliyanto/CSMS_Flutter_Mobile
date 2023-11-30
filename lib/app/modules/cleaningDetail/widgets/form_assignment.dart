@@ -36,9 +36,9 @@ Widget formAssignmentCleaner(CleaningDetailController controller) {
                 TextAlign.right),
             const Gap(10),
             if (controller.imageBefore == null)
-              cardNoImage(controller.taskByCleaner.status)
+              cardImageAPI(controller.taskByCleaner.imageBefore)
             else
-              cardImage(controller.imageBefore!, "Belum ada gambar"),
+              cardImageCamera(controller.imageBefore!, "Belum ada gambar"),
             controller.taskByCleaner.status == "On Progress"
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,9 +66,9 @@ Widget formAssignmentCleaner(CleaningDetailController controller) {
                 TextAlign.right),
             const Gap(10),
             if (controller.imageProgress == null)
-              cardNoImage(controller.taskByCleaner.status)
+              cardImageAPI(controller.taskByCleaner.imageProgress)
             else
-              cardImage(controller.imageProgress!, "Belum ada gambar"),
+              cardImageCamera(controller.imageProgress!, "Belum ada gambar"),
             controller.taskByCleaner.status == "On Progress"
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -96,9 +96,9 @@ Widget formAssignmentCleaner(CleaningDetailController controller) {
                 TextAlign.right),
             const Gap(10),
             if (controller.imageFinish == null)
-              cardNoImage(controller.taskByCleaner.status)
+              cardImageAPI(controller.taskByCleaner.imageFinish)
             else
-              cardImage(controller.imageFinish!, "Belum ada gambar"),
+              cardImageCamera(controller.imageFinish!, "Belum ada gambar"),
             controller.taskByCleaner.status == "On Progress"
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

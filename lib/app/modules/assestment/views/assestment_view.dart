@@ -40,9 +40,10 @@ class AssestmentView extends GetView<AssestmentController> {
                     const Gap(10),
                     cardNavigation(
                         Routes.ASSESTMENT_PENILAIAN, "Lihat Penilaian"),
+                    const Divider(),
                     const Gap(20),
-                    text("Berikan Penilaian", 16, Colors.black87, FontWeight.bold,
-                        TextAlign.start),
+                    text("Berikan Penilaian", 16, Colors.black87,
+                        FontWeight.bold, TextAlign.start),
                     assestmentLeader(
                       builder,
                     )

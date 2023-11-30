@@ -6,6 +6,8 @@ import '../modules/assestmentPenilaian/bindings/assestment_penilaian_binding.dar
 import '../modules/assestmentPenilaian/views/assestment_penilaian_view.dart';
 import '../modules/cleaning/bindings/cleaning_binding.dart';
 import '../modules/cleaning/views/cleaning_view.dart';
+import '../modules/cleaningData/bindings/cleaning_data_binding.dart';
+import '../modules/cleaningData/views/cleaning_data_view.dart';
 import '../modules/cleaningDetail/bindings/cleaning_detail_binding.dart';
 import '../modules/cleaningDetail/views/cleaning_detail_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -69,8 +71,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CLEANING_DETAIL,
-      page: () =>  CleaningDetailView(),
+      page: () => CleaningDetailView(),
       binding: CleaningDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.CLEANING_DATA,
+      page: () => const CleaningDataView(),
+      binding: CleaningDataBinding(),
     ),
   ];
 }

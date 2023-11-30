@@ -98,8 +98,6 @@ class DataTableAssestment extends DataTableSource {
     data.sort((a, b) {
       final int aValue = filteredData.indexOf(a);
       final int bValue = filteredData.indexOf(b);
-      print("a $aValue");
-      print("b $bValue");
       return sortColumn['no'] == SortOrder.ascending
           ? aValue.compareTo(bValue)
           : bValue.compareTo(aValue);

@@ -3,6 +3,8 @@ import 'package:flutter_mobile_csms/app/models/area_model.dart';
 import 'package:flutter_mobile_csms/app/models/location_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/cleaning_controller.dart';
+import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
+import 'package:flutter_mobile_csms/app/widgets/card.dart';
 import 'package:flutter_mobile_csms/app/widgets/dropdown.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:flutter_mobile_csms/app/widgets/textfield_normal.dart';
@@ -20,6 +22,12 @@ Widget cleaningLeader(CleaningController controller) {
         children: [
           text(
               "Cleaning", 24, Colors.black87, FontWeight.bold, TextAlign.start),
+          const Gap(10),
+          cardNavigation(Routes.CLEANING_DATA, "Lihat Data Cleaning"),
+          const Divider(),
+          const Gap(10),
+          text("Beri Tugas", 20, Colors.black87, FontWeight.w800,
+              TextAlign.start),
           const Gap(10),
           text("Lokasi Cleaning", 16, Colors.black87, FontWeight.w800,
               TextAlign.start),
