@@ -34,7 +34,7 @@ class CleaningDataView extends GetView<CleaningDataController> {
                     Center(
                       child: DropdownMenu(
                           onSelected: (value) {
-                            controller.source.setStatus(value!);
+                            builder.source.setStatus(value!);
                             builder.update();
                           },
                           width: Get.width * 0.94,
@@ -52,11 +52,11 @@ class CleaningDataView extends GetView<CleaningDataController> {
                     const Gap(10),
                     TextField(
                       onChanged: (text) {
-                        controller.source.setFilter(text);
-                        controller.update();
+                        builder.source.setFilter(text);
+                        builder.update();
                       },
                       decoration: InputDecoration(
-                        labelText: 'Cari Cleaner',
+                        labelText: 'Cari',
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),

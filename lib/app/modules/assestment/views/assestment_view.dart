@@ -34,10 +34,6 @@ class AssestmentView extends GetView<AssestmentController> {
                     text("Halaman Pengamatan - Coaching Program", 18,
                         Colors.black87, FontWeight.bold, TextAlign.start),
                     const Gap(10),
-                    const Divider(
-                      height: 2,
-                    ),
-                    const Gap(10),
                     cardNavigation(
                         Routes.ASSESTMENT_PENILAIAN, "Lihat Penilaian"),
                     const Divider(),

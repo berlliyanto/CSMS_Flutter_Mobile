@@ -12,6 +12,7 @@ abstract class Routes {
   static const ASSESTMENT_PENILAIAN = _Paths.ASSESTMENT_PENILAIAN;
   static const CLEANING_DETAIL = _Paths.CLEANING_DETAIL;
   static const CLEANING_DATA = _Paths.CLEANING_DATA;
+  static const CLEANING_ASSIGNMENT = _Paths.CLEANING_ASSIGNMENT;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const ASSESTMENT_PENILAIAN = '/assestment-penilaian';
   static const CLEANING_DETAIL = '/cleaning-detail/:id';
   static const CLEANING_DATA = '/cleaning-data';
+  static const CLEANING_ASSIGNMENT = '/cleaning-assignment';
 }

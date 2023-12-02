@@ -17,7 +17,11 @@ class DataTableTask extends DataTableSource {
         tempData = tempData
             .where((row) =>
                 row.cleaner.name.toLowerCase().contains(searchText) ||
-                row.assign.assignBy.name.toLowerCase().contains(searchText))
+                row.assign.assignBy.name.toLowerCase().contains(searchText) ||
+                row.assign.location.locationName
+                    .toLowerCase()
+                    .contains(searchText) ||
+                row.assign.area.areaName.toLowerCase().contains(searchText))
             .toList();
       }
       if (status.isNotEmpty) {
@@ -31,6 +35,9 @@ class DataTableTask extends DataTableSource {
 
   String status = '';
   String searchText = '';
+  int total = 0;
+  int perPage = 0;
+  int currentPage = 1;
 
   Map<String, SortOrder> sortColumn = {
     'no': SortOrder.none,
@@ -38,6 +45,13 @@ class DataTableTask extends DataTableSource {
     'cleaner': SortOrder.none,
     'location': SortOrder.none,
   };
+
+  void updatePaginate(int total, int perPage, int currentPage) {
+    this.total = total;
+    this.perPage = perPage;
+    this.currentPage = currentPage;
+    notifyListeners();
+  }
 
   void updateData(List<TasksByCleanerModel> newData) {
     data.clear();
@@ -130,7 +144,7 @@ class DataTableTask extends DataTableSource {
 
   Widget imageRow(dynamic image, String type) {
     if (image == null || image == "") {
-      return const Text("Tidak ada gambar");
+      return const Text("-");
     } else {
       return TextButton(
           onPressed: () => openImage(image, type),
@@ -152,23 +166,88 @@ class DataTableTask extends DataTableSource {
             : Colors.white;
       }),
       cells: [
-        DataCell(Center(
-            child: Text((filteredData.indexOf(currentRow) + 1).toString()))),
-        DataCell(Center(child: Text(currentRow.cleaner.name.toString()))),
         DataCell(
-            Center(child: Text(currentRow.assign.assignBy.name.toString()))),
-        DataCell(Center(
-            child: Text(currentRow.assign.location.locationName.toString()))),
+          Text(
+            (filteredData.indexOf(currentRow) + 1).toString(),
+          ),
+        ),
         DataCell(
-            Center(child: Text(currentRow.assign.area.areaName.toString()))),
-        DataCell(Center(child: Text(currentRow.status.toString()))),
-        DataCell(Center(child: Text(currentRow.alasan.toString()))),
-        DataCell(Center(child: Text(currentRow.catatan.toString()))),
-        DataCell(Center(child: imageRow(currentRow.imageBefore, "Sebelum"))),
-        DataCell(Center(child: imageRow(currentRow.imageProgress, "Proses"))),
-        DataCell(Center(child: imageRow(currentRow.imageFinish, "Sesudah"))),
-        DataCell(Center(child: Text(currentRow.createdAt.toString()))),
-        DataCell(Center(child: Text(currentRow.updatedAt.toString()))),
+          Text(
+            currentRow.cleaner.name.toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.assign.assignBy.name.toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.assign.location.locationName.toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.assign.area.areaName.toString(),
+          ),
+        ),
+        DataCell(SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: currentRow.tasks
+                .map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 3),
+                    child: Text("- $e"),
+                  ),
+                )
+                .toList(),
+          ),
+        )),
+        DataCell(
+          Text(
+            currentRow.status.toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.alasan == null ? "-" : currentRow.alasan.toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.catatan == null ? "-" : currentRow.catatan.toString(),
+          ),
+        ),
+        DataCell(
+          imageRow(currentRow.imageBefore, "Sebelum"),
+        ),
+        DataCell(
+          imageRow(currentRow.imageProgress, "Proses"),
+        ),
+        DataCell(
+          imageRow(currentRow.imageFinish, "Sesudah"),
+        ),
+        DataCell(
+          Text(
+            currentRow.createdAt.toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.updatedAt.toString(),
+          ),
+        ),
+        DataCell(
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.remove_red_eye,
+              color: Colors.grey,
+            ),
+          ),
+        ),
       ],
     );
   }
