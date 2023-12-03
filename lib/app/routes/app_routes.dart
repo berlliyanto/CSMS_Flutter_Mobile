@@ -13,6 +13,7 @@ abstract class Routes {
   static const CLEANING_DETAIL = _Paths.CLEANING_DETAIL;
   static const CLEANING_DATA = _Paths.CLEANING_DATA;
   static const CLEANING_ASSIGNMENT = _Paths.CLEANING_ASSIGNMENT;
+  static const CLEANING_ASSIGNMENT_DETAIL = _Paths.CLEANING_ASSIGNMENT_DETAIL;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const CLEANING_DETAIL = '/cleaning-detail/:id';
   static const CLEANING_DATA = '/cleaning-data';
   static const CLEANING_ASSIGNMENT = '/cleaning-assignment';
+  static const CLEANING_ASSIGNMENT_DETAIL = '/cleaning-assignment-detail';
 }

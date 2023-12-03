@@ -1,11 +1,11 @@
-class CleanerModel {
+class UserModel {
   late String? name;
   late int? id;
 
-  CleanerModel({this.name, this.id});
+  UserModel({this.name, this.id});
 
-  factory CleanerModel.fromJson(Map<String, dynamic> json) {
-    return CleanerModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       name: json['name'],
       id: json['id'],
     );

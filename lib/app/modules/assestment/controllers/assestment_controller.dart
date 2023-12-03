@@ -12,7 +12,7 @@ class AssestmentController extends GetxController {
   RxInt idLoc = 0.obs;
   RxInt idCleaner = 0.obs;
   Map<String, dynamic> assestData = {};
-  List<CleanerModel> cleaner = [];
+  List<UserModel> cleaner = [];
   List<LocationModel> location = [];
 
   Future<List<LocationModel>> getLocations() async {
@@ -28,11 +28,11 @@ class AssestmentController extends GetxController {
     return locations;
   }
 
-  Future<List<CleanerModel>> getCleaners() async {
+  Future<List<UserModel>> getCleaners() async {
     final response = await CleanerService().allCleaner();
-    List<CleanerModel> cleaners = [];
+    List<UserModel> cleaners = [];
     cleaners = response.body != null
-        ? (response.body as List).map((e) => CleanerModel.fromJson(e)).toList()
+        ? (response.body as List).map((e) => UserModel.fromJson(e)).toList()
         : [];
     cleaner = cleaners;
     print(cleaner);

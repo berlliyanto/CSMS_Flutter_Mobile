@@ -42,8 +42,8 @@ class AssestmentPenilaianView extends GetView<AssestmentPenilaianController> {
                         builder.cleaners,
                         "Pilih Cleaner",
                         "Cleaner",
-                        (CleanerModel model) => model.name.toString(),
-                        (CleanerModel model) => model.id.toString(),
+                        (UserModel model) => model.name.toString(),
+                        (UserModel model) => model.id.toString(),
                         (selected) {
                       final id = selected.map((e) => e.value);
                       final newId = id.isNotEmpty ? id.first : 0;

@@ -7,18 +7,18 @@ import 'package:get/get.dart';
 
 class AssestmentPenilaianController extends GetxController {
   final DataTableAssestment source = DataTableAssestment();
-  List<CleanerModel> cleaners = [];
+  List<UserModel> cleaners = [];
   List<CalculateAssessmentModel> calculateAssessment = [];
   RxInt cleanersSelected = 0.obs;
   RxBool isLoading = false.obs;
 
-  Future<List<CleanerModel>> getCleaners() async {
+  Future<List<UserModel>> getCleaners() async {
     isLoading.value = true;
     update();
     final response = await CleanerService().allCleaner();
-    List<CleanerModel> cleaner = [];
+    List<UserModel> cleaner = [];
     cleaner = response.body != null
-        ? (response.body as List).map((e) => CleanerModel.fromJson(e)).toList()
+        ? (response.body as List).map((e) => UserModel.fromJson(e)).toList()
         : [];
     cleaners = cleaner;
 

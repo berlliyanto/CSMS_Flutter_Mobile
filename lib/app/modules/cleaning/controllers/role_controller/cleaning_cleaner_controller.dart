@@ -3,12 +3,12 @@ import 'package:flutter_mobile_csms/app/services/Tasks/tasks_by_cleaner_service.
 import 'package:get/get.dart';
 
 class CleaningCleanerController extends GetxController {
-  Future<List<allTasksByCleanerModel>> getTaskByCleaner() async {
+  Future<List<AllTasksByCleanerModel>> getTaskByCleaner() async {
     final response = await TaskByCleanerService().allTaskByCleaner();
-    List<allTasksByCleanerModel> tasks = [];
+    List<AllTasksByCleanerModel> tasks = [];
     tasks = response.body != null
         ? (response.body['data'] as List)
-            .map((e) => allTasksByCleanerModel.fromJson(e))
+            .map((e) => AllTasksByCleanerModel.fromJson(e))
             .toList()
         : [];
     update();

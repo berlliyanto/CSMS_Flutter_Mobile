@@ -7,11 +7,11 @@ import 'package:flutter_mobile_csms/app/services/Users/cleaner_service.dart';
 import 'package:get/get.dart';
 
 class CleaningLeaderController extends GetxController {
-  Future<List<CleanerModel>> getCleaners() async {
-    List<CleanerModel> cleaners = [];
+  Future<List<UserModel>> getCleaners() async {
+    List<UserModel> cleaners = [];
     final response = await CleanerService().allCleaner();
     cleaners =
-        (response.body as List).map((e) => CleanerModel.fromJson(e)).toList();
+        (response.body as List).map((e) => UserModel.fromJson(e)).toList();
     update();
     return cleaners;
   }

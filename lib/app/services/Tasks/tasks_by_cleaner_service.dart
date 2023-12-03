@@ -12,7 +12,6 @@ class TaskByCleanerService extends GetConnect {
 
   Future<Response> allTaskByCleaner() async {
     final token = getToken();
-    print(token);
 
     try {
       final response = await get("$url/tasks_by_cleaner", headers: {

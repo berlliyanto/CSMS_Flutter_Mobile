@@ -8,7 +8,7 @@ import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_contro
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_cleaner.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_leader.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
-import 'package:flutter_mobile_csms/app/services/Cleaning/cleaning_leader_service.dart';
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_leader_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
@@ -20,10 +20,10 @@ class CleaningController extends GetxController {
   final CleaningLeaderController cleaningLeaderController = Get.put(CleaningLeaderController());
   TextEditingController task = TextEditingController();
 
-  List<CleanerModel> cleaner = [];
+  List<UserModel> cleaner = [];
   List<LocationModel> location = [];
   List<AreaModel> area = [];
-  List<allTasksByCleanerModel> tasksByCleaner = [];
+  List<AllTasksByCleanerModel> tasksByCleaner = [];
 
   RxList tasks = [].obs;
   RxList cleanersSelected = [].obs;

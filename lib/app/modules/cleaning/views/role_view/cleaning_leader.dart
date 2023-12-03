@@ -87,8 +87,8 @@ Widget cleaningLeader(CleaningController controller) {
               controller.cleaner,
               'Pilih Cleaner',
               'Cleaner',
-              (CleanerModel model) => model.name.toString(),
-              (CleanerModel model) => model.id.toString(), (selected) {
+              (UserModel model) => model.name.toString(),
+              (UserModel model) => model.id.toString(), (selected) {
             controller.cleanersSelected.value =
                 selected.map((e) => e.value).toList();
             controller.update();

@@ -1,3 +1,5 @@
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/bindings/sub_cleaning_assignment_binding.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/views/subViews/sub_cleaning_assignment.dart';
 import 'package:get/get.dart';
 
 import '../modules/assestment/bindings/assestment_binding.dart';
@@ -73,7 +75,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CLEANING_DETAIL,
-      page: () => CleaningDetailView(),
+      page: () => const CleaningDetailView(),
       binding: CleaningDetailBinding(),
     ),
     GetPage(
@@ -86,5 +88,9 @@ class AppPages {
       page: () => const CleaningAssignmentView(),
       binding: CleaningAssignmentBinding(),
     ),
+    GetPage(
+        name: _Paths.CLEANING_ASSIGNMENT_DETAIL,
+        page: () => const SubCleaningAssignmentView(),
+        binding: SubCleaningAssignmentBinding()),
   ];
 }

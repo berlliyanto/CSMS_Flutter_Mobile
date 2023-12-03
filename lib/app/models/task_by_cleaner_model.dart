@@ -1,15 +1,15 @@
-class allTasksByCleanerModel{
+class AllTasksByCleanerModel{
   final String status;
   final int count;
   final List<TasksByCleanerModel> tasks;
 
-  allTasksByCleanerModel({
+  AllTasksByCleanerModel({
     required this.status,
     required this.count,
     required this.tasks,
   });
 
-  factory allTasksByCleanerModel.fromJson(Map<String, dynamic> json) => allTasksByCleanerModel(
+  factory AllTasksByCleanerModel.fromJson(Map<String, dynamic> json) => AllTasksByCleanerModel(
     status: json["status"],
     count: json["count"],
     tasks: List<TasksByCleanerModel>.from(json["tasks"].map((x) => TasksByCleanerModel.fromJson(x))),

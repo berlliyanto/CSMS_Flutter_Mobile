@@ -38,7 +38,7 @@ class CleaningDetailController extends GetxController {
 
   TextEditingController alasanController = TextEditingController();
   TextEditingController catatanController = TextEditingController();
-  List<CleanerModel> cleaners = [];
+  List<UserModel> cleaners = [];
   var isLoading = false.obs;
   var isNotFinish = false.obs;
 
@@ -144,7 +144,7 @@ class CleaningDetailController extends GetxController {
             cleaner: Cleaner(id: 0, name: ''));
     cleaners = response.body != null
         ? (List.from(response.body['cleaners']))
-            .map((e) => CleanerModel.fromJson(e))
+            .map((e) => UserModel.fromJson(e))
             .toList()
         : [];
 

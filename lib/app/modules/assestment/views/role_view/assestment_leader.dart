@@ -41,8 +41,8 @@ Widget assestmentLeader(AssestmentController controller) {
           controller.cleaner,
           "Pilih Cleaner",
           "Cleaner",
-          (CleanerModel model) => model.name.toString(),
-          (CleanerModel model) => model.id.toString(), (selected) {
+          (UserModel model) => model.name.toString(),
+          (UserModel model) => model.id.toString(), (selected) {
         final id = selected.map((e) => e.value);
         final newId = id.isNotEmpty ? id.first : 0;
         controller.idCleaner.value = int.parse(newId.toString());
