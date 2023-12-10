@@ -10,7 +10,7 @@ TextField textFieldNormal(
       borderRadius: BorderRadius.circular(10),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.deepOrange, width: 3),
+      borderSide: const BorderSide(color: Colors.deepOrange, width: 1),
       borderRadius: BorderRadius.circular(10),
     ),
     labelText: text,

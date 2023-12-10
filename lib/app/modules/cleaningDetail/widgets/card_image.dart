@@ -21,7 +21,7 @@ Widget cardImageAPI(dynamic urlImage) {
   return Center(
     child: FutureBuilder(
         future: GetConnect()
-            .get("https://aplikasipms.com:800/api/images/$urlImage"),
+            .get("https://aplikasipms.com/api/images/$urlImage"),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container(
@@ -57,7 +57,7 @@ Widget cardImageAPI(dynamic urlImage) {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                     image: NetworkImage(
-                        "https://aplikasipms.com:800/api/images/$urlImage"),
+                        "https://aplikasipms.com/api/images/$urlImage"),
                     fit: BoxFit.cover),
               ),
             );

@@ -3,7 +3,7 @@ import 'package:get_storage/get_storage.dart';
 
 class LocationService extends GetConnect{
 
-  final url = "https://aplikasipms.com:800/api";
+  final url = "https://aplikasipms.com/api";
 
   Future getToken() async {
     final box = GetStorage();

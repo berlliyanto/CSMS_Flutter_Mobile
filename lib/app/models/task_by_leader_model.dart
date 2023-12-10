@@ -79,8 +79,8 @@ class TasksDetail {
 
     factory TasksDetail.fromJson(Map<String, dynamic> json) => TasksDetail(
         id: json["id"],
-        cleanerId: json["cleaner_id"],
-        assignId: json["assign_id"],
+        cleanerId: int.parse(json["cleaner_id"]),
+        assignId: int.parse(json["assign_id"]),
         imageBefore: json["image_before"],
         imageProgress: json["image_progress"],
         imageFinish: json["image_finish"],

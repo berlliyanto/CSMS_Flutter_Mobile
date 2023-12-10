@@ -68,7 +68,7 @@ class LoginView extends GetView<LoginController> {
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: const BorderSide(
-                                    color: Colors.deepOrange, width: 3),
+                                    color: Colors.deepOrange, width: 1),
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               labelText: "Password",

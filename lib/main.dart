@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
+        useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
       title: "Cleaning Service Management System",

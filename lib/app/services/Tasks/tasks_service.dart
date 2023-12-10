@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class TaskService extends GetConnect {
-  final url = "https://aplikasipms.com:800/api";
+  final url = "https://aplikasipms.com/api";
 
   String getToken(){
     final box = GetStorage();
