@@ -46,7 +46,11 @@ class CleaningDataView extends GetView<CleaningDataController> {
                                 value: "On Progress", label: "On Progress"),
                             DropdownMenuEntry(value: "Finish", label: "Finish"),
                             DropdownMenuEntry(
-                                value: "Not Finish", label: "Not Finish")
+                                value: "Not Finish", label: "Not Finish"),
+                            DropdownMenuEntry(
+                                value: "supervisor", label: "Belum verifikasi Supervisor"),
+                            DropdownMenuEntry(
+                                value: "danone", label: "Belum verifikasi Danone"),
                           ]),
                     ),
                     const Gap(10),

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 class AuthService extends GetConnect {
-  final url = "http://192.168.100.160:8080/api";
+  final url = "https://aplikasipms.com:800/api";
 
   Future<Response> login(String username, String password) async {
     try {
-      return await post(
+      final response = await post(
           "$url/login",
           jsonEncode(
             {"username": username, "password": password},
@@ -15,6 +15,7 @@ class AuthService extends GetConnect {
           headers: {
             'Accept': 'application/json',
           });
+      return response;
     } catch (e) {
       return Response(statusCode: 401, statusText: e.toString());
     }
@@ -64,6 +65,16 @@ class AuthService extends GetConnect {
       return response;
     } catch (e) {
       return Response(statusCode: 401, statusText: e.toString());
+    }
+  }
+
+  Future testAPI() async {
+    try {
+      final response = await get("http://berli.aplikasipms.com/api/latestParamM1");
+      print(response.body);
+      return response;
+    } catch (e) {
+      print(e);
     }
   }
 }

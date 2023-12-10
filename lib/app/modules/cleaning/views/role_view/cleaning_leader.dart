@@ -7,7 +7,7 @@ import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
 import 'package:flutter_mobile_csms/app/widgets/card.dart';
 import 'package:flutter_mobile_csms/app/widgets/dropdown.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
-import 'package:flutter_mobile_csms/app/widgets/textfield_normal.dart';
+import 'package:flutter_mobile_csms/app/widgets/textfield.dart';
 import 'package:get/get.dart';
 import 'package:gap/gap.dart';
 

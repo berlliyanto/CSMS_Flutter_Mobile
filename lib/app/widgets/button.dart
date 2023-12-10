@@ -17,3 +17,19 @@ Widget buttonPrimary(String title, VoidCallback onPressed) {
     child: text(title, 20, Colors.white, FontWeight.bold, TextAlign.center),
   );
 }
+
+Widget customButton(String title, Color color, double vertical, double horizontal, VoidCallback onPressed){
+  return InkWell(
+    onTap: onPressed,
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: vertical, horizontal: horizontal),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: text(title, 20, Colors.white, FontWeight.bold, TextAlign.center),
+      ),
+    ),
+  );
+}

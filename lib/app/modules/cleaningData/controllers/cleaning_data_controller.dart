@@ -39,6 +39,7 @@ class CleaningDataController extends GetxController {
   void onInit() {
     super.onInit();
     fetchDataTask(1);
+    source.getRole();
   }
 
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_csms/app/controllers/darkmode_controller.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
-  SplashView({Key? key}) : super(key: key);
-  final darkModeC = Get.find<DarkModeController>();
+  const SplashView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

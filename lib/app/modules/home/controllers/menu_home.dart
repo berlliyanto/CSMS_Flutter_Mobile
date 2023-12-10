@@ -90,11 +90,6 @@ abstract class MenuHome {
       'image': 'assets/images/assesment.png',
       'route': '/assesment'
     },
-    {
-      'title': 'Training',
-      'image': 'assets/images/training.png',
-      'route': '/training'
-    },
   ];
 
   static List<Map<String, dynamic>> menuLeader = [

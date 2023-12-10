@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningDetail/widgets/card_image.dart';
+import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_supervisor_service.dart';
+import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
+import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 enum SortOrder { ascending, descending, none }
 
@@ -25,9 +30,15 @@ class DataTableTask extends DataTableSource {
             .toList();
       }
       if (status.isNotEmpty) {
+        if(status == "supervisor"){
+          tempData = tempData.where((row) => row.assign.checkedSupervisorAt == null).toList();
+        }else if(status == "danone") {
+          tempData = tempData.where((row) => row.assign.verifiedDanoneAt == null).toList();
+        }else{
         tempData = tempData
             .where((row) => row.status.toLowerCase().contains(status))
             .toList();
+        }
       }
       return tempData;
     }
@@ -35,6 +46,7 @@ class DataTableTask extends DataTableSource {
 
   String status = '';
   String searchText = '';
+  String role = '';
   int total = 0;
   int perPage = 0;
   int currentPage = 1;
@@ -45,6 +57,14 @@ class DataTableTask extends DataTableSource {
     'cleaner': SortOrder.none,
     'location': SortOrder.none,
   };
+
+  Future getRole() async {
+    final box = GetStorage();
+    String token = box.read('token');
+    var value = await AuthService().profile(token);
+    role = value.body != null ? value.body['data']['role']['role_name'] : '';
+    notifyListeners();
+  }
 
   void updatePaginate(int total, int perPage, int currentPage) {
     this.total = total;
@@ -80,6 +100,20 @@ class DataTableTask extends DataTableSource {
     }).toList();
 
     updateData(newData);
+  }
+
+  void updateBySupervisor(int id) async {
+    final response = await CleaningSupervisorService().updateBySupervisor(id);
+
+    if(response.statusCode == 200){
+      Get.back();
+      snackBar("Success", response.body['message'], SnackPosition.TOP, 10, Colors.green, Colors.white);
+    }else {
+      Get.back();
+      snackBar("Error", response.body['message'], SnackPosition.TOP, 10, Colors.red, Colors.white);
+    }
+
+    notifyListeners();
   }
 
   void sort<T>(
@@ -236,16 +270,72 @@ class DataTableTask extends DataTableSource {
         ),
         DataCell(
           Text(
-            currentRow.updatedAt.toString(),
+            currentRow.assign.checkedSupervisorAt == null
+                ? "Belum Verifikasi"
+                : currentRow.assign.checkedSupervisorAt.toString(),
+            style: TextStyle(
+              color: currentRow.assign.checkedSupervisorAt == null
+                  ? Colors.red
+                  : Colors.black,
+            ),
           ),
         ),
         DataCell(
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.remove_red_eye,
-              color: Colors.grey,
+          Text(
+            currentRow.assign.verifiedDanoneAt == null
+                ? "Belum Verifikasi"
+                : currentRow.assign.verifiedDanoneAt.toString(),
+            style: TextStyle(
+              color: currentRow.assign.verifiedDanoneAt == null
+                  ? Colors.red
+                  : Colors.black,
             ),
+          ),
+        ),
+        DataCell(
+          Row(
+            children: [
+              role == "Supervisor"
+                  ? currentRow.assign.checkedSupervisorAt != null
+                      ? const Tooltip(
+                        message: "Sudah verifikasi",
+                        child: Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
+                      )
+                      : Tooltip(
+                        message: currentRow.status == "Finish" ||
+                                      currentRow.status == "Not Finish" ? "Klik untuk verifikasi" : "Belum dapat verifikasi",
+                        child: IconButton(
+                            onPressed: () {
+                              if (currentRow.status == "Finish" ||
+                                  currentRow.status == "Not Finish") {
+                                dialog("Verifikasi", "Apakah anda yakin ingin verifikasi data ini?", "Ya", "Tidak", () { 
+                                  updateBySupervisor(currentRow.assignId);
+                                });
+                              }
+                            },
+                            icon: Icon(
+                              currentRow.status == "Finish" ||
+                                      currentRow.status == "Not Finish"
+                                  ? Icons.check_box
+                                  : Icons.info_outline,
+                              color: currentRow.status == "Finish" ||
+                                      currentRow.status == "Not Finish"
+                                  ? Colors.green
+                                  : Colors.grey,
+                              shadows: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  blurRadius: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                      )
+                  : const SizedBox()
+            ],
           ),
         ),
       ],

@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
 
 class AreaService extends GetConnect{
 
-  final url = "http://192.168.100.160:8080/api";
+  final url = "https://aplikasipms.com:800/api";
 
   String getToken()  {
     final box = GetStorage();
@@ -11,18 +12,18 @@ class AreaService extends GetConnect{
     return token;
   }
 
-  Future<Response> allArea() async {
+  Future allArea() async {
 
     final token  = getToken();
-
+    Uri urls = Uri.parse("$url/areas");
     try {
-      final response = await get("$url/areas", headers: {
+      final response = await http.get(urls, headers: {
         'Authorization': 'Bearer $token',
         'Accept' : 'application/json',
       });
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return const Response(statusCode: 401);
     }
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/controllers/sub_cleaning_assignment_controller.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningDetail/controllers/cleaning_detail_controller.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -60,7 +59,12 @@ Widget cardDetailA(SubCleaningAssignmentController builder) {
               );
             }).toList(),
           ),
-        )
+        ),
+        const Gap(8),
+        // ...(builder.task.value.tasksDetail ?? []).map((e) {
+        //   e.
+        //   return Container();
+        // }).toList()
       ],
     ),
   );

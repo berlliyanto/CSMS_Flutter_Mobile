@@ -74,12 +74,16 @@ class Assign {
     final Cleaner assignBy;
     final Area area;
     final Location location;
+    final dynamic checkedSupervisorAt;
+    final dynamic verifiedDanoneAt;
 
     Assign({
         required this.id,
         required this.assignBy,
         required this.area,
         required this.location,
+        required this.checkedSupervisorAt,
+        required this.verifiedDanoneAt,
     });
 
     factory Assign.fromJson(Map<String, dynamic> json) => Assign(
@@ -87,6 +91,8 @@ class Assign {
         assignBy: Cleaner.fromJson(json["assign_by"]),
         area: Area.fromJson(json["area"]),
         location: Location.fromJson(json["location"]),
+        checkedSupervisorAt: json["checked_supervisor_at"],
+        verifiedDanoneAt: json["verified_danone_at"],
     );
 
 }

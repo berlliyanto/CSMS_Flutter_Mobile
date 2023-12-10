@@ -59,6 +59,7 @@ class TasksDetail {
     final DateTime? createdAt;
     final DateTime? updatedAt;
     final dynamic deletedAt;
+    final UserModel? cleaner;
 
     TasksDetail({
         this.id,
@@ -73,6 +74,7 @@ class TasksDetail {
         this.createdAt,
         this.updatedAt,
         this.deletedAt,
+        this.cleaner,
     });
 
     factory TasksDetail.fromJson(Map<String, dynamic> json) => TasksDetail(
@@ -88,6 +90,7 @@ class TasksDetail {
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         deletedAt: json["deleted_at"],
+        cleaner: json["cleaner"] == null ? null : UserModel.fromJson(json["cleaner"]),
     );
 
 }

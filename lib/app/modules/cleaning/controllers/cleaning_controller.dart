@@ -7,6 +7,7 @@ import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_contro
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_leader_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_cleaner.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_leader.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_supervisor.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_leader_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
@@ -107,6 +108,8 @@ class CleaningController extends GetxController {
         return cleaningCleaner(this);
       case 'Leader':
         return cleaningLeader(this);
+      case 'Supervisor':
+        return cleaningSupervisor(this);
       default:
         return LoadingOverlayPro(
           isLoading: true,

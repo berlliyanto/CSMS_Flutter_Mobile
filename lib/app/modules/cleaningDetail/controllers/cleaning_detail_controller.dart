@@ -23,11 +23,12 @@ class CleaningDetailController extends GetxController {
     createdAt: '',
     updatedAt: '',
     assign: Assign(
-      id: 0,
-      assignBy: Cleaner(id: 0, name: ''),
-      area: Area(id: 0, areaName: ''),
-      location: Location(id: 0, locationName: ''),
-    ),
+        id: 0,
+        assignBy: Cleaner(id: 0, name: ''),
+        area: Area(id: 0, areaName: ''),
+        location: Location(id: 0, locationName: ''),
+        checkedSupervisorAt: null,
+        verifiedDanoneAt: null),
     cleaner: Cleaner(id: 0, name: ''),
   );
 
@@ -55,7 +56,8 @@ class CleaningDetailController extends GetxController {
 
     if (image?.path != null) {
       File imageFile = File(image!.path);
-      if (isValidImageExtension(imageFile) && imageFile.lengthSync() < 4 * 1024 * 1024) {
+      if (isValidImageExtension(imageFile) &&
+          imageFile.lengthSync() < 4 * 1024 * 1024) {
         if (tipe == "before") {
           imageBefore = imageFile;
         } else if (tipe == "progress") {
@@ -64,7 +66,8 @@ class CleaningDetailController extends GetxController {
           imageFinish = imageFile;
         }
       } else {
-        snackBar("Error", "File terlalu besar atau format tidak sesuai", SnackPosition.TOP, 10, Colors.red, Colors.white);
+        snackBar("Error", "File terlalu besar atau format tidak sesuai",
+            SnackPosition.TOP, 10, Colors.red, Colors.white);
       }
     }
 
@@ -85,30 +88,42 @@ class CleaningDetailController extends GetxController {
   }
 
   Future updateFinishTask() async {
-
     isLoading.value = true;
     update();
 
     FormData formData = FormData({});
     formData.fields.add(MapEntry("alasan", alasanController.text));
     formData.fields.add(MapEntry("catatan", catatanController.text));
-    formData.fields.add(MapEntry("status", isNotFinish.value ? "Not Finish" : "Finish"));
+    formData.fields
+        .add(MapEntry("status", isNotFinish.value ? "Not Finish" : "Finish"));
     if (imageBefore != null) {
-      formData.files.add(MapEntry("image_before", MultipartFile(File(imageBefore!.path), filename: imageBefore!.path.split('/').last)));
+      formData.files.add(MapEntry(
+          "image_before",
+          MultipartFile(File(imageBefore!.path),
+              filename: imageBefore!.path.split('/').last)));
     }
     if (imageProgress != null) {
-      formData.files.add(MapEntry("image_progress", MultipartFile(File(imageProgress!.path), filename: imageProgress!.path.split('/').last)));
+      formData.files.add(MapEntry(
+          "image_progress",
+          MultipartFile(File(imageProgress!.path),
+              filename: imageProgress!.path.split('/').last)));
     }
     if (imageFinish != null) {
-      formData.files.add(MapEntry("image_finish", MultipartFile(File(imageFinish!.path), filename: imageFinish!.path.split('/').last)));
+      formData.files.add(MapEntry(
+          "image_finish",
+          MultipartFile(File(imageFinish!.path),
+              filename: imageFinish!.path.split('/').last)));
     }
 
-    final response = await TaskByCleanerService().updateFinishTask(formData, arg.id);
+    final response =
+        await TaskByCleanerService().updateFinishTask(formData, arg.id);
     if (response.statusCode == 200) {
       Get.back(result: true);
-      snackBar("Success", "Berhasil update", SnackPosition.TOP, 10, Colors.green, Colors.white);
+      snackBar("Success", "Berhasil update", SnackPosition.TOP, 10,
+          Colors.green, Colors.white);
     } else {
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10, Colors.red, Colors.white);
+      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
+          Colors.red, Colors.white);
     }
 
     isLoading.value = false;
@@ -136,11 +151,12 @@ class CleaningDetailController extends GetxController {
             createdAt: '',
             updatedAt: '',
             assign: Assign(
-              id: 0,
-              assignBy: Cleaner(id: 0, name: ''),
-              area: Area(id: 0, areaName: ''),
-              location: Location(id: 0, locationName: ''),
-            ),
+                id: 0,
+                assignBy: Cleaner(id: 0, name: ''),
+                area: Area(id: 0, areaName: ''),
+                location: Location(id: 0, locationName: ''),
+                verifiedDanoneAt: null,
+                checkedSupervisorAt: null),
             cleaner: Cleaner(id: 0, name: ''));
     cleaners = response.body != null
         ? (List.from(response.body['cleaners']))

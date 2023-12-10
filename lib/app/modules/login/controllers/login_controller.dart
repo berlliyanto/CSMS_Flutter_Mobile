@@ -19,22 +19,28 @@ class LoginController extends GetxController {
     if (username == '' || password == '') {
       Get.snackbar('Error', 'Please fill all the fields',
           backgroundColor: Colors.red, colorText: Colors.white);
-          return;
+      return;
     }
 
     isLoading.value = true;
     update();
-    final response = await AuthService().login(username, password);
-    if (response.statusCode == 200) {
-      final box = GetStorage();
-      box.write('token', response.body['token']);
-      Get.offAllNamed(Routes.HOME);
-      isLoading.value = false;
-    } else {
-      snackBar("Login Gagal", "Email atau password salah", SnackPosition.TOP,
-          10, Colors.red.shade500.withOpacity(0.8), Colors.white);
-      isLoading.value = false;
+    try {
+      final response = await AuthService().login(username, password);
+      print(response.body);
+      if (response.statusCode == 200) {
+        final box = GetStorage();
+        box.write('token', response.body['token']);
+        Get.offAllNamed(Routes.HOME);
+        isLoading.value = false;
+      } else {
+        snackBar("Login Gagal", "Email atau password salah", SnackPosition.TOP,
+            10, Colors.red.shade500.withOpacity(0.8), Colors.white);
+        isLoading.value = false;
+      }
+    } catch (e) {
+      print(e);
     }
+    isLoading.value = false;
     update();
   }
 

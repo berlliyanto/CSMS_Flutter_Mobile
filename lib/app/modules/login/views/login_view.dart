@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/widgets/button.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
-import 'package:flutter_mobile_csms/app/widgets/textfield_normal.dart';
+import 'package:flutter_mobile_csms/app/widgets/textfield.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 
 import 'package:get/get.dart';
