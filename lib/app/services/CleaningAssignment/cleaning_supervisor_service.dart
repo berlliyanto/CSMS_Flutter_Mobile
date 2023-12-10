@@ -14,7 +14,6 @@ class CleaningSupervisorService extends GetConnect {
   Future<Response> updateBySupervisor(int id) async {
 
     final token = getToken();
-
     try {
       final response = await put(
         "$url/update_by_supervisor/$id",

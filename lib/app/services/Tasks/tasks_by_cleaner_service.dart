@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -49,7 +50,8 @@ class TaskByCleanerService extends GetConnect {
       }, headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
-      });
+      },
+      );
       return response;
     } catch (e) {
       return Response(statusCode: 401, statusText: e.toString());
@@ -66,6 +68,8 @@ class TaskByCleanerService extends GetConnect {
         headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data',
+          'Connection': 'keep-alive',
         },
       );
       return response;
