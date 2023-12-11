@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 class AuthService extends GetConnect {
-  final url = "https://aplikasipms.com/api";
+  final url = "http://192.168.100.160:8080/api";
 
   Future<Response> login(String username, String password) async {
     try {

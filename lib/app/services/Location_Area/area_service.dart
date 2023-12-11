@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class AreaService extends GetConnect{
 
-  final url = "https://aplikasipms.com/api";
+  final url = "http://192.168.100.160:8080/api";
 
   String getToken()  {
     final box = GetStorage();

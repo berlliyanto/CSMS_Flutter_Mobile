@@ -9,7 +9,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 
-class SubCleaningAssignmentView extends GetView<SubCleaningAssignmentController> {
+class SubCleaningAssignmentView
+    extends GetView<SubCleaningAssignmentController> {
   const SubCleaningAssignmentView({Key? key}) : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class SubCleaningAssignmentView extends GetView<SubCleaningAssignmentController>
         height: double.infinity,
         width: double.infinity,
         child: GetBuilder<SubCleaningAssignmentController>(
-          builder: (builder){
+          builder: (builder) {
             return LoadingOverlayPro(
               isLoading: builder.isLoading.value,
               progressIndicator: loading(),
@@ -34,7 +35,8 @@ class SubCleaningAssignmentView extends GetView<SubCleaningAssignmentController>
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      text("Detail Assignment", 24, Colors.black87, FontWeight.bold, TextAlign.start),
+                      text("Detail Assignment", 24, Colors.black87,
+                          FontWeight.bold, TextAlign.start),
                       const Gap(10),
                       cardDetailA(builder),
                       const Gap(10),
@@ -56,21 +58,56 @@ class SubCleaningAssignmentView extends GetView<SubCleaningAssignmentController>
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            text("Daftar Cleaner", 16, Colors.black87, FontWeight.bold, TextAlign.start),
+                            text("Daftar Cleaner", 16, Colors.black87,
+                                FontWeight.bold, TextAlign.start),
                             const Gap(8),
-                            ...builder.cleaners.map((element) {
+                            ...((builder.task.value.tasksDetail ?? [])
+                                .map((data) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 5.0),
-                                child: text("$element", 14, Colors.black87, FontWeight.normal, TextAlign.start),
+                                child: RichText(
+                                    text: TextSpan(children: <TextSpan>[
+                                  TextSpan(
+                                      text: "${data.cleaner?.name}  ",
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black87,
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: "( ${data.status} )",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: statusColor(data.status.toString())
+                                              .withOpacity(0.8),
+                                          fontWeight: FontWeight.bold)),
+                                ])),
                               );
-                            }).toList(),
+                            })).toList(),
                           ],
                         ),
                       ),
                       const Gap(10),
-                      customButton("Edit", Colors.yellow, 10, 20, () => builder.openDialogEdit()),
+                      if (builder.role.value == "Leader")
+                        customButton("Edit", Colors.yellow, 10, 20,
+                            () => builder.openDialogEdit()),
                       const Gap(8),
-                      customButton("Hapus", Colors.red, 10, 20, () => dialog("Hapus", "Apakah anda yakin ingin menghapus data ini?", "Hapus", "Tidak", () => builder.deleteCleaning()))
+                      if (builder.role.value == "Leader")
+                        customButton(
+                            "Hapus",
+                            Colors.red,
+                            10,
+                            20,
+                            () => dialog(
+                                "Hapus",
+                                "Apakah anda yakin ingin menghapus data ini?",
+                                "Hapus",
+                                "Tidak",
+                                () => builder.deleteCleaning())),
+                      if (builder.role.value == "Supervisor")
+                        customButton("Verifikasi", Colors.green, 10, 20,
+                            () => builder.updateBySupervisor()),
+                      if (builder.role.value == "Danone")
+                        customButton("Verifikasi", Colors.green, 10, 20, () {})
                     ],
                   ),
                 ),
@@ -81,4 +118,16 @@ class SubCleaningAssignmentView extends GetView<SubCleaningAssignmentController>
       ),
     );
   }
+}
+
+Color statusColor(String status) {
+  if(status=="On Progress"){
+    return Colors.orange;
+  }else if(status=="Finish"){
+    return Colors.green;
+  }else if(status=="Not Finish"){
+    return Colors.red;
+  }
+
+  return Colors.grey;
 }

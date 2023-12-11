@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/area_model.dart';
 import 'package:flutter_mobile_csms/app/models/location_model.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
+import 'package:flutter_mobile_csms/app/models/task_by_leader_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_cleaner_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_leader_controller.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_supervisor_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_cleaner.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_leader.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_supervisor.dart';
@@ -17,14 +19,17 @@ import 'package:get_storage/get_storage.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 
 class CleaningController extends GetxController {
-  final CleaningCleanerController cleaningCleanerController = Get.put(CleaningCleanerController());
+  final CleaningCleanerController cleaningCleanerController =  Get.put(CleaningCleanerController());
   final CleaningLeaderController cleaningLeaderController = Get.put(CleaningLeaderController());
+  final CleaningSupervisorController cleaningSupervisorController = Get.put(CleaningSupervisorController());
+
   TextEditingController task = TextEditingController();
 
   List<UserModel> cleaner = [];
   List<LocationModel> location = [];
   List<AreaModel> area = [];
   List<AllTasksByCleanerModel> tasksByCleaner = [];
+  List<TaskByLeaderModel> tasksBySupervisor = [];
 
   RxList tasks = [].obs;
   RxList cleanersSelected = [].obs;
@@ -95,6 +100,9 @@ class CleaningController extends GetxController {
     }else if(role.value == "Leader"){
       location = await cleaningLeaderController.getLocations();
       cleaner = await cleaningLeaderController.getCleaners();
+    }else if(role.value == "Supervisor"){
+      tasksBySupervisor = await cleaningSupervisorController.getTaskBySupervisor();
+      print(tasksBySupervisor);
     }
 
     update();

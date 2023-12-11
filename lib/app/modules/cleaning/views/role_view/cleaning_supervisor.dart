@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/cleaning_controller.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaning/widgets/card_task_supervisor.dart';
 import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
 import 'package:flutter_mobile_csms/app/widgets/card.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
@@ -21,8 +22,11 @@ Widget cleaningSupervisor(CleaningController controller){
           cardNavigation(Routes.CLEANING_DATA, "Lihat Riwayat Cleaning"),
           const Divider(),
           const Gap(10),
-          text(
-              "Menunggu Verifikasi", 20, Colors.black87, FontWeight.bold, TextAlign.start),
+          text("Menunggu Verifikasi", 20, Colors.black87, FontWeight.bold, TextAlign.start),
+          const Gap(10),
+          ...controller.tasksBySupervisor.map((e) {
+            return cardAssignSupervisor(e.location!.name!, e.area!.name!, e.assignBy!.name!, e.id!, e.supervisorId);
+          })
         ],
       ),
     ),
