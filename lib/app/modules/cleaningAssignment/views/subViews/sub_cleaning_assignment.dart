@@ -68,7 +68,7 @@ class SubCleaningAssignmentView
                                 child: RichText(
                                     text: TextSpan(children: <TextSpan>[
                                   TextSpan(
-                                      text: "${data.cleaner?.name}  ",
+                                      text: "- ${data.cleaner?.name}  ",
                                       style: const TextStyle(
                                           fontSize: 14,
                                           color: Colors.black87,

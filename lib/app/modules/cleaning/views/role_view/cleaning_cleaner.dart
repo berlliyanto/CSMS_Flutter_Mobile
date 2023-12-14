@@ -67,6 +67,7 @@ Widget cleaningCleaner(CleaningController controller) {
                   Column(
                     children: tasksByStatus.map((e) {
                       return cardTaskCleaner(
+                        e.assign.codeCS,
                         e.assign.location.locationName,
                         e.assign.area.areaName,
                         e.assign.assignBy.name,
@@ -145,6 +146,7 @@ Widget accordion(
         Column(
           children: tasks.map((task) {
             return cardTaskCleaner(
+              task.assign.codeCS,
               task.assign.location.locationName,
               task.assign.area.areaName,
               task.assign.assignBy.name,

@@ -5,7 +5,7 @@ import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-Widget cardTaskCleaner(String lokasi, String area, String oleh, int id,
+Widget cardTaskCleaner(String kode, String lokasi, String area, String oleh, int id,
     int assignId, String status) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
@@ -25,6 +25,9 @@ Widget cardTaskCleaner(String lokasi, String area, String oleh, int id,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        text("Kode Tugas : $kode", 18, Colors.black87, FontWeight.bold,
+            TextAlign.start),
+        const Gap(5),
         text("Lokasi : $lokasi", 18, Colors.black87, FontWeight.bold,
             TextAlign.start),
         const Gap(5),

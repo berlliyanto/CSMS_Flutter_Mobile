@@ -3,19 +3,17 @@ import 'package:flutter_mobile_csms/app/modules/cleaningData/controllers/cleanin
 
 PaginatedDataTable datatableCD(CleaningDataController controller) {
   return PaginatedDataTable(
-    columns: [
-      DataColumn(
-        label: const Row(
-          children: [
-            Text('No'),
-            Icon(Icons.sort),
-          ],
-        ),
-        onSort: (columnIndex, ascending) {
-          controller.source.sortById(ascending);
-          controller.update();
-        },
-      ),
+    columns:  [
+      const DataColumn(label: Text('No')),
+      DataColumn(label: const Row(
+        children: [
+          Text("Kode Tugas "),
+          Icon(Icons.sort),
+        ],
+      ), 
+      onSort: (columnIndex, ascending) {
+        controller.source.sort((row) => row.assign.codeCS, 'code_cs', columnIndex, ascending);
+      },),
       const DataColumn(label: Center(child: Text("Cleaner"))),
       const DataColumn(label: Center(child: Text("Leader"))),
       const DataColumn(label: Center(child: Text("Location"))),

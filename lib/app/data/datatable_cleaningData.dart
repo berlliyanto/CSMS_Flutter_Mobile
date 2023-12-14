@@ -26,7 +26,8 @@ class DataTableTask extends DataTableSource {
                 row.assign.location.locationName
                     .toLowerCase()
                     .contains(searchText) ||
-                row.assign.area.areaName.toLowerCase().contains(searchText))
+                row.assign.area.areaName.toLowerCase().contains(searchText) || 
+                row.assign.codeCS.toLowerCase().contains(searchText)) 
             .toList();
       }
       if (status.isNotEmpty) {
@@ -53,6 +54,7 @@ class DataTableTask extends DataTableSource {
 
   Map<String, SortOrder> sortColumn = {
     'no': SortOrder.none,
+    'code_cs': SortOrder.none,
     'leader': SortOrder.none,
     'cleaner': SortOrder.none,
     'location': SortOrder.none,
@@ -122,7 +124,7 @@ class DataTableTask extends DataTableSource {
     int columnIndex,
     bool sortAscending,
   ) {
-    sortColumn.updateAll((key, value) => SortOrder.none);
+    //sortColumn.updateAll((key, value) => SortOrder.none);
 
     if (sortColumn[columnName] == SortOrder.ascending) {
       sortColumn[columnName] = SortOrder.descending;
@@ -203,6 +205,11 @@ class DataTableTask extends DataTableSource {
         DataCell(
           Text(
             (filteredData.indexOf(currentRow) + 1).toString(),
+          ),
+        ),
+        DataCell(
+          Text(
+            currentRow.assign.codeCS.toString()
           ),
         ),
         DataCell(

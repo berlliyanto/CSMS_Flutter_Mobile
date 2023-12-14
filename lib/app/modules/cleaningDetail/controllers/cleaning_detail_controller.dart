@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 import 'package:flutter_mobile_csms/app/services/Tasks/tasks_by_cleaner_service.dart';
+import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,6 +25,7 @@ class CleaningDetailController extends GetxController {
     updatedAt: '',
     assign: Assign(
         id: 0,
+        codeCS: '',
         assignBy: Cleaner(id: 0, name: ''),
         area: Area(id: 0, areaName: ''),
         location: Location(id: 0, locationName: ''),
@@ -97,28 +99,50 @@ class CleaningDetailController extends GetxController {
     formData.fields
         .add(MapEntry("status", isNotFinish.value ? "Not Finish" : "Finish"));
     if (imageBefore != null) {
-      formData.files.add(MapEntry(
+      formData.files.add(
+        MapEntry(
           "image_before",
-          MultipartFile(File(imageBefore!.path),
-              filename: imageBefore!.path.split('/').last)));
+          MultipartFile(
+            File(imageBefore!.path),
+            filename: "${DateTime.now()}1",
+            // filename: imageBefore!.path.split('/').last,
+          ),
+        ),
+      );
     }
     if (imageProgress != null) {
-      formData.files.add(MapEntry(
+      formData.files.add(
+        MapEntry(
           "image_progress",
-          MultipartFile(File(imageProgress!.path),
-              filename: imageProgress!.path.split('/').last)));
+          MultipartFile(
+            File(imageProgress!.path),
+            filename: "${DateTime.now()}2",
+            // filename: imageProgress!.path.split('/').last,
+          ),
+        ),
+      );
     }
     if (imageFinish != null) {
-      formData.files.add(MapEntry(
+      formData.files.add(
+        MapEntry(
           "image_finish",
-          MultipartFile(File(imageFinish!.path),
-              filename: imageFinish!.path.split('/').last)));
+          MultipartFile(
+            File(imageFinish!.path),
+            filename: "${DateTime.now()}3",
+            // filename: imageFinish!.path.split('/').last,
+          ),
+        ),
+      );
+    }
+
+    if (imageBefore == null && imageProgress == null && imageFinish == null) {
+      dialog("Gambar tidak ada", "Apakah anda yakin ?", "Ya", "tidak", () {});
     }
 
     final response =
         await TaskByCleanerService().updateFinishTask(formData, arg.id);
     if (response.statusCode == 200) {
-      Get.back(result: true);
+      Get.back();
       snackBar("Success", "Berhasil update", SnackPosition.TOP, 10,
           Colors.green, Colors.white);
     } else {
@@ -153,6 +177,7 @@ class CleaningDetailController extends GetxController {
             updatedAt: '',
             assign: Assign(
                 id: 0,
+                codeCS: '',
                 assignBy: Cleaner(id: 0, name: ''),
                 area: Area(id: 0, areaName: ''),
                 location: Location(id: 0, locationName: ''),

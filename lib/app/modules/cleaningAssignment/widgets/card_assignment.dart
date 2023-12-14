@@ -4,7 +4,7 @@ import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-Widget cardAssignment(String lokasi, String area, String oleh, int id, dynamic supervisorId) {
+Widget cardAssignment(String kode, String lokasi, String area, String oleh, int id, dynamic supervisorId) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     padding: const EdgeInsets.all(10),
@@ -23,6 +23,9 @@ Widget cardAssignment(String lokasi, String area, String oleh, int id, dynamic s
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        text("Kode Tugas : $kode", 18, Colors.black87, FontWeight.bold,
+            TextAlign.start),
+        const Gap(5),
         text("Lokasi : $lokasi", 18, Colors.black87, FontWeight.bold,
             TextAlign.start),
         const Gap(5),

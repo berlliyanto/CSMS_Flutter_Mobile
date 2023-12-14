@@ -23,6 +23,9 @@ Widget cardDetailA(SubCleaningAssignmentController builder) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Gap(8),
+        text("Kode Tugas : ${builder.task.value.codeCS}", 16,
+            Colors.black87, FontWeight.normal, TextAlign.start),
+        const Gap(8),
         text("Lokasi : ${builder.task.value.location?.name}", 16,
             Colors.black87, FontWeight.normal, TextAlign.start),
         const Gap(8),

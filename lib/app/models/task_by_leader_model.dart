@@ -5,6 +5,7 @@ import 'package:flutter_mobile_csms/app/models/user_model.dart';
 
 class TaskByLeaderModel {
     final int? id;
+    final String? codeCS;
     final UserModel? assignBy;
     final AreaModel? area;
     final LocationModel? location;
@@ -18,6 +19,7 @@ class TaskByLeaderModel {
 
     TaskByLeaderModel({
         this.id,
+        this.codeCS,
         this.assignBy,
         this.area,
         this.location,
@@ -32,6 +34,7 @@ class TaskByLeaderModel {
 
     factory TaskByLeaderModel.fromJson(Map<String, dynamic> json) => TaskByLeaderModel(
         id: json["id"],
+        codeCS: json["code_cs"],
         assignBy: json["assign_by"] == null ? null : UserModel.fromJson(json["assign_by"]),
         area: json["area"] == null ? null : AreaModel.fromJson(json["area"]),
         location: json["location"] == null ? null : LocationModel.fromJson(json["location"]),

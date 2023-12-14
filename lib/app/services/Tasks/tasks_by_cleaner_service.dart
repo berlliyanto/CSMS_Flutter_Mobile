@@ -68,8 +68,6 @@ class TaskByCleanerService extends GetConnect {
         headers: {
           'Authorization': 'Bearer $token',
           'Accept': 'application/json',
-          'Content-Type': 'multipart/form-data',
-          'Connection': 'keep-alive',
         },
       );
       return response;

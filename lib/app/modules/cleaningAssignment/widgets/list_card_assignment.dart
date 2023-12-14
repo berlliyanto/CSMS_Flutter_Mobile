@@ -6,6 +6,7 @@ Column listCardAssignment(CleaningAssignmentController controller) {
   return Column(
     children: controller.listTask.map((e) {
       return cardAssignment(
+        e.codeCS!,
         e.location!.name!,
         e.area!.name!,
         e.assignBy!.name!,

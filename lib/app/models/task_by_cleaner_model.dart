@@ -71,6 +71,7 @@ class TasksByCleanerModel {
 
 class Assign {
     final int id;
+    final String codeCS;
     final Cleaner assignBy;
     final Area area;
     final Location location;
@@ -79,6 +80,7 @@ class Assign {
 
     Assign({
         required this.id,
+        required this.codeCS,
         required this.assignBy,
         required this.area,
         required this.location,
@@ -88,6 +90,7 @@ class Assign {
 
     factory Assign.fromJson(Map<String, dynamic> json) => Assign(
         id: json["id"],
+        codeCS: json["code_cs"] ?? "",
         assignBy: Cleaner.fromJson(json["assign_by"]),
         area: Area.fromJson(json["area"]),
         location: Location.fromJson(json["location"]),
