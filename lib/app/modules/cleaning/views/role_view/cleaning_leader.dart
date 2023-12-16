@@ -4,6 +4,7 @@ import 'package:flutter_mobile_csms/app/models/location_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/cleaning_controller.dart';
 import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
+import 'package:flutter_mobile_csms/app/widgets/button.dart';
 import 'package:flutter_mobile_csms/app/widgets/card.dart';
 import 'package:flutter_mobile_csms/app/widgets/dropdown.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
@@ -15,7 +16,7 @@ Widget cleaningLeader(CleaningController controller) {
   return Container(
     height: double.infinity,
     width: double.infinity,
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,9 +24,21 @@ Widget cleaningLeader(CleaningController controller) {
           text(
               "Cleaning", 24, Colors.black87, FontWeight.bold, TextAlign.start),
           const Gap(10),
-          cardNavigation(Routes.CLEANING_ASSIGNMENT, "Lihat Assignment Saya"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              text(
+              "Total : ${controller.countAssign.total}", 14, Colors.grey, FontWeight.bold, TextAlign.start),
+              text(
+              "Finish : ${controller.countAssign.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
+              text(
+              "Not Finish : ${controller.countAssign.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
+            ],
+          ),
+          const Divider(),
+          cardNavigation(Routes.CLEANING_ASSIGNMENT, "Assignment Saya"),
           const Gap(10),
-          cardNavigation(Routes.CLEANING_DATA, "Lihat Riwayat Cleaning"),
+          cardNavigation(Routes.CLEANING_DATA, "Riwayat Cleaning Data"),
           const Divider(),
           const Gap(10),
           text("Beri Tugas", 20, Colors.black87, FontWeight.w800,
@@ -100,7 +113,7 @@ Widget cleaningLeader(CleaningController controller) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: Get.width * 0.7,
+                width: Get.width * 0.75,
                 child: textFieldNormal("Beri Tugas", controller.task),
               ),
               GestureDetector(
@@ -154,23 +167,10 @@ Widget cleaningLeader(CleaningController controller) {
               );
             },
           ),
-          const SizedBox(
-            height: 15,
-          ),
+          const Gap(10),
           Center(
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(5),
-                  backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
-                  padding: MaterialStateProperty.all(const EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 50,
-                  ))),
-              onPressed: () => controller.submitTask(controller.areaId.value,
-                  controller.locationId.value, controller.cleanersSelected),
-              child: text("Submit", 20, Colors.white, FontWeight.bold,
-                  TextAlign.center),
-            ),
+            child: customButton("Submit", Colors.deepOrange, 5, 10, () => controller.submitTask(controller.areaId.value,
+                  controller.locationId.value, controller.cleanersSelected),)
           ),
         ],
       ),

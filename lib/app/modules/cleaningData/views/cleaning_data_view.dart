@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningData/widgets/datatable_CD.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningData/widgets/datatable_CDA.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:gap/gap.dart';
 
@@ -25,7 +25,7 @@ class CleaningDataView extends GetView<CleaningDataController> {
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -34,29 +34,44 @@ class CleaningDataView extends GetView<CleaningDataController> {
                     Center(
                       child: DropdownMenu(
                           onSelected: (value) {
-                            builder.source.setStatus(value!);
+                            builder.sourceAssignment.setLokasi(value!);
+                            builder.update();
+                          },
+                          width: Get.width * 0.94,
+                          hintText: "Pilih Lokasi",
+                          dropdownMenuEntries: const [
+                            DropdownMenuEntry(
+                                value: "Wonoboyo", label: "Wonoboyo"),
+                            DropdownMenuEntry(
+                                value: "Kemudo", label: "Kemudo"),
+                            DropdownMenuEntry(
+                                value: "Jombor", label: "Jombor"),
+                            DropdownMenuEntry(
+                                value: "clear", label: "No Filter"),
+                          ]),
+                    ),
+                    const Gap(10),
+                    Center(
+                      child: DropdownMenu(
+                          onSelected: (value) {
+                            builder.sourceAssignment.setStatus(value!);
                             builder.update();
                           },
                           width: Get.width * 0.94,
                           hintText: "Pilih Status",
                           dropdownMenuEntries: const [
                             DropdownMenuEntry(
-                                value: "Pending", label: "Pending"),
-                            DropdownMenuEntry(
-                                value: "On Progress", label: "On Progress"),
-                            DropdownMenuEntry(value: "Finish", label: "Finish"),
-                            DropdownMenuEntry(
-                                value: "Not Finish", label: "Not Finish"),
-                            DropdownMenuEntry(
                                 value: "supervisor", label: "Belum verifikasi Supervisor"),
                             DropdownMenuEntry(
                                 value: "danone", label: "Belum verifikasi Danone"),
+                            DropdownMenuEntry(
+                                value: "clear", label: "No Filter"),
                           ]),
                     ),
                     const Gap(10),
                     TextField(
                       onChanged: (text) {
-                        builder.source.setFilter(text);
+                        builder.sourceAssignment.setFilter(text);
                         builder.update();
                       },
                       decoration: InputDecoration(
@@ -67,7 +82,8 @@ class CleaningDataView extends GetView<CleaningDataController> {
                       ),
                     ),
                     const Gap(10),
-                    datatableCD(builder)
+                    // datatableCDT(builder)
+                    datatableCDA(builder)
                   ],
                 ),
               ),

@@ -1,5 +1,3 @@
-import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/bindings/sub_cleaning_assignment_binding.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/views/subViews/sub_cleaning_assignment.dart';
 import 'package:get/get.dart';
 
 import '../modules/assestment/bindings/assestment_binding.dart';
@@ -9,7 +7,9 @@ import '../modules/assestmentPenilaian/views/assestment_penilaian_view.dart';
 import '../modules/cleaning/bindings/cleaning_binding.dart';
 import '../modules/cleaning/views/cleaning_view.dart';
 import '../modules/cleaningAssignment/bindings/cleaning_assignment_binding.dart';
+import '../modules/cleaningAssignment/bindings/cleaning_assignment_detail_binding.dart';
 import '../modules/cleaningAssignment/views/cleaning_assignment_view.dart';
+import '../modules/cleaningAssignment/views/cleaning_assignment_detail.dart';
 import '../modules/cleaningData/bindings/cleaning_data_binding.dart';
 import '../modules/cleaningData/views/cleaning_data_view.dart';
 import '../modules/cleaningDetail/bindings/cleaning_detail_binding.dart';
@@ -18,6 +18,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -55,7 +57,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SPLASH,
-      page: () => SplashView(),
+      page: () => const SplashView(),
       binding: SplashBinding(),
     ),
     GetPage(
@@ -90,7 +92,12 @@ class AppPages {
     ),
     GetPage(
         name: _Paths.CLEANING_ASSIGNMENT_DETAIL,
-        page: () => const SubCleaningAssignmentView(),
-        binding: SubCleaningAssignmentBinding()),
+        page: () => const CleaningAssignmentDetailView(),
+        binding: CleaningAssignmentDetailBinding()),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+    ),
   ];
 }

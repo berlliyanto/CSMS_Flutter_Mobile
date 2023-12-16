@@ -10,7 +10,7 @@ Widget cleaningSupervisor(CleaningController controller){
   return Container(
     height: double.infinity,
     width: double.infinity,
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -19,7 +19,19 @@ Widget cleaningSupervisor(CleaningController controller){
           text(
               "Cleaning", 24, Colors.black87, FontWeight.bold, TextAlign.start),
           const Gap(10),
-          cardNavigation(Routes.CLEANING_DATA, "Lihat Riwayat Cleaning"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              text(
+              "Total : ${controller.countAssign.total}", 14, Colors.grey, FontWeight.bold, TextAlign.start),
+              text(
+              "Finish : ${controller.countAssign.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
+              text(
+              "Not Finish : ${controller.countAssign.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
+            ],
+          ),
+          const Divider(),
+          cardNavigation(Routes.CLEANING_DATA, "Riwayat Cleaning Data"),
           const Divider(),
           const Gap(10),
           text("Menunggu Verifikasi", 20, Colors.black87, FontWeight.bold, TextAlign.start),

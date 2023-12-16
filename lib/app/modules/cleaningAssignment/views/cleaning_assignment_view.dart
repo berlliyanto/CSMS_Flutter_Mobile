@@ -14,32 +14,33 @@ class CleaningAssignmentView extends GetView<CleaningAssignmentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Assignment Saya'),
-        centerTitle: true,
-      ),
-      body: GetBuilder<CleaningAssignmentController>(
-        builder: (builder){
-        return LoadingOverlayPro(
-          isLoading: builder.isLoading.value,
-          progressIndicator: loading(), 
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            height: double.infinity,
-            width: double.infinity,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  text("Assignment Aktif", 20, Colors.black87, FontWeight.bold, TextAlign.start),
-                  const Gap(10),
-                  listCardAssignment(builder)
-                ],
+        appBar: AppBar(
+          title: const Text('Assignment Saya'),
+          centerTitle: true,
+        ),
+        body: GetBuilder<CleaningAssignmentController>(builder: (builder) {
+          return LoadingOverlayPro(
+            isLoading: builder.isLoading.value,
+            progressIndicator: loading(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              height: double.infinity,
+              width: double.infinity,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    text("Assignment Aktif", 20, Colors.black87,
+                        FontWeight.bold, TextAlign.start),
+                    const Gap(10),
+                    listCardAssignment(builder),
+                    const Gap(10),
+                  ],
+                ),
               ),
             ),
-          ));
-      })
-    );
+          );
+        }));
   }
 }

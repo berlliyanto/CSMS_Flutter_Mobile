@@ -23,7 +23,7 @@ class AssestmentView extends GetView<AssestmentController> {
             isLoading: builder.isLoading.value,
             progressIndicator: loading(),
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               height: double.infinity,
               width: double.infinity,
               child: SingleChildScrollView(

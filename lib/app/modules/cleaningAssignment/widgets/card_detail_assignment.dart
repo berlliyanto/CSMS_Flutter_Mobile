@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/controllers/sub_cleaning_assignment_controller.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/controllers/cleaning_assignment_detail_controller.dart';
+import 'package:flutter_mobile_csms/app/utils/format_date.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-Widget cardDetailA(SubCleaningAssignmentController builder) {
+Widget cardDetailA(CleaningAssignmentDetailController builder) {
   return Container(
     width: Get.width,
     padding: const EdgeInsets.all(10),
@@ -35,7 +36,7 @@ Widget cardDetailA(SubCleaningAssignmentController builder) {
         text("Leader : ${builder.task.value.assignBy?.name}", 16,
             Colors.black87, FontWeight.normal, TextAlign.start),
         const Gap(8),
-        text("Dibuat pada : ${builder.task.value.createdAt}", 16,
+        text("Dibuat pada : ${formatDate(builder.task.value.createdAt)}", 16,
             Colors.black87, FontWeight.normal, TextAlign.start),
         const Gap(8),
         text("Tugas :", 16, Colors.black87, FontWeight.normal, TextAlign.start),

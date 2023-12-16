@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningDetail/widgets/card_image.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_supervisor_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
+import 'package:flutter_mobile_csms/app/widgets/task_image.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

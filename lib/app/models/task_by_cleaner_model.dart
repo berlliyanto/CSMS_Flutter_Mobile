@@ -28,8 +28,8 @@ class TasksByCleanerModel {
     final dynamic status;
     final dynamic alasan;
     final dynamic catatan;
-    final String createdAt;
-    final String updatedAt;
+    final DateTime createdAt;
+    final DateTime updatedAt;
     final Assign assign;
     final Cleaner cleaner;
 
@@ -61,8 +61,8 @@ class TasksByCleanerModel {
         status: json["status"],
         alasan: json["alasan"],
         catatan: json["catatan"],
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
         assign: Assign.fromJson(json["assign"]),
         cleaner: Cleaner.fromJson(json["cleaner"]),
     );

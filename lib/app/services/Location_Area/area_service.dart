@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 
 class AreaService extends GetConnect{
 
@@ -12,12 +11,11 @@ class AreaService extends GetConnect{
     return token;
   }
 
-  Future allArea() async {
+  Future<Response> allArea() async {
 
     final token  = getToken();
-    Uri urls = Uri.parse("$url/areas");
     try {
-      final response = await http.get(urls, headers: {
+      final response = await get("$url/areas", headers: {
         'Authorization': 'Bearer $token',
         'Accept' : 'application/json',
       });

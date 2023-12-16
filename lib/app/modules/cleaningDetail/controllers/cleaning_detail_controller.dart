@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
+import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
 import 'package:flutter_mobile_csms/app/services/Tasks/tasks_by_cleaner_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
@@ -21,8 +22,8 @@ class CleaningDetailController extends GetxController {
     imageProgress: '',
     imageFinish: '',
     tasks: [],
-    createdAt: '',
-    updatedAt: '',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
     assign: Assign(
         id: 0,
         codeCS: '',
@@ -90,9 +91,6 @@ class CleaningDetailController extends GetxController {
   }
 
   Future updateFinishTask() async {
-    isLoading.value = true;
-    update();
-
     FormData formData = FormData({});
     formData.fields.add(MapEntry("alasan", alasanController.text));
     formData.fields.add(MapEntry("catatan", catatanController.text));
@@ -134,25 +132,46 @@ class CleaningDetailController extends GetxController {
         ),
       );
     }
+    print(isNotFinish.value);
+    if (isNotFinish.value == true) {
+      if (alasanController.text.isEmpty) {
+        snackBar("Error", "Alasan harus diisi", SnackPosition.TOP, 10,
+            const Color.fromARGB(255, 188, 169, 2), Colors.white);
+        return;
+      }
+    }
 
     if (imageBefore == null && imageProgress == null && imageFinish == null) {
-      dialog("Gambar tidak ada", "Apakah anda yakin ?", "Ya", "tidak", () {});
+      dialog("Gambar tidak ada", "Apakah anda yakin ?", "Ya", "tidak", () {
+        isLoading.value = true;
+        update();
+        sendUpdateFinishTask(formData);
+        isLoading.value = false;
+        update();
+      });
+      return;
     }
 
-    final response =
-        await TaskByCleanerService().updateFinishTask(formData, arg.id);
-    if (response.statusCode == 200) {
-      Get.back();
-      snackBar("Success", "Berhasil update", SnackPosition.TOP, 10,
-          Colors.green, Colors.white);
-    } else {
-      print(response.body);
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
-          Colors.red, Colors.white);
-    }
+    isLoading.value = true;
+    update();
+
+    sendUpdateFinishTask(formData);
 
     isLoading.value = false;
     update();
+  }
+
+  Future sendUpdateFinishTask(FormData formData) async {
+    final response =
+        await TaskByCleanerService().updateFinishTask(formData, arg.id);
+    if (response.statusCode == 200) {
+      Get.offNamed(Routes.CLEANING);
+      snackBar("Success", "Berhasil update", SnackPosition.TOP, 10,
+          Colors.green, Colors.white);
+    } else {
+      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
+          Colors.red, Colors.white);
+    }
   }
 
   Future getCleaningDetail() async {
@@ -173,8 +192,8 @@ class CleaningDetailController extends GetxController {
             catatan: '',
             imageFinish: '',
             tasks: [],
-            createdAt: '',
-            updatedAt: '',
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
             assign: Assign(
                 id: 0,
                 codeCS: '',
@@ -201,7 +220,11 @@ class CleaningDetailController extends GetxController {
     if (response.statusCode == 200) {
       getCleaningDetail();
     } else {
-      Get.snackbar("Error", response.body['message']);
+      Get.snackbar(
+        "Error",
+        "Something went wrong",
+        snackPosition: SnackPosition.TOP,
+      );
     }
 
     update();

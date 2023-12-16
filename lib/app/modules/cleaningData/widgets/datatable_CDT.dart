@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningData/controllers/cleaning_data_controller.dart';
 
-PaginatedDataTable datatableCD(CleaningDataController controller) {
+PaginatedDataTable datatableCDT(CleaningDataController controller) {
   return PaginatedDataTable(
     columns:  [
       const DataColumn(label: Text('No')),

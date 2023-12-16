@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningDetail/controllers/cleaning_detail_controller.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningDetail/widgets/card_image.dart';
 import 'package:flutter_mobile_csms/app/widgets/bottomsheet.dart';
 import 'package:flutter_mobile_csms/app/widgets/button.dart';
+import 'package:flutter_mobile_csms/app/widgets/task_image.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

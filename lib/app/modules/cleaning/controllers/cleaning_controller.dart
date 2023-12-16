@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/area_model.dart';
+import 'package:flutter_mobile_csms/app/models/count_assign_model.dart';
 import 'package:flutter_mobile_csms/app/models/location_model.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
-import 'package:flutter_mobile_csms/app/models/task_by_leader_model.dart';
+import 'package:flutter_mobile_csms/app/models/task_assignment_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_cleaner_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_leader_controller.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleanin
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_leader.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_supervisor.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_assignment_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_leader_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
@@ -29,7 +31,9 @@ class CleaningController extends GetxController {
   List<LocationModel> location = [];
   List<AreaModel> area = [];
   List<AllTasksByCleanerModel> tasksByCleaner = [];
-  List<TaskByLeaderModel> tasksBySupervisor = [];
+  List<TaskAssignmentModel> tasksBySupervisor = [];
+
+  CountAssignModel countAssign = CountAssignModel(total: 0, finish: 0, notFinish: 0);
 
   RxList tasks = [].obs;
   RxList cleanersSelected = [].obs;
@@ -94,7 +98,16 @@ class CleaningController extends GetxController {
     update();
   }
 
+  Future getCountAssignment() async {
+    final response = await CleaningAssignmentService().getCountAssignment();
+    if (response.statusCode == 200) {
+      countAssign = response.body != null ? CountAssignModel.fromJson(response.body['data']) : CountAssignModel(total: 0, finish: 0, notFinish: 0);
+      print(countAssign);
+    }
+  }
+
   Future fetchAllAPI() async {
+    await getCountAssignment();
     if(role.value == "Cleaner"){
       tasksByCleaner = await cleaningCleanerController.getTaskByCleaner();
     }else if(role.value == "Leader"){
@@ -102,7 +115,6 @@ class CleaningController extends GetxController {
       cleaner = await cleaningLeaderController.getCleaners();
     }else if(role.value == "Supervisor"){
       tasksBySupervisor = await cleaningSupervisorController.getTaskBySupervisor();
-      print(tasksBySupervisor);
     }
 
     update();

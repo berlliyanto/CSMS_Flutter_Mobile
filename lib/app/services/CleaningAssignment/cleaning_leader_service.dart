@@ -1,14 +1,7 @@
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_assignment_service.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
-class CleaningLeaderService extends GetConnect {
-  final url = "http://192.168.100.160:8080/api";
-
-  String token() {
-    final box = GetStorage();
-    String token = box.read('token');
-    return token;
-  }
+class CleaningLeaderService extends CleaningAssignmentService {
 
   Future<Response> postCleaning(Map<String, dynamic> data) async {
     final token = this.token();
@@ -35,7 +28,7 @@ class CleaningLeaderService extends GetConnect {
     };
 
     try {
-      final response = await get("$url/assigns_by_leader", headers: header);
+      final response = await get("$url/index_assign_leader", headers: header);
       return response;
     } catch (e) {
       return Response(statusCode: 401, statusText: e.toString());

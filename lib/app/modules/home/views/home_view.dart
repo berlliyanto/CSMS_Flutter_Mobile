@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 
@@ -16,10 +17,19 @@ class HomeView extends GetView<HomeController> {
         title: const Text('Dashboard'),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () => controller.logout(),
-            icon: const Icon(Icons.logout),
-          )
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () => Get.toNamed(Routes.PROFILE),
+              child: CircleAvatar(
+                backgroundColor: Colors.grey.withOpacity(0.7),
+                child: const Icon(
+                  Icons.person,
+                  color: Colors.white,
+                )
+              ),
+            ),
+          ),
         ],
       ),
       body: GetBuilder<HomeController>(
@@ -28,7 +38,7 @@ class HomeView extends GetView<HomeController> {
             isLoading: builder.isLoading.value,
             progressIndicator: loading(),
             child: Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               height: double.infinity,
               width: double.infinity,
               child: Column(

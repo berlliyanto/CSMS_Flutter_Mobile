@@ -19,7 +19,6 @@ class HomeController extends GetxController {
     isLoading.value = true;
     update();
     final response = await AuthService().logout(token);
-    print(response.body);
     if(response.statusCode == 200){
       box.remove('token');
       Get.offAllNamed('/login');

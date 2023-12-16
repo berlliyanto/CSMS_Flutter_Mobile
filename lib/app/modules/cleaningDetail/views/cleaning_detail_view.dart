@@ -32,7 +32,7 @@ class CleaningDetailView extends GetView<CleaningDetailController> {
             child: GestureDetector(
               onTap: () =>  FocusManager.instance.primaryFocus?.unfocus(),
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 height: double.infinity,
                 width: double.infinity,
                 child: SingleChildScrollView(

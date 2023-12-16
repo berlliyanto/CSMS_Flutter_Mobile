@@ -29,7 +29,7 @@ class AssestmentPenilaianView extends GetView<AssestmentPenilaianController> {
             child: Container(
               height: double.infinity,
               width: double.infinity,
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

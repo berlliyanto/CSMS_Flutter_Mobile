@@ -68,13 +68,16 @@ class AuthService extends GetConnect {
     }
   }
 
-  Future testAPI() async {
+  Future<Response> updatePassword(String token, String password) async {
+    final body = jsonEncode({"password": password});
     try {
-      final response = await get("http://berli.aplikasipms.com/api/latestParamM1");
-      print(response.body);
+      final response = await put("$url/update_password", body, headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+      });
       return response;
     } catch (e) {
-      print(e);
+      return Response(statusCode: 401, statusText: e.toString());
     }
   }
 }

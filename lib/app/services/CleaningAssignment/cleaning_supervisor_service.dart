@@ -1,22 +1,15 @@
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_assignment_service.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
-class CleaningSupervisorService extends GetConnect {
+class CleaningSupervisorService extends CleaningAssignmentService {
 
-  final url = "http://192.168.100.160:8080/api";
-
-  String getToken() {
-    final box = GetStorage();
-    String token = box.read('token');
-    return token;
-  }
 
   Future<Response> getBySupervisor() async {
 
-    final token = getToken();
+    final token = this.token();
 
     try {
-      final response = await get("$url/index_by_supervisor", headers: {
+      final response = await get("$url/index_assign_supervisor", headers: {
         'Authorization': 'Bearer $token',
         'Accept': 'application/json',
       });
@@ -28,10 +21,10 @@ class CleaningSupervisorService extends GetConnect {
 
   Future<Response> updateBySupervisor(int id) async {
 
-    final token = getToken();
+    final token = this.token();
     try {
       final response = await put(
-        "$url/update_by_supervisor/$id",
+        "$url/update_assign_supervisor/$id",
         {
           "isVerified": true
         },

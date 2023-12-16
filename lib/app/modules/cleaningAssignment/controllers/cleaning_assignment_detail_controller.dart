@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_csms/app/models/task_by_leader_model.dart';
+import 'package:flutter_mobile_csms/app/models/task_assignment_model.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/form_dialog_edit.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_leader_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_supervisor_service.dart';
-import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class SubCleaningAssignmentController extends GetxController {
-  final TextEditingController cleanerName = TextEditingController();
+class CleaningAssignmentDetailController extends GetxController {
+  final TextEditingController tasksController = TextEditingController();
 
+  RxList tasks = [].obs;
   int argId = Get.arguments['id'];
   var isLoading = false.obs;
   var role = "".obs;
+  var selectedCleaner = 0.obs;
+  dynamic urlBefore = "".obs;
+  dynamic urlFinish = "".obs;
+  dynamic urlProgress = "".obs;
+  dynamic catatan = "-".obs;
+  dynamic alasan = "-".obs;
+  dynamic status = "-".obs;
 
-  Rx<TaskByLeaderModel> task = TaskByLeaderModel().obs;
+  Rx<TaskAssignmentModel> task = TaskAssignmentModel().obs;
 
-  Future<TaskByLeaderModel> showTaskLeader() async {
+  Future<TaskAssignmentModel> showTaskLeader() async {
     final response = await CleaningLeaderService().showCleaning(argId);
-    TaskByLeaderModel task = response.body != null
-        ? TaskByLeaderModel.fromJson(response.body['data'])
-        : TaskByLeaderModel();
+    TaskAssignmentModel task = response.body != null
+        ? TaskAssignmentModel.fromJson(response.body['data'])
+        : TaskAssignmentModel();
 
     return task;
   }
@@ -69,8 +77,37 @@ class SubCleaningAssignmentController extends GetxController {
     update();
   }
 
+  void addTask() {
+    if (tasksController.text != '') {
+      tasks.add(tasksController.text);
+      tasksController.clear();
+    }
+    update();
+  }
+
+  void deleteTask(int index) {
+    print(index);
+    tasks.removeAt(index);
+    update();
+  }
+
   void openDialogEdit() {
-    formDialog(this, "Ubah Assignment", "", "Submit", "Batal", () {});
+    for (var e in (task.value.tasks ?? [])) {
+      tasks.add(e);
+    }
+    update();
+
+    formDialog(this, "Ubah Assignment", "", "Submit", "Batal", 
+    () {}, 
+    () {
+      tasks.value = [];
+      update();
+      Get.back();
+    }, 
+    () {
+      tasks.value = [];
+      update();
+    });
   }
 
   @override

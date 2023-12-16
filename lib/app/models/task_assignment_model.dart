@@ -3,7 +3,7 @@ import 'package:flutter_mobile_csms/app/models/area_model.dart';
 import 'package:flutter_mobile_csms/app/models/location_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 
-class TaskByLeaderModel {
+class TaskAssignmentModel {
     final int? id;
     final String? codeCS;
     final UserModel? assignBy;
@@ -13,11 +13,11 @@ class TaskByLeaderModel {
     final List<TasksDetail>? tasksDetail;
     final dynamic supervisorId;
     final dynamic checkedSupervisorAt;
-    final dynamic checkedDanoneAt;
+    final dynamic verifiedDanoneAt;
     final DateTime? createdAt;
     final DateTime? updatedAt;
 
-    TaskByLeaderModel({
+    TaskAssignmentModel({
         this.id,
         this.codeCS,
         this.assignBy,
@@ -27,12 +27,12 @@ class TaskByLeaderModel {
         this.tasksDetail,
         this.supervisorId,
         this.checkedSupervisorAt,
-        this.checkedDanoneAt,
+        this.verifiedDanoneAt,
         this.createdAt,
         this.updatedAt,
-    });
+    }) ;
 
-    factory TaskByLeaderModel.fromJson(Map<String, dynamic> json) => TaskByLeaderModel(
+    factory TaskAssignmentModel.fromJson(Map<String, dynamic> json) => TaskAssignmentModel(
         id: json["id"],
         codeCS: json["code_cs"],
         assignBy: json["assign_by"] == null ? null : UserModel.fromJson(json["assign_by"]),
@@ -41,8 +41,8 @@ class TaskByLeaderModel {
         tasks: json["tasks"] == null ? [] : List<String>.from(json["tasks"]!.map((x) => x)),
         tasksDetail: json["tasks_detail"] == null ? [] : List<TasksDetail>.from(json["tasks_detail"]!.map((x) => TasksDetail.fromJson(x))),
         supervisorId: json["supervisor_id"] == null ? null : UserModel.fromJson(json['supervisor_id']),
-        checkedSupervisorAt: json["checked_supervisor_at"],
-        checkedDanoneAt: json["checked_danone_at"],
+        checkedSupervisorAt: json["checked_supervisor_at"] == null ? null : DateTime.parse(json["checked_supervisor_at"]),
+        verifiedDanoneAt: json["verified_danone_at"] == null ? null : DateTime.parse(json["verified_danone_at"]),
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
     );

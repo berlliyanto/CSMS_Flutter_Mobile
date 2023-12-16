@@ -10,8 +10,8 @@ class CleaningLeaderController extends GetxController {
   Future<List<UserModel>> getCleaners() async {
     List<UserModel> cleaners = [];
     final response = await CleanerService().allCleaner();
-    cleaners =
-        (response.body as List).map((e) => UserModel.fromJson(e)).toList();
+    cleaners = response.body != null ?
+        (response.body as List).map((e) => UserModel.fromJson(e)).toList() : [];
     update();
     return cleaners;
   }

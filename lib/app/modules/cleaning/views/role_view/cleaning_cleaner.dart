@@ -9,12 +9,24 @@ Widget cleaningCleaner(CleaningController controller) {
   return Container(
     height: double.infinity,
     width: double.infinity,
-    padding: const EdgeInsets.all(20),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              text(
+              "Total : ${controller.countAssign.total}", 14, Colors.grey, FontWeight.bold, TextAlign.start),
+              text(
+              "Finish : ${controller.countAssign.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
+              text(
+              "Not Finish : ${controller.countAssign.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
+            ],
+          ),
+          const Divider(),
           text("Tugas Anda", 20, Colors.black87, FontWeight.w800,
               TextAlign.start),
           const Gap(15),

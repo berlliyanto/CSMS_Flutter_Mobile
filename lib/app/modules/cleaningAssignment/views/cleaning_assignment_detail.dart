@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/controllers/sub_cleaning_assignment_controller.dart';
+import 'package:flutter_mobile_csms/app/models/task_assignment_model.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/controllers/cleaning_assignment_detail_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/card_detail_assignment.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/card_form_assignment.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/card_verification_status.dart';
 import 'package:flutter_mobile_csms/app/widgets/button.dart';
 import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
+import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 
-class SubCleaningAssignmentView
-    extends GetView<SubCleaningAssignmentController> {
-  const SubCleaningAssignmentView({Key? key}) : super(key: key);
+class CleaningAssignmentDetailView
+    extends GetView<CleaningAssignmentDetailController> {
+  const CleaningAssignmentDetailView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +27,13 @@ class SubCleaningAssignmentView
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
-        child: GetBuilder<SubCleaningAssignmentController>(
+        child: GetBuilder<CleaningAssignmentDetailController>(
           builder: (builder) {
             return LoadingOverlayPro(
               isLoading: builder.isLoading.value,
               progressIndicator: loading(),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +64,7 @@ class SubCleaningAssignmentView
                           children: [
                             text("Daftar Cleaner", 16, Colors.black87,
                                 FontWeight.bold, TextAlign.start),
-                            const Gap(8),
+                            const Divider(),
                             ...((builder.task.value.tasksDetail ?? [])
                                 .map((data) {
                               return Padding(
@@ -77,7 +81,8 @@ class SubCleaningAssignmentView
                                       text: "( ${data.status} )",
                                       style: TextStyle(
                                           fontSize: 14,
-                                          color: statusColor(data.status.toString())
+                                          color: statusColor(
+                                                  data.status.toString())
                                               .withOpacity(0.8),
                                           fontWeight: FontWeight.bold)),
                                 ])),
@@ -87,9 +92,29 @@ class SubCleaningAssignmentView
                         ),
                       ),
                       const Gap(10),
+                      cardVerificationStatus(controller),
+                      const Gap(10),
+                      cardFormAssignment(controller),
+                      const Gap(10),
                       if (builder.role.value == "Leader")
-                        customButton("Edit", Colors.yellow, 10, 20,
-                            () => builder.openDialogEdit()),
+                        customButton("Edit", Colors.yellow, 10, 20, () {
+                          for (TasksDetail e
+                              in (builder.task.value.tasksDetail ?? [])) {
+                            if (e.status!.contains("Finish") ||
+                                e.status!.contains("Not Finish")) {
+                              snackBar(
+                                  "Warning",
+                                  "Tidak dapat ubah assignment",
+                                  SnackPosition.TOP,
+                                  10,
+                                  const Color.fromARGB(255, 206, 186, 0),
+                                  Colors.white);
+                              return;
+                            }
+                          }
+
+                          builder.openDialogEdit();
+                        }),
                       const Gap(8),
                       if (builder.role.value == "Leader")
                         customButton(
@@ -104,10 +129,30 @@ class SubCleaningAssignmentView
                                 "Tidak",
                                 () => builder.deleteCleaning())),
                       if (builder.role.value == "Supervisor")
-                        customButton("Verifikasi", Colors.green, 10, 20,
-                            () => builder.updateBySupervisor()),
+                        builder.task.value.checkedSupervisorAt == null
+                            ? customButton("Verifikasi", Colors.green, 10, 20,
+                                () => builder.updateBySupervisor())
+                            : Center(
+                                child: text(
+                                    "Sudah Verifikasi",
+                                    16,
+                                    Colors.black87,
+                                    FontWeight.normal,
+                                    TextAlign.center),
+                              ),
                       if (builder.role.value == "Danone")
-                        customButton("Verifikasi", Colors.green, 10, 20, () {})
+                        builder.task.value.verifiedDanoneAt == null
+                            ? customButton(
+                                "Verifikasi", Colors.green, 10, 20, () {})
+                            : Center(
+                                child: text(
+                                    "Sudah Verifikasi",
+                                    16,
+                                    Colors.black87,
+                                    FontWeight.normal,
+                                    TextAlign.center),
+                              ),
+                      const Gap(10),
                     ],
                   ),
                 ),
@@ -121,11 +166,11 @@ class SubCleaningAssignmentView
 }
 
 Color statusColor(String status) {
-  if(status=="On Progress"){
+  if (status == "On Progress") {
     return Colors.orange;
-  }else if(status=="Finish"){
+  } else if (status == "Finish") {
     return Colors.green;
-  }else if(status=="Not Finish"){
+  } else if (status == "Not Finish") {
     return Colors.red;
   }
 

@@ -65,18 +65,21 @@ Widget assestmentLeader(AssestmentController controller) {
       Center(
         child: Obx(
           () => controller.idCleaner.value != 0 && controller.idLoc.value != 0
-              ? buttonPrimary(
+              ? customButton(
                   "Submit",
+                  Colors.deepOrange,
+                  5,
+                  10,
                   () => dialog(
                       "Info",
                       "Pastikan Data Sudah Benar",
                       "Ya, Data Sudah Benar",
                       "Batal",
-                      () => controller.postDataAssestment()),
-                )
+                      () => controller.postDataAssestment()))
               : const SizedBox(),
         ),
       ),
+      const Gap(10),
     ],
   );
 }
