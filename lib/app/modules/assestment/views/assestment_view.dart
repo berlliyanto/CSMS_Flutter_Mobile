@@ -19,31 +19,36 @@ class AssestmentView extends GetView<AssestmentController> {
           centerTitle: true,
         ),
         body: GetBuilder<AssestmentController>(builder: (builder) {
-          return LoadingOverlayPro(
-            isLoading: builder.isLoading.value,
-            progressIndicator: loading(),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              height: double.infinity,
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    text("Halaman Pengamatan - Coaching Program", 18,
-                        Colors.black87, FontWeight.bold, TextAlign.start),
-                    const Gap(10),
-                    cardNavigation(
-                        Routes.ASSESTMENT_PENILAIAN, "Lihat Penilaian"),
-                    const Divider(),
-                    const Gap(20),
-                    text("Berikan Penilaian", 16, Colors.black87,
-                        FontWeight.bold, TextAlign.start),
-                    assestmentLeader(
-                      builder,
-                    )
-                  ],
+          return RefreshIndicator(
+            onRefresh: () async {
+              builder.fetchAllAPI();
+            },
+            child: LoadingOverlayPro(
+              isLoading: builder.isLoading.value,
+              progressIndicator: loading(),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                height: double.infinity,
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      text("Halaman Pengamatan - Coaching Program", 18,
+                          Colors.black87, FontWeight.bold, TextAlign.start),
+                      const Gap(10),
+                      cardNavigation(
+                          Routes.ASSESTMENT_PENILAIAN, "Lihat Penilaian"),
+                      const Divider(),
+                      const Gap(20),
+                      text("Berikan Penilaian", 16, Colors.black87,
+                          FontWeight.bold, TextAlign.start),
+                      assestmentLeader(
+                        builder,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

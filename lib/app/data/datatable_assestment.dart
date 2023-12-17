@@ -5,28 +5,41 @@ import 'package:get/get.dart';
 enum SortOrder { ascending, descending, none }
 
 class DataTableAssestment extends DataTableSource {
-
   final List<CalculateAssessmentModel> data = [];
 
   List<CalculateAssessmentModel> get filteredData {
-    if (searchText.isEmpty) {
+    if (searchText.isEmpty && cleaner.isEmpty) {
       return data;
     } else {
-      return data
-          .where((row) =>
-              row.leader['name']
-                  .toString()
-                  .toLowerCase()
-                  .contains(searchText) ||
-              row.location['location_name']
-                  .toString()
-                  .toLowerCase()
-                  .contains(searchText))
+      List<CalculateAssessmentModel> tempData = List.from(data);
+      if(searchText.isNotEmpty){
+        return tempData
+          .where(
+            (row) =>
+                row.leader['name']
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchText) ||
+                row.location['location_name']
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchText) ||
+                row.cleaner['name']
+                    .toString()
+                    .toLowerCase()
+                    .contains(searchText),
+          )
           .toList();
+      }
+      if(cleaner.isNotEmpty){
+        return tempData.where((element) => element.cleaner['name'] == cleaner).toList();
+      }
+      return tempData;
     }
   }
 
   String searchText = '';
+  String cleaner = '';
 
   Map<String, SortOrder> sortColumn = {
     'no': SortOrder.none,
@@ -104,11 +117,15 @@ class DataTableAssestment extends DataTableSource {
     });
 
     notifyListeners();
-    
   }
 
   void setFilter(String text) {
     searchText = text.toLowerCase();
+    notifyListeners();
+  }
+
+  void setCleaner(String text) {
+    cleaner = text.toLowerCase();
     notifyListeners();
   }
 
@@ -118,10 +135,7 @@ class DataTableAssestment extends DataTableSource {
     return DataRow(
       color: MaterialStateColor.resolveWith((Set<MaterialState> states) {
         if (states.contains(MaterialState.selected)) {
-          return Theme.of(Get.context!)
-              .colorScheme
-              .primary
-              .withOpacity(0.08);
+          return Theme.of(Get.context!).colorScheme.primary.withOpacity(0.08);
         }
         return filteredData.indexOf(currentRow) % 2 == 0
             ? Colors.deepOrange.shade50

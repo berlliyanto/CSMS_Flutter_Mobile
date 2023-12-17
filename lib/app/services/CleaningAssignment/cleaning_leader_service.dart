@@ -51,7 +51,24 @@ class CleaningLeaderService extends CleaningAssignmentService {
     }
   }
 
-  // Future<Response> updateCleaning(int id) async {}
+  Future<Response> updateTask(int id, String task) async {
+    final String token = this.token();
+    Map<String, String> header = {
+      "Accept": "application/json",
+      "Authorization": "Bearer $token",
+    };
+    try {
+      final response = await put("$url/update_assign_task/$id", 
+      {
+        "task": task,
+      }, 
+      headers: header);
+
+      return response;
+    } catch (e) {
+      return Response(statusCode: 401, statusText: e.toString());
+    }
+  }
 
   Future<Response> deleteCleaning(int id) async {
     final String token = this.token();

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class CleanerService extends GetConnect {
-  final url = "http://192.168.100.160:8080/api";
+  final url = "https://aplikasipms.com/api";
 
   Future getToken() async {
     final box = GetStorage();

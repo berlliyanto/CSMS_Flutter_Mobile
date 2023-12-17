@@ -19,6 +19,11 @@ class ProfileView extends GetView<ProfileController> {
       appBar: AppBar(
         title: const Text('Profile'),
         centerTitle: true,
+        actions: [
+          IconButton(onPressed: ()async {
+            controller.getProfile();
+          }, icon: const Icon(Icons.refresh))
+        ],
       ),
       body: GetBuilder<ProfileController>(
         builder: (builder) {

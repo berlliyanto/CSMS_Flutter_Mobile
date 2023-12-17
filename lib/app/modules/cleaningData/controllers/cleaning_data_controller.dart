@@ -129,6 +129,17 @@ class CleaningDataController extends GetxController {
     //source.updatePaginate(taskPaginate.total!, taskPaginate.perPage!, taskPaginate.currentPage!);
   }
 
+  void refetch() async {
+    fetchDataTask();
+    sourceAssignment.getRole();
+
+    tipeFilter.value = "";
+    formatedStartDate.value = "";
+    formatedEndDate.value = "";
+    startDate = null;
+    endDate = null;
+  }
+
   @override
   void onInit() {
     super.onInit();

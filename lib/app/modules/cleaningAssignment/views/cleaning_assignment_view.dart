@@ -17,26 +17,39 @@ class CleaningAssignmentView extends GetView<CleaningAssignmentController> {
         appBar: AppBar(
           title: const Text('Assignment Saya'),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                controller.getTaskLeader();
+              },
+              icon: const Icon(Icons.refresh),
+            )
+          ],
         ),
         body: GetBuilder<CleaningAssignmentController>(builder: (builder) {
-          return LoadingOverlayPro(
-            isLoading: builder.isLoading.value,
-            progressIndicator: loading(),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              height: double.infinity,
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    text("Assignment Aktif", 20, Colors.black87,
-                        FontWeight.bold, TextAlign.start),
-                    const Gap(10),
-                    listCardAssignment(builder),
-                    const Gap(10),
-                  ],
+          return RefreshIndicator(
+            onRefresh: () async {
+              builder.getTaskLeader();
+            },
+            child: LoadingOverlayPro(
+              isLoading: builder.isLoading.value,
+              progressIndicator: loading(),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                height: double.infinity,
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      text("Assignment Aktif", 20, Colors.black87,
+                          FontWeight.bold, TextAlign.start),
+                      const Gap(10),
+                      listCardAssignment(builder),
+                      const Gap(10),
+                    ],
+                  ),
                 ),
               ),
             ),

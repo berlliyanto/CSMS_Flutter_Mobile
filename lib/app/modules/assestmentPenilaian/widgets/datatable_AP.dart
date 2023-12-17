@@ -11,7 +11,7 @@ Widget datatableAP(AssestmentPenilaianController controller) {
           controller.update();
         },
         decoration: InputDecoration(
-          labelText: 'Cari Leader atau Lokasi',
+          labelText: 'Cari',
           prefixIcon: const Icon(Icons.search),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),

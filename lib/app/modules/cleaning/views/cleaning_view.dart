@@ -15,12 +15,27 @@ class CleaningView extends GetView<CleaningController> {
         appBar: AppBar(
           title: const Text('Cleaning'),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () async {
+                await controller.getRole();
+              await controller.fetchAllAPI();
+              },
+              icon: const Icon(Icons.refresh),
+            )
+          ]
         ),
         body: GetBuilder<CleaningController>(builder: (builder){
-          return LoadingOverlayPro(
-            isLoading: builder.isLoading.value,
-            progressIndicator: loading(),
-            child: builder.bodyCleaning(),);
+          return RefreshIndicator(
+            onRefresh: () async {
+              await builder.getRole();
+              await builder.fetchAllAPI();
+            },
+            child: LoadingOverlayPro(
+              isLoading: builder.isLoading.value,
+              progressIndicator: loading(),
+              child: builder.bodyCleaning(),),
+          );
         })
     );
   }

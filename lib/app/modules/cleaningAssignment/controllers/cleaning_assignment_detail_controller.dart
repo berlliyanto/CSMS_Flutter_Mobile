@@ -91,6 +91,27 @@ class CleaningAssignmentDetailController extends GetxController {
     update();
   }
 
+  Future updateTask() async {
+    if(tasks.isEmpty){
+      snackBar("Warning", "Tidak ada task yang diinput", SnackPosition.TOP, 10, const Color.fromARGB(255, 201, 181, 0), Colors.white);
+      return;
+    }
+
+    final formattedTask = tasks.join("|");
+
+    isLoading.value = true;
+    update();
+    final response = await CleaningLeaderService().updateTask(argId, formattedTask);
+    if (response.statusCode == 200) {
+      Get.back();
+      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
+    }else{
+      snackBar("Error", response.body['message'], SnackPosition.TOP, 10, Colors.red.shade400, Colors.white);
+    }
+    isLoading.value = false;
+    update();
+  }
+
   void addTask() {
     if (tasksController.text != '') {
       tasks.add(tasksController.text);
@@ -112,9 +133,7 @@ class CleaningAssignmentDetailController extends GetxController {
 
     formDialog(this, "Ubah Assignment", "", "Submit", "Batal",
     () => addTask(), 
-    () {
-
-    }, 
+    () => updateTask(), 
     () {
       tasks.value = [];
       update();
