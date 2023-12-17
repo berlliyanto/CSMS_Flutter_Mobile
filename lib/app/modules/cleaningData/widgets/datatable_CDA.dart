@@ -12,7 +12,7 @@ PaginatedDataTable datatableCDA(CleaningDataController controller) {
         ],
       ), 
       onSort: (columnIndex, ascending) {
-        controller.source.sort((row) => row.assign.codeCS, 'code_cs', columnIndex, ascending);
+        controller.sourceAssignment.sort((row) => row.codeCS!, 'code_cs', columnIndex, ascending);
       },),
       const DataColumn(label: Center(child: Text("Leader"))),
       const DataColumn(label: Center(child: Text("Location"))),

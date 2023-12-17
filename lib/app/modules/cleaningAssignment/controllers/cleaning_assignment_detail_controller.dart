@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/task_assignment_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/form_dialog_edit.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_danone_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_leader_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_supervisor_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
@@ -59,6 +60,19 @@ class CleaningAssignmentDetailController extends GetxController {
     }
   }
 
+  Future updateByDanone() async {
+    final response =
+        await CleaningDanoneService().updateByDanone(argId);
+    if (response.statusCode == 200) {
+      Get.back();
+      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10,
+          Colors.green.shade500, Colors.white);
+    } else {
+      snackBar("Error", response.body['message'], SnackPosition.TOP, 10,
+          Colors.red.shade400, Colors.white);
+    }
+  }
+
   Future getRole() async {
     final box = GetStorage();
     String token = box.read('token');
@@ -86,7 +100,6 @@ class CleaningAssignmentDetailController extends GetxController {
   }
 
   void deleteTask(int index) {
-    print(index);
     tasks.removeAt(index);
     update();
   }
@@ -97,8 +110,11 @@ class CleaningAssignmentDetailController extends GetxController {
     }
     update();
 
-    formDialog(this, "Ubah Assignment", "", "Submit", "Batal", 
-    () {}, 
+    formDialog(this, "Ubah Assignment", "", "Submit", "Batal",
+    () => addTask(), 
+    () {
+
+    }, 
     () {
       tasks.value = [];
       update();

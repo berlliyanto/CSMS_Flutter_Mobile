@@ -122,6 +122,11 @@ abstract class MenuHome {
 
   static List<Map<String, dynamic>> menuDanone = [
     {
+      'title': 'Cleaning',
+      'image': 'assets/images/cleaning.png',
+      'route': '/cleaning'
+    },
+    {
       'title': 'User Verification',
       'image': 'assets/images/userverification.png',
       'route': '/userverification'

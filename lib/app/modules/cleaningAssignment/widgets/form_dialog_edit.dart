@@ -7,7 +7,7 @@ import 'package:flutter_mobile_csms/app/widgets/textfield.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-formDialog( CleaningAssignmentDetailController controller, String title, String message, String messageOk, String messageClose,
+formDialog( CleaningAssignmentDetailController controller, String title, String message, String messageOk, String messageClose, VoidCallback add,
     VoidCallback submit, VoidCallback cancel, Function onClose) {
   return Get.dialog(
     AlertDialog(
@@ -21,7 +21,7 @@ formDialog( CleaningAssignmentDetailController controller, String title, String 
           children: [
             textFieldNormal("Beri Tugas", controller.tasksController),
             const Gap(10),
-            customButton("Tambah", Colors.green, 5, 10, () { }),
+            customButton("Tambah", Colors.green, 5, 10, add),
             const Divider(),
             text("List Tugas", 16, Colors.black87, FontWeight.bold, TextAlign.start),
             GetBuilder<CleaningAssignmentDetailController>(

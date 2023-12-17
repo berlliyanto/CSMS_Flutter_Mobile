@@ -37,4 +37,19 @@ class CleaningAssignmentService extends GetConnect{
       return Response(statusCode: 401, statusText: e.toString());
     }
   }
+
+  Future<Response> getAssignmentFilterDate(String type, String startDate, String endDate) async {
+    final token = this.token();
+
+    try {
+      final response = await get("$url/assign_filter_date?type=$type&start_date=$startDate&end_date=$endDate", headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json',
+      });
+
+      return response;
+    } catch (e) {
+      return Response(statusCode: 401, statusText: e.toString());
+    }
+  }
 }

@@ -96,57 +96,64 @@ class CleaningAssignmentDetailView
                       const Gap(10),
                       cardFormAssignment(controller),
                       const Gap(10),
-                      if (builder.role.value == "Leader")
-                        customButton("Edit", Colors.yellow, 10, 20, () {
-                          for (TasksDetail e
-                              in (builder.task.value.tasksDetail ?? [])) {
-                            if (e.status!.contains("Finish") ||
-                                e.status!.contains("Not Finish")) {
-                              snackBar(
-                                  "Warning",
-                                  "Tidak dapat ubah assignment",
-                                  SnackPosition.TOP,
-                                  10,
-                                  const Color.fromARGB(255, 206, 186, 0),
-                                  Colors.white);
-                              return;
-                            }
-                          }
+                      builder.task.value.checkedSupervisorAt == null
+                          ? Column(
+                              children: [
+                                if (builder.role.value == "Leader")
+                                  customButton("Edit", Colors.yellow, 10, 20,
+                                      () {
+                                    for (TasksDetail e
+                                        in (builder.task.value.tasksDetail ??
+                                            [])) {
+                                      if (e.status!.contains("Finish") ||
+                                          e.status!.contains("Not Finish")) {
+                                        snackBar(
+                                            "Warning",
+                                            "Tidak dapat ubah assignment",
+                                            SnackPosition.TOP,
+                                            10,
+                                            const Color.fromARGB(
+                                                255, 206, 186, 0),
+                                            Colors.white);
+                                        return;
+                                      }
+                                    }
 
-                          builder.openDialogEdit();
-                        }),
-                      const Gap(8),
-                      if (builder.role.value == "Leader")
-                        customButton(
-                            "Hapus",
-                            Colors.red,
-                            10,
-                            20,
-                            () => dialog(
-                                "Hapus",
-                                "Apakah anda yakin ingin menghapus data ini?",
-                                "Hapus",
-                                "Tidak",
-                                () => builder.deleteCleaning())),
-                      if (builder.role.value == "Supervisor")
-                        builder.task.value.checkedSupervisorAt == null
-                            ? customButton("Verifikasi", Colors.green, 10, 20,
-                                () => builder.updateBySupervisor())
-                            : Center(
-                                child: text(
-                                    "Sudah Verifikasi",
-                                    16,
-                                    Colors.black87,
-                                    FontWeight.normal,
-                                    TextAlign.center),
-                              ),
+                                    builder.openDialogEdit();
+                                  }),
+                                const Gap(8),
+                                if (builder.role.value == "Leader")
+                                  customButton(
+                                      "Hapus",
+                                      Colors.red,
+                                      10,
+                                      20,
+                                      () => dialog(
+                                          "Hapus",
+                                          "Apakah anda yakin ingin menghapus data ini?",
+                                          "Hapus",
+                                          "Tidak",
+                                          () => builder.deleteCleaning())),
+                                if (builder.role.value == "Supervisor")
+                                  customButton("Verifikasi", Colors.green, 10,
+                                      20, () => builder.updateBySupervisor())
+                              ],
+                            )
+                          : Center(
+                              child: text(
+                                  "Sudah Verifikasi Supervisor",
+                                  16,
+                                  Colors.black87,
+                                  FontWeight.normal,
+                                  TextAlign.center),
+                            ),
                       if (builder.role.value == "Danone")
                         builder.task.value.verifiedDanoneAt == null
                             ? customButton(
-                                "Verifikasi", Colors.green, 10, 20, () {})
+                                "Verifikasi", Colors.green, 10, 20, () => builder.updateByDanone())
                             : Center(
                                 child: text(
-                                    "Sudah Verifikasi",
+                                    "Sudah Verifikasi Danone",
                                     16,
                                     Colors.black87,
                                     FontWeight.normal,

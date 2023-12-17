@@ -58,8 +58,7 @@ Widget cleaningLeader(CleaningController controller) {
             final newId = id.isNotEmpty ? id.first : 0;
             controller.locationId.value = int.parse(newId.toString());
             controller.update();
-            controller.area = await controller.cleaningLeaderController
-                .getAreasByLocation(int.parse(newId.toString()));
+            controller.area = await controller.getAreasByLocation(int.parse(newId.toString()));
             controller.update();
           }),
           const Gap(10),
@@ -172,6 +171,7 @@ Widget cleaningLeader(CleaningController controller) {
             child: customButton("Submit", Colors.deepOrange, 5, 10, () => controller.submitTask(controller.areaId.value,
                   controller.locationId.value, controller.cleanersSelected),)
           ),
+          const Gap(10),
         ],
       ),
     ),

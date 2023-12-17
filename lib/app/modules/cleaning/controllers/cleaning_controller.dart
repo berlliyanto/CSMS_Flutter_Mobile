@@ -5,15 +5,18 @@ import 'package:flutter_mobile_csms/app/models/location_model.dart';
 import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
 import 'package:flutter_mobile_csms/app/models/task_assignment_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_cleaner_controller.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_leader_controller.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/role_controller/cleaning_supervisor_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_cleaner.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_danone.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_leader.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_supervisor.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_assignment_service.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_leader_service.dart';
+import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_supervisor_service.dart';
+import 'package:flutter_mobile_csms/app/services/Location_Area/area_service.dart';
+import 'package:flutter_mobile_csms/app/services/Location_Area/location_service.dart';
+import 'package:flutter_mobile_csms/app/services/Tasks/tasks_by_cleaner_service.dart';
+import 'package:flutter_mobile_csms/app/services/Users/cleaner_service.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
@@ -21,9 +24,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 
 class CleaningController extends GetxController {
-  final CleaningCleanerController cleaningCleanerController =  Get.put(CleaningCleanerController());
-  final CleaningLeaderController cleaningLeaderController = Get.put(CleaningLeaderController());
-  final CleaningSupervisorController cleaningSupervisorController = Get.put(CleaningSupervisorController());
 
   TextEditingController task = TextEditingController();
 
@@ -102,22 +102,93 @@ class CleaningController extends GetxController {
     final response = await CleaningAssignmentService().getCountAssignment();
     if (response.statusCode == 200) {
       countAssign = response.body != null ? CountAssignModel.fromJson(response.body['data']) : CountAssignModel(total: 0, finish: 0, notFinish: 0);
-      print(countAssign);
     }
   }
 
   Future fetchAllAPI() async {
     await getCountAssignment();
     if(role.value == "Cleaner"){
-      tasksByCleaner = await cleaningCleanerController.getTaskByCleaner();
+      tasksByCleaner = await getTaskByCleaner();
     }else if(role.value == "Leader"){
-      location = await cleaningLeaderController.getLocations();
-      cleaner = await cleaningLeaderController.getCleaners();
+      location = await getLocations();
+      cleaner = await getCleaners();
     }else if(role.value == "Supervisor"){
-      tasksBySupervisor = await cleaningSupervisorController.getTaskBySupervisor();
+      tasksBySupervisor = await getTaskBySupervisor();
     }
 
     update();
+  }
+
+  // Cleaner
+  Future<List<AllTasksByCleanerModel>> getTaskByCleaner() async {
+    final response = await TaskByCleanerService().allTaskByCleaner();
+    List<AllTasksByCleanerModel> tasks = [];
+    tasks = response.body != null
+        ? (response.body['data'] as List)
+            .map((e) => AllTasksByCleanerModel.fromJson(e))
+            .toList()
+        : [];
+    update();
+    return tasks;
+  }
+
+  //Leader
+  Future<List<UserModel>> getCleaners() async {
+    List<UserModel> cleaners = [];
+    final response = await CleanerService().allCleaner();
+    cleaners = response.body != null ?
+        (response.body as List).map((e) => UserModel.fromJson(e)).toList() : [];
+    update();
+    return cleaners;
+  }
+
+  Future<List<LocationModel>> getLocations() async {
+    final response = await LocationService().allLocation();
+    List<LocationModel> locations = [];
+    locations = response.body != null
+        ? (response.body['data'] as List)
+            .map((e) => LocationModel.fromJson(e))
+            .toList()
+        : [];
+    update();
+    return locations;
+  }
+
+  Future<List<AreaModel>> getAreas() async {
+    final response = await AreaService().allArea();
+    List<AreaModel> areas = [];
+    areas = response.body != null
+        ? (response.body['data'] as List)
+            .map((e) => AreaModel.fromJson(e))
+            .toList()
+        : [];
+    update();
+    return areas;
+  }
+
+  Future<List<AreaModel>> getAreasByLocation(int id) async {
+    final response = await AreaService().allAreaByLocation(id);
+    List<AreaModel> areas = [];
+    areas = response.body != null
+        ? (response.body['data'] as List)
+            .map((e) => AreaModel.fromJson(e))
+            .toList()
+        : [];
+    update();
+    return areas;
+  }
+
+  //Supervisor
+  Future<List<TaskAssignmentModel>> getTaskBySupervisor() async {
+    final response = await CleaningSupervisorService().getBySupervisor();
+    List<TaskAssignmentModel> tasks = [];
+    tasks = response.body != null
+        ? (response.body['data'] as List)
+            .map((e) => TaskAssignmentModel.fromJson(e))
+            .toList()
+        : [];
+    update();
+    return tasks;
   }
 
   // ---------------------- Widget Operation
@@ -130,6 +201,8 @@ class CleaningController extends GetxController {
         return cleaningLeader(this);
       case 'Supervisor':
         return cleaningSupervisor(this);
+      case 'Danone':
+        return cleaningDanone(this);
       default:
         return LoadingOverlayPro(
           isLoading: true,
