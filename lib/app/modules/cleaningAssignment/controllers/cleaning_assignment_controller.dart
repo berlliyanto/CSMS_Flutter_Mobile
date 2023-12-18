@@ -12,8 +12,8 @@ class CleaningAssignmentController extends GetxController {
     update();
     final response = await CleaningLeaderService().getCleaning();
     List<TaskAssignmentModel> task = [];
-    task = response.body != null
-        ? (response.body['data'] as List)
+    task = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => TaskAssignmentModel.fromJson(e))
             .toList()
         : [];

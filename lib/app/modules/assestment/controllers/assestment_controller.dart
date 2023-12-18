@@ -18,8 +18,8 @@ class AssestmentController extends GetxController {
   Future<List<LocationModel>> getLocations() async {
     final response = await LocationService().allLocation();
     List<LocationModel> locations = [];
-    locations = response.body != null
-        ? (response.body['data'] as List)
+    locations = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => LocationModel.fromJson(e))
             .toList()
         : [];
@@ -31,8 +31,8 @@ class AssestmentController extends GetxController {
   Future<List<UserModel>> getCleaners() async {
     final response = await CleanerService().allCleaner();
     List<UserModel> cleaners = [];
-    cleaners = response.body != null
-        ? (response.body as List).map((e) => UserModel.fromJson(e)).toList()
+    cleaners = response.data != null
+        ? (response.data as List).map((e) => UserModel.fromJson(e)).toList()
         : [];
     cleaner = cleaners;
     print(cleaner);

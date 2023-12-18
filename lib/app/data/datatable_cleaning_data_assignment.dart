@@ -69,7 +69,7 @@ class DataTableAssignment extends DataTableSource {
     final box = GetStorage();
     String token = box.read('token');
     var value = await AuthService().profile(token);
-    role = value.body != null ? value.body['data']['role']['role_name'] : '';
+    role = value.data != null ? value.data['data']['role']['role_name'] : '';
     notifyListeners();
   }
 
@@ -112,11 +112,11 @@ class DataTableAssignment extends DataTableSource {
 
     if (response.statusCode == 200) {
       Get.back();
-      snackBar("Success", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Success", response.data['message'], SnackPosition.TOP, 10,
           Colors.green, Colors.white);
     } else {
       Get.back();
-      snackBar("Error", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Error", response.data['message'], SnackPosition.TOP, 10,
           Colors.red, Colors.white);
     }
 

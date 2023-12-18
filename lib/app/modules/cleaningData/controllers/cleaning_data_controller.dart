@@ -68,8 +68,8 @@ class CleaningDataController extends GetxController {
     update();
     final response = await TaskService().getAllTasks(page);
     List<TasksByCleanerModel> task = [];
-    if (response.body != null) {
-      task = (response.body['data'] as List)
+    if (response.data != null) {
+      task = (response.data['data'] as List)
           .map((e) => TasksByCleanerModel.fromJson(e))
           .toList();
     } else {
@@ -92,8 +92,8 @@ class CleaningDataController extends GetxController {
     update();
     final response = await CleaningAssignmentService().getAssignmentFilterDate(tipeFilter.value, formatedStartDate.value, formatedEndDate.value);
     List<TaskAssignmentModel> task = [];
-    if (response.body != null) {
-      task = (response.body['data'] as List)
+    if (response.data != null) {
+      task = (response.data['data'] as List)
           .map((e) => TaskAssignmentModel.fromJson(e))
           .toList();
     } else {
@@ -111,8 +111,8 @@ class CleaningDataController extends GetxController {
     update();
     final response = await CleaningAssignmentService().getAllAssignment();
     List<TaskAssignmentModel> task = [];
-    if (response.body != null) {
-      task = (response.body['data'] as List)
+    if (response.data != null) {
+      task = (response.data['data'] as List)
           .map((e) => TaskAssignmentModel.fromJson(e))
           .toList();
     } else {

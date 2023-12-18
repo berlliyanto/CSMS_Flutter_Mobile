@@ -28,8 +28,8 @@ class CleaningAssignmentDetailController extends GetxController {
 
   Future<TaskAssignmentModel> showTaskLeader() async {
     final response = await CleaningLeaderService().showCleaning(argId);
-    TaskAssignmentModel task = response.body != null
-        ? TaskAssignmentModel.fromJson(response.body['data'])
+    TaskAssignmentModel task = response.data != null
+        ? TaskAssignmentModel.fromJson(response.data['data'])
         : TaskAssignmentModel();
 
     return task;
@@ -39,7 +39,7 @@ class CleaningAssignmentDetailController extends GetxController {
     final response = await CleaningLeaderService().deleteCleaning(argId);
     if (response.statusCode == 200) {
       Get.back();
-      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
     } else {
       snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
@@ -52,10 +52,10 @@ class CleaningAssignmentDetailController extends GetxController {
         await CleaningSupervisorService().updateBySupervisor(argId);
     if (response.statusCode == 200) {
       Get.back();
-      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
     } else {
-      snackBar("Error", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Error", response.data['message'], SnackPosition.TOP, 10,
           Colors.red.shade400, Colors.white);
     }
   }
@@ -65,10 +65,10 @@ class CleaningAssignmentDetailController extends GetxController {
         await CleaningDanoneService().updateByDanone(argId);
     if (response.statusCode == 200) {
       Get.back();
-      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
     } else {
-      snackBar("Error", response.body['message'], SnackPosition.TOP, 10,
+      snackBar("Error", response.data['message'], SnackPosition.TOP, 10,
           Colors.red.shade400, Colors.white);
     }
   }
@@ -78,7 +78,7 @@ class CleaningAssignmentDetailController extends GetxController {
     String token = box.read('token');
     var response = await AuthService().profile(token);
     role.value =
-        response.body != null ? response.body['data']['role']['role_name'] : "";
+        response.data != null ? response.data['data']['role']['role_name'] : "";
     update();
   }
 
@@ -104,9 +104,9 @@ class CleaningAssignmentDetailController extends GetxController {
     final response = await CleaningLeaderService().updateTask(argId, formattedTask);
     if (response.statusCode == 200) {
       Get.back();
-      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
+      snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
     }else{
-      snackBar("Error", response.body['message'], SnackPosition.TOP, 10, Colors.red.shade400, Colors.white);
+      snackBar("Error", response.data['message'], SnackPosition.TOP, 10, Colors.red.shade400, Colors.white);
     }
     isLoading.value = false;
     update();

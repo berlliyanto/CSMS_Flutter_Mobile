@@ -74,8 +74,8 @@ class AssestmentPenilaianController extends GetxController {
     update();
     final response = await AssestmentService().getAssestmentFilterByDate(tipeFilter.value, formatedStartDate.value, formatedEndDate.value);
     List<CalculateAssessmentModel> task = [];
-    if (response.body != null) {
-      task = (response.body['data'] as List)
+    if (response.data != null) {
+      task = (response.data['data'] as List)
           .map((e) => CalculateAssessmentModel.fromJson(e))
           .toList();
     } else {
@@ -93,8 +93,8 @@ class AssestmentPenilaianController extends GetxController {
     update();
     final response = await CleanerService().allCleaner();
     List<UserModel> cleaner = [];
-    cleaner = response.body != null
-        ? (response.body as List).map((e) => UserModel.fromJson(e)).toList()
+    cleaner = response.data != null
+        ? (response.data as List).map((e) => UserModel.fromJson(e)).toList()
         : [];
     cleaners = cleaner;
 
@@ -107,8 +107,8 @@ class AssestmentPenilaianController extends GetxController {
       int id) async {
     final response = await AssestmentService().getAssestmentPerCleaner(id);
     List<CalculateAssessmentModel> calculate = [];
-    calculate = response.body != null
-        ? (response.body['data'] as List)
+    calculate = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => CalculateAssessmentModel.fromJson(e))
             .toList()
         : [];
@@ -120,8 +120,8 @@ class AssestmentPenilaianController extends GetxController {
   Future<List<CalculateAssessmentModel>> getCalculateAssestments() async {
     final response = await AssestmentService().getCalculateAssestments();
     List<CalculateAssessmentModel> calculate = [];
-    calculate = response.body != null
-        ? (response.body['data'] as List)
+    calculate = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => CalculateAssessmentModel.fromJson(e))
             .toList()
         : [];

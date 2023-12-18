@@ -94,18 +94,21 @@ class CleaningController extends GetxController {
     final box = GetStorage();
     String token = box.read('token');
     var value = await AuthService().profile(token);
-    role.value = value.body != null ? value.body['data']['role']['role_name'] : '';
+    role.value = value.data != null ? value.data['data']['role']['role_name'] : '';
     update();
   }
 
   Future getCountAssignment() async {
     final response = await CleaningAssignmentService().getCountAssignment();
     if (response.statusCode == 200) {
-      countAssign = response.body != null ? CountAssignModel.fromJson(response.body['data']) : CountAssignModel(total: 0, finish: 0, notFinish: 0);
+      countAssign = response.data != null ? CountAssignModel.fromJson(response.data['data']) : CountAssignModel(total: 0, finish: 0, notFinish: 0);
     }
   }
 
   Future fetchAllAPI() async {
+    isLoading.value = true;
+    update();
+    await getRole();
     await getCountAssignment();
     if(role.value == "Cleaner"){
       tasksByCleaner = await getTaskByCleaner();
@@ -116,6 +119,7 @@ class CleaningController extends GetxController {
       tasksBySupervisor = await getTaskBySupervisor();
     }
 
+    isLoading.value = false;
     update();
   }
 
@@ -123,8 +127,8 @@ class CleaningController extends GetxController {
   Future<List<AllTasksByCleanerModel>> getTaskByCleaner() async {
     final response = await TaskByCleanerService().allTaskByCleaner();
     List<AllTasksByCleanerModel> tasks = [];
-    tasks = response.body != null
-        ? (response.body['data'] as List)
+    tasks = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => AllTasksByCleanerModel.fromJson(e))
             .toList()
         : [];
@@ -136,8 +140,8 @@ class CleaningController extends GetxController {
   Future<List<UserModel>> getCleaners() async {
     List<UserModel> cleaners = [];
     final response = await CleanerService().allCleaner();
-    cleaners = response.body != null ?
-        (response.body as List).map((e) => UserModel.fromJson(e)).toList() : [];
+    cleaners = response.data != null ?
+        (response.data as List).map((e) => UserModel.fromJson(e)).toList() : [];
     update();
     return cleaners;
   }
@@ -145,8 +149,8 @@ class CleaningController extends GetxController {
   Future<List<LocationModel>> getLocations() async {
     final response = await LocationService().allLocation();
     List<LocationModel> locations = [];
-    locations = response.body != null
-        ? (response.body['data'] as List)
+    locations = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => LocationModel.fromJson(e))
             .toList()
         : [];
@@ -157,8 +161,8 @@ class CleaningController extends GetxController {
   Future<List<AreaModel>> getAreas() async {
     final response = await AreaService().allArea();
     List<AreaModel> areas = [];
-    areas = response.body != null
-        ? (response.body['data'] as List)
+    areas = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => AreaModel.fromJson(e))
             .toList()
         : [];
@@ -169,8 +173,8 @@ class CleaningController extends GetxController {
   Future<List<AreaModel>> getAreasByLocation(int id) async {
     final response = await AreaService().allAreaByLocation(id);
     List<AreaModel> areas = [];
-    areas = response.body != null
-        ? (response.body['data'] as List)
+    areas = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => AreaModel.fromJson(e))
             .toList()
         : [];
@@ -182,8 +186,8 @@ class CleaningController extends GetxController {
   Future<List<TaskAssignmentModel>> getTaskBySupervisor() async {
     final response = await CleaningSupervisorService().getBySupervisor();
     List<TaskAssignmentModel> tasks = [];
-    tasks = response.body != null
-        ? (response.body['data'] as List)
+    tasks = response.data != null
+        ? (response.data['data'] as List)
             .map((e) => TaskAssignmentModel.fromJson(e))
             .toList()
         : [];
@@ -217,7 +221,6 @@ class CleaningController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await getRole();
     await fetchAllAPI();
   }
 

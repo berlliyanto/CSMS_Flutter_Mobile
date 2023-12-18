@@ -62,7 +62,7 @@ class ProfileController extends GetxController {
     String token = box.read('token');
     final response = await AuthService().updatePassword(token, password2.text);
     if (response.statusCode == 200) {
-      snackBar("Sukses", response.body['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
+      snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
       dialog("Password telah diubah", "Apakah anda ingin login ulang?", "Ya", "Tidak", () => logout());
     }else{
       snackBar("Error", "Something went wrong", SnackPosition.TOP, 10, Colors.red, Colors.white);
@@ -77,7 +77,7 @@ class ProfileController extends GetxController {
     update();
     final response = await AuthService().profile(token);
     if (response.statusCode == 200) {
-      profile = ProfileUserModel.fromJson(response.body['data']);
+      profile = ProfileUserModel.fromJson(response.data['data']);
     }
     isLoading.value = false;
     update();

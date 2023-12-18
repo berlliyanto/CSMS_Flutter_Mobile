@@ -18,7 +18,6 @@ class CleaningView extends GetView<CleaningController> {
           actions: [
             IconButton(
               onPressed: () async {
-                await controller.getRole();
               await controller.fetchAllAPI();
               },
               icon: const Icon(Icons.refresh),

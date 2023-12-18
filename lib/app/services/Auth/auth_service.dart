@@ -1,37 +1,58 @@
 import 'dart:convert';
 
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
+import 'package:dio/dio.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
-class AuthService extends GetConnect {
+class AuthService {
   final url = "https://aplikasipms.com/api";
+  Dio dio = Dio();
 
   Future<Response> login(String username, String password) async {
     try {
-      final response = await post(
-          "$url/login",
-          jsonEncode(
-            {"username": username, "password": password},
-          ),
-          headers: {
-            'Accept': 'application/json',
-          });
+      final response = await dio
+          .post(
+            "$url/login",
+            data: jsonEncode(
+              {"username": username, "password": password},
+            ),
+            options: Options(
+              headers: {
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 
   Future<Response> logout(String token) async {
     try {
-      return await get(
-        "$url/logout",
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Accept': 'application/json',
-        },
-      );
+      return await dio
+          .get(
+            "$url/logout",
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 
@@ -45,39 +66,68 @@ class AuthService extends GetConnect {
     });
 
     try {
-      final response = await post("$url/register", body,
-          headers: <String, String>{'Accept': 'application/json'});
+      final response = await dio
+          .post(
+            "$url/register",
+            data: body,
+            options: Options(headers: {'Accept': 'application/json'}),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 
   Future<Response> profile(String token) async {
     try {
-      final response = await get(
-        "$url/profile",
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Accept': 'application/json',
-        },
-      );
+      final response = await dio
+          .get(
+            "$url/profile",
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 
   Future<Response> updatePassword(String token, String password) async {
     final body = jsonEncode({"password": password});
     try {
-      final response = await put("$url/update_password", body, headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-      });
+      final response = await dio
+          .put(
+            "$url/update_password",
+            data: body,
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 }

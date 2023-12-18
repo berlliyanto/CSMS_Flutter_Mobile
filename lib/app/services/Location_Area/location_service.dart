@@ -1,9 +1,12 @@
-import 'package:get/get.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get_storage/get_storage.dart';
 
-class LocationService extends GetConnect{
-
+class LocationService {
   final url = "https://aplikasipms.com/api";
+  Dio dio = Dio();
 
   Future getToken() async {
     final box = GetStorage();
@@ -12,17 +15,27 @@ class LocationService extends GetConnect{
   }
 
   Future<Response> allLocation() async {
-
-    final token  = await getToken();
+    final token = await getToken();
 
     try {
-      final response = await get("$url/locations", headers: {
-        'Authorization': 'Bearer $token',
-        'Accept' : 'application/json',
-      });
+      final response = await dio
+          .get(
+            "$url/locations",
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 }

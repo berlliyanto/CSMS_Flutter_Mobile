@@ -1,27 +1,40 @@
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
+import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:dio/dio.dart';
 
-class AreaService extends GetConnect{
-
+class AreaService {
   final url = "https://aplikasipms.com/api";
+  Dio dio = Dio();
 
-  String getToken()  {
+  String getToken() {
     final box = GetStorage();
     String token = box.read('token');
     return token;
   }
 
   Future<Response> allArea() async {
-
-    final token  = getToken();
+    final token = getToken();
     try {
-      final response = await get("$url/areas", headers: {
-        'Authorization': 'Bearer $token',
-        'Accept' : 'application/json',
-      });
+      final response = await dio
+          .get(
+            "$url/areas",
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return const Response(statusCode: 401);
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 
@@ -29,13 +42,24 @@ class AreaService extends GetConnect{
     final token = getToken();
 
     try {
-      final response = await get("$url/areas_by_location/$id", headers: {
-        'Authorization': 'Bearer $token',
-        'Accept' : 'application/json',
-      });
+      final response = await dio
+          .get(
+            "$url/areas_by_location/$id",
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+            ),
+          )
+          .timeout(
+            const Duration(seconds: 30),
+            onTimeout: () => snackBar("Error", "Connection Timeout",
+                SnackPosition.TOP, 10, Colors.red, Colors.white),
+          );
       return response;
     } catch (e) {
-      return Response(statusCode: 401, statusText: e.toString());
+      return Response(statusCode: 401, requestOptions: RequestOptions());
     }
   }
 }

@@ -33,7 +33,7 @@ class HomeController extends GetxController {
     final box = GetStorage();
     String token = box.read('token');
     var value = await AuthService().profile(token);
-    role.value = value.body != null ? value.body['data']['role']['role_name'] : "relog";
+    role.value = value.data != null ? value.data['data']['role']['role_name'] : "relog";
 
     if(role.value == 'Cleaner'){
       menuHome = MenuHome.menuCleaner;

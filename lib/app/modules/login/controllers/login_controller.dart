@@ -26,10 +26,9 @@ class LoginController extends GetxController {
     update();
     try {
       final response = await AuthService().login(username, password);
-      print(response.body);
       if (response.statusCode == 200) {
         final box = GetStorage();
-        box.write('token', response.body['token']);
+        box.write('token', response.data['token']);
         Get.offAllNamed(Routes.HOME);
         isLoading.value = false;
       } else {
