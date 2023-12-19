@@ -19,11 +19,11 @@ Widget cleaningCleaner(CleaningController controller) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               text(
-              "Total : ${controller.countAssign.total}", 14, Colors.grey, FontWeight.bold, TextAlign.start),
+              "Total : ${controller.countTask.total}", 14, Colors.grey, FontWeight.bold, TextAlign.start),
               text(
-              "Finish : ${controller.countAssign.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
+              "Finish : ${controller.countTask.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
               text(
-              "Not Finish : ${controller.countAssign.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
+              "Not Finish : ${controller.countTask.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
             ],
           ),
           const Divider(),

@@ -34,6 +34,7 @@ class CleaningController extends GetxController {
   List<TaskAssignmentModel> tasksBySupervisor = [];
 
   CountAssignModel countAssign = CountAssignModel(total: 0, finish: 0, notFinish: 0);
+  CountAssignModel countTask = CountAssignModel(total: 0, finish: 0, notFinish: 0);
 
   RxList tasks = [].obs;
   RxList cleanersSelected = [].obs;
@@ -134,6 +135,13 @@ class CleaningController extends GetxController {
         : [];
     update();
     return tasks;
+  }
+
+  Future getCountTaskByCleaner() async {
+    final response = await TaskByCleanerService().taskCount();
+    if (response.statusCode == 200) {
+      countTask = response.data != null ? CountAssignModel.fromJson(response.data['data']) : CountAssignModel(total: 0, finish: 0, notFinish: 0);
+    }
   }
 
   //Leader

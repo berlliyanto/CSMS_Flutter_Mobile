@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobile_csms/app/services/error_handler.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
 class AuthService {
-  final url = "https://aplikasipms.com/api";
+  final url = "http://192.168.100.160:8080/api";
   Dio dio = Dio();
 
   Future<Response> login(String username, String password) async {
@@ -28,15 +29,26 @@ class AuthService {
             onTimeout: () => snackBar("Error", "Connection Timeout",
                 SnackPosition.TOP, 10, Colors.red, Colors.white),
           );
-      return response;
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
-      return Response(statusCode: 401, requestOptions: RequestOptions());
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     }
   }
 
   Future<Response> logout(String token) async {
     try {
-      return await dio
+      final response = await dio
           .get(
             "$url/logout",
             options: Options(
@@ -51,8 +63,21 @@ class AuthService {
             onTimeout: () => snackBar("Error", "Connection Timeout",
                 SnackPosition.TOP, 10, Colors.red, Colors.white),
           );
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
-      return Response(statusCode: 401, requestOptions: RequestOptions());
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     }
   }
 
@@ -77,9 +102,21 @@ class AuthService {
             onTimeout: () => snackBar("Error", "Connection Timeout",
                 SnackPosition.TOP, 10, Colors.red, Colors.white),
           );
-      return response;
+          
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
-      return Response(statusCode: 401, requestOptions: RequestOptions());
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     }
   }
 
@@ -100,9 +137,21 @@ class AuthService {
             onTimeout: () => snackBar("Error", "Connection Timeout",
                 SnackPosition.TOP, 10, Colors.red, Colors.white),
           );
-      return response;
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
-      return Response(statusCode: 401, requestOptions: RequestOptions());
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     }
   }
 
@@ -125,9 +174,29 @@ class AuthService {
             onTimeout: () => snackBar("Error", "Connection Timeout",
                 SnackPosition.TOP, 10, Colors.red, Colors.white),
           );
-      return response;
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
-      return Response(statusCode: 401, requestOptions: RequestOptions());
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     }
+  }
+
+  void checkException(DioException error, String message) {
+    APIException exception = APIException();
+    List<String> errorMessage = exception.getExceptionMessage(error, message);
+
+    snackBar(errorMessage[0], errorMessage[1], SnackPosition.TOP, 10,
+        Colors.red, Colors.white);
   }
 }

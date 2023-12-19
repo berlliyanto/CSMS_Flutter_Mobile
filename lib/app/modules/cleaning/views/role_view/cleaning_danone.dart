@@ -24,9 +24,9 @@ Widget cleaningDanone(CleaningController controller){
               text(
               "Total : ${controller.countAssign.total}", 14, Colors.grey, FontWeight.bold, TextAlign.start),
               text(
-              "Finish : ${controller.countAssign.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
+              "Verified : ${controller.countAssign.finish}", 14, Colors.green, FontWeight.bold, TextAlign.start),
               text(
-              "Not Finish : ${controller.countAssign.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
+              "Not Verified : ${controller.countAssign.notFinish}", 14, Colors.red, FontWeight.bold, TextAlign.start),
             ],
           ),
           const Divider(),

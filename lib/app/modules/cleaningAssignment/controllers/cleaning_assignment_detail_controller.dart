@@ -41,36 +41,33 @@ class CleaningAssignmentDetailController extends GetxController {
       Get.back();
       snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
-    } else {
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
-          Colors.red.shade400, Colors.white);
-    }
+    } 
   }
 
   Future updateBySupervisor() async {
-    final response =
-        await CleaningSupervisorService().updateBySupervisor(argId);
+    isLoading.value = true;
+    update();
+    final response = await CleaningSupervisorService().updateBySupervisor(argId);
     if (response.statusCode == 200) {
       Get.back();
       snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
-    } else {
-      snackBar("Error", response.data['message'], SnackPosition.TOP, 10,
-          Colors.red.shade400, Colors.white);
     }
+    isLoading.value = false;
+    update();
   }
 
   Future updateByDanone() async {
-    final response =
-        await CleaningDanoneService().updateByDanone(argId);
+    isLoading.value = true;
+    update();
+    final response = await CleaningDanoneService().updateByDanone(argId);
     if (response.statusCode == 200) {
       Get.back();
       snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
-    } else {
-      snackBar("Error", response.data['message'], SnackPosition.TOP, 10,
-          Colors.red.shade400, Colors.white);
     }
+    isLoading.value = false;
+    update();
   }
 
   Future getRole() async {

@@ -22,6 +22,7 @@ dependencies:
   flutter: 
     sdk: flutter
   syncfusion_flutter_datepicker: ^21.2.3
+  connectivity_plus: ^5.0.2
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

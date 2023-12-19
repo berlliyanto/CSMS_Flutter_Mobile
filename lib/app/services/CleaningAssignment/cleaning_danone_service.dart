@@ -26,9 +26,20 @@ class CleaningDanoneService extends CleaningAssignmentService {
         onTimeout: () => snackBar("Error", "Connection Timeout",
             SnackPosition.TOP, 10, Colors.red, Colors.white),
       );
-      return response;
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
-      return Response(statusCode: 401, requestOptions: RequestOptions());
+      return Response(statusCode: 400, requestOptions: RequestOptions());
     }
   }
 }
