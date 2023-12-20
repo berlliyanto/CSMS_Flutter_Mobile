@@ -23,6 +23,8 @@ dependencies:
     sdk: flutter
   syncfusion_flutter_datepicker: ^21.2.3
   connectivity_plus: ^5.0.2
+  qr_flutter: ^4.1.0
+  qr_code_scanner: ^1.0.1
 
 dev_dependencies: 
   flutter_lints: ^2.0.0

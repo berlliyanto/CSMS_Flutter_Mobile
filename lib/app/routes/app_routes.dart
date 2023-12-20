@@ -15,6 +15,8 @@ abstract class Routes {
   static const CLEANING_ASSIGNMENT = _Paths.CLEANING_ASSIGNMENT;
   static const CLEANING_ASSIGNMENT_DETAIL = _Paths.CLEANING_ASSIGNMENT_DETAIL;
   static const PROFILE = _Paths.PROFILE;
+  static const ZOOM_IMAGE = _Paths.ZOOM_IMAGE;
+  static const QR_VIEW = _Paths.QR_VIEW;
 }
 
 abstract class _Paths {
@@ -31,4 +33,6 @@ abstract class _Paths {
   static const CLEANING_ASSIGNMENT = '/cleaning-assignment';
   static const CLEANING_ASSIGNMENT_DETAIL = '/cleaning-assignment-detail';
   static const PROFILE = '/profile';
+  static const ZOOM_IMAGE = '/zoom-image';
+  static const QR_VIEW = '/qr-view';
 }

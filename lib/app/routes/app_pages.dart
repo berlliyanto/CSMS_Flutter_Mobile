@@ -1,3 +1,5 @@
+import 'package:flutter_mobile_csms/app/modules/image/qr_view.dart';
+import 'package:flutter_mobile_csms/app/modules/image/zoom_image.dart';
 import 'package:get/get.dart';
 
 import '../modules/assestment/bindings/assestment_binding.dart';
@@ -99,5 +101,14 @@ class AppPages {
       page: () => const ProfileView(),
       binding: ProfileBinding(),
     ),
+    GetPage(
+      name: _Paths.ZOOM_IMAGE,
+      page: () => const FullScreenImagePage()
+    ),
+    GetPage(
+      name: _Paths.QR_VIEW,
+      page: () => const QRView()
+    ),
+
   ];
 }

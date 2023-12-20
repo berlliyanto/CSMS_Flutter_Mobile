@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Cleaning Service Management System",
       defaultTransition: Transition.fade,
-      transitionDuration: const Duration(milliseconds: 800),
+      transitionDuration: const Duration(milliseconds: 600),
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     );

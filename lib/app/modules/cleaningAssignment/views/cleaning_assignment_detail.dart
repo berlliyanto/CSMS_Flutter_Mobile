@@ -4,6 +4,7 @@ import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/controllers/c
 import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/card_detail_assignment.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/card_form_assignment.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaningAssignment/widgets/card_verification_status.dart';
+import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
 import 'package:flutter_mobile_csms/app/widgets/button.dart';
 import 'package:flutter_mobile_csms/app/widgets/dialog.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
@@ -23,6 +24,18 @@ class CleaningAssignmentDetailView
       appBar: AppBar(
         title: const Text('Detail Assignment'),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () {
+                if(controller.isLoading.value == false){
+                  Get.toNamed(Routes.QR_VIEW, arguments: {
+                  'id': controller.task.value.id,
+                  'code_cs': controller.task.value.codeCS
+                });
+                }
+              },
+              icon: const Icon(Icons.qr_code))
+        ],
       ),
       body: SizedBox(
         height: double.infinity,
@@ -122,7 +135,7 @@ class CleaningAssignmentDetailView
                                           return;
                                         }
                                       }
-              
+
                                       builder.openDialogEdit();
                                     }),
                                   const Gap(8),
@@ -153,8 +166,8 @@ class CleaningAssignmentDetailView
                               ),
                         if (builder.role.value == "Danone")
                           builder.task.value.verifiedDanoneAt == null
-                              ? customButton(
-                                  "Verifikasi", Colors.green, 10, 20, () => builder.updateByDanone())
+                              ? customButton("Verifikasi", Colors.green, 10, 20,
+                                  () => builder.updateByDanone())
                               : Center(
                                   child: text(
                                       "Sudah Verifikasi Danone",
