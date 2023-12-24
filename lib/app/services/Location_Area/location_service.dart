@@ -27,8 +27,8 @@ class LocationService {
                 'Authorization': 'Bearer $token',
                 'Accept': 'application/json',
               },
-              sendTimeout: Duration(seconds: 30),
-              receiveTimeout: Duration(seconds: 30)
+              sendTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30)
             ),
           )
           ;

@@ -5,6 +5,7 @@ import 'package:flutter_mobile_csms/app/services/error_handler.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AuthService {
   final url = "http://192.168.100.160:8080/api";
@@ -12,10 +13,14 @@ class AuthService {
 
   Future<Response> login(String username, String password) async {
     try {
+      String token = "";
+      await FirebaseMessaging.instance.getToken().then((value) {
+        token = value!;
+      });
       final response = await dio.post(
         "$url/login",
         data: jsonEncode(
-          {"username": username, "password": password},
+          {"username": username, "password": password, "fcm_token": token},
         ),
         options: Options(
             headers: {

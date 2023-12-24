@@ -30,8 +30,8 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
-              sendTimeout: Duration(seconds: 30),
-              receiveTimeout: Duration(seconds: 30)
+              sendTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30)
             ),
           )
           ;
@@ -64,8 +64,8 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
-              sendTimeout: Duration(seconds: 30),
-              receiveTimeout: Duration(seconds: 30)
+              sendTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30)
             ),
           )
           ;
@@ -97,8 +97,8 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
-              sendTimeout: Duration(seconds: 30),
-              receiveTimeout: Duration(seconds: 30)
+              sendTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30)
             ),
           )
           ;
@@ -133,8 +133,8 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
-              sendTimeout: Duration(seconds: 30),
-              receiveTimeout: Duration(seconds: 30)
+              sendTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30)
             ),
           )
           ;

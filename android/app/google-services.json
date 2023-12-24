@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240478555085",
+    "project_id": "csms-fcm",
+    "storage_bucket": "csms-fcm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240478555085:android:c6943e9d63bc2ee041d284",
+        "android_client_info": {
+          "package_name": "com.example.flutter_mobile_csms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrxq-Sm5Ji0TX0uuJG8EblK0CdSAM_XOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
