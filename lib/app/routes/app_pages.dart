@@ -1,5 +1,5 @@
-import 'package:flutter_mobile_csms/app/modules/image/qr_view.dart';
-import 'package:flutter_mobile_csms/app/modules/image/zoom_image.dart';
+import 'package:flutter_mobile_csms/app/modules/other/bindings/qr_binding.dart';
+import 'package:flutter_mobile_csms/app/modules/other/view/qr_scanner.dart';
 import 'package:get/get.dart';
 
 import '../modules/assestment/bindings/assestment_binding.dart';
@@ -10,12 +10,15 @@ import '../modules/cleaning/bindings/cleaning_binding.dart';
 import '../modules/cleaning/views/cleaning_view.dart';
 import '../modules/cleaningAssignment/bindings/cleaning_assignment_binding.dart';
 import '../modules/cleaningAssignment/bindings/cleaning_assignment_detail_binding.dart';
-import '../modules/cleaningAssignment/views/cleaning_assignment_view.dart';
 import '../modules/cleaningAssignment/views/cleaning_assignment_detail.dart';
+import '../modules/cleaningAssignment/views/cleaning_assignment_view.dart';
 import '../modules/cleaningData/bindings/cleaning_data_binding.dart';
 import '../modules/cleaningData/views/cleaning_data_view.dart';
 import '../modules/cleaningDetail/bindings/cleaning_detail_binding.dart';
 import '../modules/cleaningDetail/views/cleaning_detail_view.dart';
+import '../modules/other/bindings/file_binding.dart';
+import '../modules/other/view/qr_view.dart';
+import '../modules/other/view/zoom_image.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -26,6 +29,8 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/userVerification/bindings/user_verification_binding.dart';
+import '../modules/userVerification/views/user_verification_view.dart';
 
 part 'app_routes.dart';
 
@@ -102,13 +107,22 @@ class AppPages {
       binding: ProfileBinding(),
     ),
     GetPage(
-      name: _Paths.ZOOM_IMAGE,
-      page: () => const FullScreenImagePage()
-    ),
+        name: _Paths.ZOOM_IMAGE,
+        page: () => const FullScreenImagePage(),
+        binding: FileBindings()),
     GetPage(
       name: _Paths.QR_VIEW,
-      page: () => const QRView()
+      page: () => const QRView(),
     ),
-
+    GetPage(
+      name: _Paths.QR_SCANNER,
+      page: () => const QRScanner(),
+      binding: QRBinding()
+    ),
+    GetPage(
+      name: _Paths.USER_VERIFICATION,
+      page: () => const UserVerificationView(),
+      binding: UserVerificationBinding(),
+    ),
   ];
 }

@@ -34,13 +34,20 @@ class DataTableAssignment extends DataTableSource {
         } else if (status == "danone") {
           tempData =
               tempData.where((row) => row.verifiedDanoneAt == null).toList();
+        } else if (status == "selesai") {
+          tempData = tempData.where((row) => row.status! == true).toList();
+        } else if (status == "noselesai") {
+          tempData = tempData.where((row) => row.status! == false).toList();
         } else {
           tempData = tempData;
         }
       }
       if (lokasi.isNotEmpty) {
         if (lokasi != "clear") {
-          tempData = tempData.where((row) => row.location!.name!.toLowerCase().contains(lokasi)).toList();
+          tempData = tempData
+              .where(
+                  (row) => row.location!.name!.toLowerCase().contains(lokasi))
+              .toList();
         } else {
           tempData = tempData;
         }
@@ -96,6 +103,7 @@ class DataTableAssignment extends DataTableSource {
         location: item.location,
         tasks: item.tasks,
         tasksDetail: item.tasksDetail,
+        status: item.status,
         supervisorId: item.supervisorId,
         checkedSupervisorAt: item.checkedSupervisorAt,
         verifiedDanoneAt: item.verifiedDanoneAt,
@@ -228,6 +236,11 @@ class DataTableAssignment extends DataTableSource {
                 .toList(),
           ),
         )),
+        DataCell(
+          Text(
+            currentRow.status! ? "Selesai" : "Belum Selesai",
+          ),
+        ),
         DataCell(
           Text(
             formatDate(currentRow.createdAt),

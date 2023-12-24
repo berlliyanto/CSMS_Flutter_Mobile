@@ -30,7 +30,7 @@ Widget cleaningDanone(CleaningController controller){
             ],
           ),
           const Divider(),
-          cardNavigation(Routes.CLEANING_DATA, "Riwayat Cleaning Data"),
+          cardNavigation(Routes.CLEANING_DATA, "Riwayat Cleaning"),
           const Divider(),
         ],
       ),

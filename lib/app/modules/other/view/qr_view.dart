@@ -22,7 +22,7 @@ class QRView extends GetView {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              QrImageView(data: qr['code_cs'], version: QrVersions.auto, size: 200),
+              QrImageView(data: "${qr['id'].toString()}-${qr['code_cs']}", version: QrVersions.auto, size: 200),
               const Gap(10),
               text("Scan Disini!", 16, Colors.black87, FontWeight.normal, TextAlign.center)
             ],

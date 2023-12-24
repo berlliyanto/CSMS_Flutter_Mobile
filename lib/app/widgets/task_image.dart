@@ -21,6 +21,7 @@ Widget cardImageCamera(File file, String title) {
 Widget cardImageAPI(dynamic urlImage) {
   return GestureDetector(
     onTap: (){
+      if(urlImage == null) return;
       Get.toNamed(Routes.ZOOM_IMAGE, arguments: urlImage);
     },
     child: Center(

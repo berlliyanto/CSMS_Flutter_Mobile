@@ -30,13 +30,11 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
+              sendTimeout: Duration(seconds: 30),
+              receiveTimeout: Duration(seconds: 30)
             ),
           )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+          ;
 
       if (response.statusCode == 200) {
         return response;
@@ -66,13 +64,11 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
+              sendTimeout: Duration(seconds: 30),
+              receiveTimeout: Duration(seconds: 30)
             ),
           )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+          ;
       if (response.statusCode == 200) {
         return response;
       } else {
@@ -101,13 +97,11 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
+              sendTimeout: Duration(seconds: 30),
+              receiveTimeout: Duration(seconds: 30)
             ),
           )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+          ;
 
       if (response.statusCode == 200) {
         return response;
@@ -139,13 +133,11 @@ class AssestmentService {
                 'Accept': 'application/json',
                 'Authorization': 'Bearer $token',
               },
+              sendTimeout: Duration(seconds: 30),
+              receiveTimeout: Duration(seconds: 30)
             ),
           )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+          ;
 
       if (response.statusCode == 200) {
         return response;

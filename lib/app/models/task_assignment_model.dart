@@ -11,6 +11,7 @@ class TaskAssignmentModel {
     final LocationModel? location;
     final List<String>? tasks;
     final List<TasksDetail>? tasksDetail;
+    final bool? status;
     final dynamic supervisorId;
     final dynamic checkedSupervisorAt;
     final dynamic verifiedDanoneAt;
@@ -25,6 +26,7 @@ class TaskAssignmentModel {
         this.location,
         this.tasks,
         this.tasksDetail,
+        this.status,
         this.supervisorId,
         this.checkedSupervisorAt,
         this.verifiedDanoneAt,
@@ -40,6 +42,7 @@ class TaskAssignmentModel {
         location: json["location"] == null ? null : LocationModel.fromJson(json["location"]),
         tasks: json["tasks"] == null ? [] : List<String>.from(json["tasks"]!.map((x) => x)),
         tasksDetail: json["tasks_detail"] == null ? [] : List<TasksDetail>.from(json["tasks_detail"]!.map((x) => TasksDetail.fromJson(x))),
+        status: json["status"],
         supervisorId: json["supervisor_id"] == null ? null : UserModel.fromJson(json['supervisor_id']),
         checkedSupervisorAt: json["checked_supervisor_at"] == null ? null : DateTime.parse(json["checked_supervisor_at"]),
         verifiedDanoneAt: json["verified_danone_at"] == null ? null : DateTime.parse(json["verified_danone_at"]),

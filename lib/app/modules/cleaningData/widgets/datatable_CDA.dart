@@ -19,6 +19,7 @@ PaginatedDataTable datatableCDA(CleaningDataController controller) {
       const DataColumn(label: Center(child: Text("Area"))),
       const DataColumn(label: Center(child: Text("Rincian Tugas"))),
       const DataColumn(label: Center(child: Text("Cleaner"))),
+      const DataColumn(label: Center(child: Text("Status"))),
       const DataColumn(label: Center(child: Text("Tanggal Dibuat"))),
       const DataColumn(label: Center(child: Text("Verifikasi oleh Supervisor"))),
       const DataColumn(label: Center(child: Text("Verifikasi oleh Danone"))),

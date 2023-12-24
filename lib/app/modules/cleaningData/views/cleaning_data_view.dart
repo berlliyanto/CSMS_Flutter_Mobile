@@ -84,6 +84,7 @@ class CleaningDataView extends GetView<CleaningDataController> {
                                 ]),
                             const Gap(10),
                             DropdownMenu(
+                                enableSearch: true,
                                 onSelected: (value) {
                                   builder.sourceAssignment.setStatus(value!);
                                   builder.update();
@@ -91,6 +92,12 @@ class CleaningDataView extends GetView<CleaningDataController> {
                                 width: Get.width * 0.89,
                                 hintText: "Pilih Status",
                                 dropdownMenuEntries: const [
+                                  DropdownMenuEntry(
+                                      value: "selesai",
+                                      label: "Sudah Selesai"),
+                                  DropdownMenuEntry(
+                                      value: "noselesai",
+                                      label: "Belum Selesai"),
                                   DropdownMenuEntry(
                                       value: "supervisor",
                                       label: "Belum verifikasi Supervisor"),

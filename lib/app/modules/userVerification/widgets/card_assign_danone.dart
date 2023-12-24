@@ -4,7 +4,7 @@ import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-Widget cardAssignSupervisor(String lokasi, String area, String oleh, int id, dynamic supervisorId) {
+Widget cardAssignDanone(String kode ,String lokasi, String area, String oleh, int id, bool status) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     padding: const EdgeInsets.all(10),
@@ -23,6 +23,9 @@ Widget cardAssignSupervisor(String lokasi, String area, String oleh, int id, dyn
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        text("Kode Tugas : $kode", 18, Colors.black87, FontWeight.bold,
+            TextAlign.start),
+        const Gap(5),
         text("Lokasi : $lokasi", 18, Colors.black87, FontWeight.bold,
             TextAlign.start),
         const Gap(5),
@@ -41,7 +44,7 @@ Widget cardAssignSupervisor(String lokasi, String area, String oleh, int id, dyn
           children: [
             RichText(text: TextSpan(
               children: <TextSpan>[
-                TextSpan(text: supervisorId != null ? "Sudah verifikasi SV" : "Belum verifikasi SV", style: TextStyle(fontSize: 14, color: Colors.grey.withOpacity(0.8), fontWeight: FontWeight.bold)),
+                TextSpan(text: status ? "Sudah Selesai" : "Belum Selesai", style: TextStyle(fontSize: 14, color: (status ? Colors.green : Colors.grey).withOpacity(0.8), fontWeight: FontWeight.bold)),
               ]
             )),
             GestureDetector(

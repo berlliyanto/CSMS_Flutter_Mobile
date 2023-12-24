@@ -12,6 +12,9 @@ Widget dropdown<T>(
   return MultiSelectDropDown(
     key: key,
     hint: hint,
+    focusNode: FocusScopeNode(
+      traversalEdgeBehavior: TraversalEdgeBehavior.closedLoop
+    ),
     showClearIcon: true,
     onOptionSelected: selectedOption,
     searchEnabled: true,
@@ -23,7 +26,7 @@ Widget dropdown<T>(
         .toList(),
     selectionType: SelectionType.single,
     chipConfig: const ChipConfig(wrapType: WrapType.wrap),
-    dropdownHeight: 300,
+    dropdownHeight: 350,
     optionTextStyle: const TextStyle(fontSize: 16),
     selectedOptionIcon: const Icon(Icons.check_circle),
   );
@@ -77,7 +80,7 @@ Widget dropdownMultiSelection<T>(
         .toList(),
     selectionType: SelectionType.multi,
     chipConfig: const ChipConfig(wrapType: WrapType.wrap),
-    dropdownHeight: 300,
+    dropdownHeight: 350,
     optionTextStyle: const TextStyle(fontSize: 16),
     selectedOptionIcon: const Icon(Icons.check_circle),
   );

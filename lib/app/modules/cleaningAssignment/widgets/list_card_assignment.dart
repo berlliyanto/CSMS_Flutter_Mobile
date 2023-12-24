@@ -11,7 +11,7 @@ Column listCardAssignment(CleaningAssignmentController controller) {
         e.area!.name!,
         e.assignBy!.name!,
         e.id!,
-        e.supervisorId
+        e.status!
       );
     }).toList(),
   );

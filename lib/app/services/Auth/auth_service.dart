@@ -12,23 +12,18 @@ class AuthService {
 
   Future<Response> login(String username, String password) async {
     try {
-      final response = await dio
-          .post(
-            "$url/login",
-            data: jsonEncode(
-              {"username": username, "password": password},
-            ),
-            options: Options(
-              headers: {
-                'Accept': 'application/json',
-              },
-            ),
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+      final response = await dio.post(
+        "$url/login",
+        data: jsonEncode(
+          {"username": username, "password": password},
+        ),
+        options: Options(
+            headers: {
+              'Accept': 'application/json',
+            },
+            sendTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30)),
+      );
       if (response.statusCode == 200) {
         return response;
       } else {
@@ -39,7 +34,8 @@ class AuthService {
             message: response.data['message'].toString());
       }
     } on DioException catch (error) {
-      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      checkException(error,
+          error.response != null ? error.response!.data['message'] : "Error");
       return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
       return Response(statusCode: 400, requestOptions: RequestOptions());
@@ -48,21 +44,16 @@ class AuthService {
 
   Future<Response> logout(String token) async {
     try {
-      final response = await dio
-          .get(
-            "$url/logout",
-            options: Options(
-              headers: {
-                'Authorization': 'Bearer $token',
-                'Accept': 'application/json',
-              },
-            ),
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+      final response = await dio.get(
+        "$url/logout",
+        options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Accept': 'application/json',
+            },
+            sendTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30)),
+      );
 
       if (response.statusCode == 200) {
         return response;
@@ -74,7 +65,8 @@ class AuthService {
             message: response.data['message'].toString());
       }
     } on DioException catch (error) {
-      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      checkException(error,
+          error.response != null ? error.response!.data['message'] : "Error");
       return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
       return Response(statusCode: 400, requestOptions: RequestOptions());
@@ -91,18 +83,16 @@ class AuthService {
     });
 
     try {
-      final response = await dio
-          .post(
-            "$url/register",
-            data: body,
-            options: Options(headers: {'Accept': 'application/json'}),
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
-          
+      final response = await dio.post(
+        "$url/register",
+        data: body,
+        options: Options(
+          headers: {'Accept': 'application/json'},
+          sendTimeout: const Duration(seconds: 30),
+          receiveTimeout: const Duration(seconds: 30),
+        ),
+      );
+
       if (response.statusCode == 200) {
         return response;
       } else {
@@ -113,7 +103,8 @@ class AuthService {
             message: response.data['message'].toString());
       }
     } on DioException catch (error) {
-      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      checkException(error,
+          error.response != null ? error.response!.data['message'] : "Error");
       return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
       return Response(statusCode: 400, requestOptions: RequestOptions());
@@ -122,21 +113,16 @@ class AuthService {
 
   Future<Response> profile(String token) async {
     try {
-      final response = await dio
-          .get(
-            "$url/profile",
-            options: Options(
-              headers: {
-                'Authorization': 'Bearer $token',
-                'Accept': 'application/json',
-              },
-            ),
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+      final response = await dio.get(
+        "$url/profile",
+        options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Accept': 'application/json',
+            },
+            sendTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30)),
+      );
 
       if (response.statusCode == 200) {
         return response;
@@ -148,7 +134,8 @@ class AuthService {
             message: response.data['message'].toString());
       }
     } on DioException catch (error) {
-      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      checkException(error,
+          error.response != null ? error.response!.data['message'] : "Error");
       return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
       return Response(statusCode: 400, requestOptions: RequestOptions());
@@ -158,22 +145,17 @@ class AuthService {
   Future<Response> updatePassword(String token, String password) async {
     final body = jsonEncode({"password": password});
     try {
-      final response = await dio
-          .put(
-            "$url/update_password",
-            data: body,
-            options: Options(
-              headers: {
-                'Authorization': 'Bearer $token',
-                'Accept': 'application/json',
-              },
-            ),
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+      final response = await dio.put(
+        "$url/update_password",
+        data: body,
+        options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Accept': 'application/json',
+            },
+            sendTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30)),
+      );
 
       if (response.statusCode == 200) {
         return response;
@@ -185,7 +167,8 @@ class AuthService {
             message: response.data['message'].toString());
       }
     } on DioException catch (error) {
-      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      checkException(error,
+          error.response != null ? error.response!.data['message'] : "Error");
       return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
       return Response(statusCode: 400, requestOptions: RequestOptions());

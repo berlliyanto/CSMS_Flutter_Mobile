@@ -26,13 +26,11 @@ class AreaService {
                 'Authorization': 'Bearer $token',
                 'Accept': 'application/json',
               },
+              sendTimeout: Duration(seconds: 30),
+              receiveTimeout: Duration(seconds: 30)
             ),
           )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+          ;
           
       if (response.statusCode == 200) {
         return response;
@@ -63,13 +61,11 @@ class AreaService {
                 'Authorization': 'Bearer $token',
                 'Accept': 'application/json',
               },
+              sendTimeout: Duration(seconds: 30),
+              receiveTimeout: Duration(seconds: 30)
             ),
           )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+          ;
 
       if (response.statusCode == 200) {
         return response;

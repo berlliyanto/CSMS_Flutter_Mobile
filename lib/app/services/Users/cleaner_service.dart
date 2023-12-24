@@ -19,21 +19,17 @@ class CleanerService {
     final token = await getToken();
 
     try {
-      final response = await dio
-          .get(
-            "$url/all_cleaners",
-            options: Options(
-              headers: {
-                'Authorization': 'Bearer $token',
-                'Accept': 'application/json',
-              },
-            ),
-          )
-          .timeout(
-            const Duration(seconds: 30),
-            onTimeout: () => snackBar("Error", "Connection Timeout",
-                SnackPosition.TOP, 10, Colors.red, Colors.white),
-          );
+      final response = await dio.get(
+        "$url/all_cleaners",
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Accept': 'application/json',
+          },
+          sendTimeout: const Duration(seconds: 30),
+          receiveTimeout: const Duration(seconds: 30),
+        ),
+      );
 
       if (response.statusCode == 200) {
         return response;
@@ -45,7 +41,8 @@ class CleanerService {
             message: response.data['message'].toString());
       }
     } on DioException catch (error) {
-      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      checkException(error,
+          error.response != null ? error.response!.data['message'] : "Error");
       return Response(statusCode: 400, requestOptions: RequestOptions());
     } catch (e) {
       return Response(statusCode: 400, requestOptions: RequestOptions());

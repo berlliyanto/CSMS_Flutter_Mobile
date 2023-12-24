@@ -4,7 +4,7 @@ import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-Widget cardAssignment(String kode, String lokasi, String area, String oleh, int id, bool status) {
+Widget cardAssignSupervisor(String kode ,String lokasi, String area, String oleh, int id, bool status) {
   return Container(
     margin: const EdgeInsets.only(bottom: 10),
     padding: const EdgeInsets.all(10),
@@ -65,16 +65,4 @@ Widget cardAssignment(String kode, String lokasi, String area, String oleh, int 
       ],
     ),
   );
-}
-
-Color statusColor(String status) {
-  if(status=="On Progress"){
-    return Colors.orange;
-  }else if(status=="Finish"){
-    return Colors.green;
-  }else if(status=="Not Finish"){
-    return Colors.red;
-  }
-
-  return Colors.grey;
 }

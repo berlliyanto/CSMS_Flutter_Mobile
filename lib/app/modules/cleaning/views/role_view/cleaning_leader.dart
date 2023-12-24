@@ -38,7 +38,7 @@ Widget cleaningLeader(CleaningController controller) {
           const Divider(),
           cardNavigation(Routes.CLEANING_ASSIGNMENT, "Assignment Saya"),
           const Gap(10),
-          cardNavigation(Routes.CLEANING_DATA, "Riwayat Cleaning Data"),
+          cardNavigation(Routes.CLEANING_DATA, "Riwayat Cleaning"),
           const Divider(),
           const Gap(10),
           text("Beri Tugas", 20, Colors.black87, FontWeight.w800,

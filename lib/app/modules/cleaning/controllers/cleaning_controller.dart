@@ -113,6 +113,7 @@ class CleaningController extends GetxController {
     await getCountAssignment();
     if(role.value == "Cleaner"){
       tasksByCleaner = await getTaskByCleaner();
+      await getCountTaskByCleaner();
     }else if(role.value == "Leader"){
       location = await getLocations();
       cleaner = await getCleaners();
@@ -139,6 +140,7 @@ class CleaningController extends GetxController {
 
   Future getCountTaskByCleaner() async {
     final response = await TaskByCleanerService().taskCount();
+    print(response.data);
     if (response.statusCode == 200) {
       countTask = response.data != null ? CountAssignModel.fromJson(response.data['data']) : CountAssignModel(total: 0, finish: 0, notFinish: 0);
     }
