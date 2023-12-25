@@ -35,7 +35,6 @@ class AssestmentController extends GetxController {
         ? (response.data as List).map((e) => UserModel.fromJson(e)).toList()
         : [];
     cleaner = cleaners;
-    print(cleaner);
     update();
     return cleaners;
   }
@@ -46,9 +45,6 @@ class AssestmentController extends GetxController {
       Get.back();
       snackBar("Sukses", "Berhasil simpan data", SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
-    } else {
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
-          Colors.red.shade500, Colors.white);
     }
   }
 

@@ -80,9 +80,6 @@ class CleaningController extends GetxController {
       Get.back();
       snackBar("Sukses", "Berhasil simpan data", SnackPosition.TOP, 10,
           Colors.green.shade500, Colors.white);
-    }else{
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
-          Colors.red.shade400, Colors.white);
     }
 
     isLoading.value = false;

@@ -16,8 +16,6 @@ class RegisterController extends GetxController {
         if(value.statusCode == 200){
           Get.snackbar('Success', 'Register Success', backgroundColor: Colors.green, colorText: Colors.white);
           Get.toNamed('/login');
-        }else{
-          Get.snackbar('Error', 'Register Failed', backgroundColor: Colors.red, colorText: Colors.white);
         }
       });
     }else{

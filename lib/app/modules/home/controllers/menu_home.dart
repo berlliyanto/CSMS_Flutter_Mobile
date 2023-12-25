@@ -81,11 +81,6 @@ abstract class MenuHome {
       'route': '/requestmenu'
     },
     {
-      'title': 'User Verification',
-      'image': 'assets/images/userverification.png',
-      'route': '/user-verification'
-    },
-    {
       'title': 'Assesment',
       'image': 'assets/images/assesment.png',
       'route': '/assesment'
@@ -102,11 +97,6 @@ abstract class MenuHome {
       'title': 'Request',
       'image': 'assets/images/request.png',
       'route': '/requestmenu'
-    },
-    {
-      'title': 'User Verification',
-      'image': 'assets/images/userverification.png',
-      'route': '/user-verification'
     },
     {
       'title': 'Assesment',

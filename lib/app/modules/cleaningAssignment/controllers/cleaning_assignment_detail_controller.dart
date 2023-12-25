@@ -102,8 +102,6 @@ class CleaningAssignmentDetailController extends GetxController {
     if (response.statusCode == 200) {
       Get.back();
       snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
-    }else{
-      snackBar("Error", response.data['message'], SnackPosition.TOP, 10, Colors.red.shade400, Colors.white);
     }
     isLoading.value = false;
     update();

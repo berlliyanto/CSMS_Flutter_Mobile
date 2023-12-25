@@ -147,9 +147,6 @@ class CleaningDetailController extends GetxController {
       Get.back();
       snackBar("Success", "Berhasil update", SnackPosition.TOP, 10,
           Colors.green, Colors.white);
-    } else {
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10,
-          Colors.red, Colors.white);
     }
   }
 

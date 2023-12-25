@@ -4,28 +4,28 @@ class APIException {
   List<String> getExceptionMessage(DioException exception, String message) {
     switch (exception.type) {
       case DioExceptionType.badResponse:
-        return ["Bad response error", message];
+        return ["Bad Response", message];
 
       case DioExceptionType.connectionError:
-        return ["Connection error", message];
+        return ["Connection Error", message];
 
       case DioExceptionType.connectionTimeout:
-        return ["Connection timeout", message];
+        return ["Connection Timeout", message];
 
       case DioExceptionType.unknown:
-        return ["Something went wrong", message];
+        return ["Something Went Wrong", message];
 
       case DioExceptionType.cancel:
-        return ["Request cancelled", message];
+        return ["Request Cancelled", message];
 
       case DioExceptionType.receiveTimeout:
-        return ["Receive timeout", message ];
+        return ["Receive Timeout", message ];
 
       case DioExceptionType.sendTimeout:
-        return ["Send timeout", message];
+        return ["Send Timeout", message];
 
       default:
-        return ["Unknown error", message];
+        return ["Unknown Error", message];
     }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/routes/app_pages.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
-import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -30,10 +29,6 @@ class LoginController extends GetxController {
         final box = GetStorage();
         box.write('token', response.data['token']);
         Get.offAllNamed(Routes.HOME);
-        isLoading.value = false;
-      } else {
-        snackBar("Login Gagal", "Email atau password salah", SnackPosition.TOP,
-            10, Colors.red.shade500.withOpacity(0.8), Colors.white);
         isLoading.value = false;
       }
     } catch (e) {

@@ -64,8 +64,6 @@ class ProfileController extends GetxController {
     if (response.statusCode == 200) {
       snackBar("Sukses", response.data['message'], SnackPosition.TOP, 10, Colors.green.shade500, Colors.white);
       dialog("Password telah diubah", "Apakah anda ingin login ulang?", "Ya", "Tidak", () => logout());
-    }else{
-      snackBar("Error", "Something went wrong", SnackPosition.TOP, 10, Colors.red, Colors.white);
     }
   }
 
