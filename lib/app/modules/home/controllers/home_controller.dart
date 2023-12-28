@@ -12,15 +12,36 @@ class HomeController extends GetxController {
 
   final List<String> qouteOfTheDay = [
     '"Success is not final, failure is not fatal: It is the courage to continue that counts." - Winston Churchill',
-    '"The only way to do great work is to love what you do." - Steve Jobs',
+    '"Belajarlah dari pengalaman generasi sebelum kalian. Bersungguh - sungguhlah dan jangan melupakan agar kalian tidak dilupakan." - Utsman bin Affan',
     '"Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work." - Steve Jobs',
-    '"Success is walking from failure to failure with no loss of enthusiasm." - Winston Churchill',
+    '"Orang yang suka berkata jujur mendapatkan tiga hal: kepercayaan, cinta dan rasa hormat." - Ali bin Abi Thalib',
     '"The only limit to our realization of tomorrow will be our doubts of today." - Franklin D. Roosevelt',
     '"Believe you can and you are halfway there." - Theodore Roosevelt',
     '"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt',
     '"Hard work beats talent when talent does not work hard." - Tim Notke',
     '"Dont watch the clock; do what it does. Keep going." - Sam Levenson',
-    '"The only place where success comes before work is in the dictionary." - Vidal Sassoon'
+    '"The only place where success comes before work is in the dictionary." - Vidal Sassoon',
+    '"Kerja keras adalah kunci sukses yang paling sering terlupakan." - Thomas A. Edison',
+    '"Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful." - Albert Schweitzer',
+    '"Im a greater believer in luck, and I find the harder I work the more I have of it." - Thomas Jefferson',
+    '"Kegigihan adalah kunci utama kesuksesan." - Charles Chaplin',
+    '"Tantangan terbesar dalam hidup adalah menemukan siapa diri kita sejati dan melakukan yang terbaik." - Mehnaz Ansari',
+    '"Kerja keras membawa hasil, tetapi percaya pada diri sendiri membawa keberuntungan." - Thomas Jefferson',
+    '"Kesuksesan bukanlah kunci kebahagiaan. Kebahagiaanlah kunci kesuksesan." - Albert Schweitzer',
+    '"Set your goals high, and dont stop till you get there." - Bo Jackson',
+    '"Kesuksesan adalah hasil dari kerja keras, pembelajaran dari kegagalan, ketekunan, dan dedikasi untuk mencapai tujuan yang diinginkan." - Frank Lloyd Wright',
+    '"Ialah hal yang memalukan bahwa seekor burung justru bangun lebih awal daripada kamu di pagi hari." - Abu Bakar Ash-Shiddiq',
+    '"Your talent determines what you can do. Your motivation determines how much you are willing to do. Your attitude determines how well you do it." - Lou Holtz',
+    '"Bekerja keras hari ini adalah investasi untuk hari esok yang lebih baik." - Unknown',
+    '"Jadikan kegagalanmu sebagai tonggak kesuksesan yang akan datang." - Unknown',
+    '"Jadikan kehidupan dunia sebagai kunci kesuksesan untuk kehidupan Akhirat." - Unknown',
+    '"Jangan jadikan hidup ini sebagai beban, berserah dirilah kepada Tuhan yang maha esa." - Unknown',
+    '"Tetap rendah hati dan bersyukur." - Unknown',
+    '"Tetap semangat dan bersabar untuk menantikan kehidupan yang lebih baik" - Unknown',
+    '"Success is the sum of small efforts, repeated day in and day out." - Robert Collier',
+    '"Dont count the days, make the days count." - Muhammad Ali',
+    '"Jangan berlebihan dalam mencintai sehingga menjadi keterikatan, jangan pula berlebihan dalam membenci sehingga membawa kebinasaan." - Umar Bin Khattab',
+    '"Bersikaplah baik, karena setiap kali kebaikan menjadi bagian dari sesuatu, itu memperindahnya. Setiap kali itu diambil dari sesuatu, itu membuatnya ternoda." - Muhammad SAW'
   ];
 
   List menuHome = [].obs;
@@ -33,7 +54,7 @@ class HomeController extends GetxController {
 
   void changeQuote() {
     final random = Random();
-    Timer.periodic(const Duration(seconds: 30), (timer) {
+    Timer.periodic(const Duration(seconds: 20), (timer) {
       quote.value = qouteOfTheDay[random.nextInt(qouteOfTheDay.length)];
     });
   }

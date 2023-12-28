@@ -5,7 +5,7 @@ import 'package:flutter_mobile_csms/app/widgets/card.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 
-Widget cleaningDanone(CleaningController controller){
+Widget cleaningManagement(CleaningController controller){
   return Container(
     height: double.infinity,
     width: double.infinity,

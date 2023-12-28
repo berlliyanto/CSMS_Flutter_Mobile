@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class FileDownloadService {
-  final url = "https://aplikasipms.com/api";
+  final url = "http://192.168.100.160:8080/api";
   Dio dio = Dio();
 
   void showToast(String msg) => Fluttertoast.showToast(msg: msg);
@@ -28,6 +28,28 @@ class FileDownloadService {
       Directory? directory = await getExternalStorageDirectory();
       await FlutterDownloader.enqueue(
         url: "$url/download_image/$image",
+        headers: {},
+        saveInPublicStorage: true,
+        savedDir: directory!.path,
+        showNotification: true, 
+        openFileFromNotification: true, 
+      );
+    } else {
+      showToast("Permission Denied");
+    }
+  }
+
+  Future<void> downloadExcel(String path) async {
+final plugin = DeviceInfoPlugin();
+    final android = await plugin.androidInfo;
+
+    final storageStatus = android.version.sdkInt < 33
+        ? await Permission.storage.request()
+        : PermissionStatus.granted;
+    if (storageStatus == PermissionStatus.granted) {
+      Directory? directory = await getExternalStorageDirectory();
+      await FlutterDownloader.enqueue(
+        url: url + path,
         headers: {},
         saveInPublicStorage: true,
         savedDir: directory!.path,

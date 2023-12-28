@@ -3,6 +3,7 @@ import 'package:flutter_mobile_csms/app/modules/cleaningData/widgets/datatable_C
 import 'package:flutter_mobile_csms/app/widgets/button.dart';
 import 'package:flutter_mobile_csms/app/widgets/filter.dart';
 import 'package:flutter_mobile_csms/app/widgets/loading.dart';
+import 'package:flutter_mobile_csms/app/widgets/text.dart';
 import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
@@ -93,8 +94,7 @@ class CleaningDataView extends GetView<CleaningDataController> {
                                 hintText: "Pilih Status",
                                 dropdownMenuEntries: const [
                                   DropdownMenuEntry(
-                                      value: "selesai",
-                                      label: "Sudah Selesai"),
+                                      value: "selesai", label: "Sudah Selesai"),
                                   DropdownMenuEntry(
                                       value: "noselesai",
                                       label: "Belum Selesai"),
@@ -108,6 +108,21 @@ class CleaningDataView extends GetView<CleaningDataController> {
                                       value: "clear", label: "No Filter"),
                                 ]),
                             const Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                text("Filter Tanggal", 14, Colors.black87,
+                                    FontWeight.normal, TextAlign.start),
+                                const Tooltip(
+                                  padding: EdgeInsets.all(5),
+                                  margin: EdgeInsets.symmetric(horizontal: 15),
+                                  message:
+                                      "Tipe Filter (Tanggal Awal dan Akhir harus diisi)\n-Harian akan dipilih dari tanggal awal.\n-Bulanan akan dipilih dari rentang waktu antara tanggal awal dan tanggal akhir.\n-Tahunan akan dipilih dari tanggal awal.",
+                                  child: Icon(Icons.info_outline, size: 20, color: Colors.orange,),
+                                )
+                              ],
+                            ),
+                            const Gap(5),
                             filterByDate(
                               FilterByDateProps(
                                   tipe: builder.tipeFilter.value,
@@ -127,7 +142,7 @@ class CleaningDataView extends GetView<CleaningDataController> {
                                       builder.selectEndDate(context)),
                             ),
                             const Gap(10),
-                            customButton("Terapkan", Colors.blue, 5, 10,
+                            customButton("Terapkan", Colors.orange, 5, 10,
                                 () => builder.getFilteredAssignByDate())
                           ],
                         ),

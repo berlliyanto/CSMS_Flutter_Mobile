@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:dio/dio.dart';
 
 class AreaService {
-  final url = "https://aplikasipms.com/api";
+  final url = "http://192.168.100.160:8080/api";
   Dio dio = Dio();
 
   String getToken() {

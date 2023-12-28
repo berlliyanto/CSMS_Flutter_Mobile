@@ -85,6 +85,21 @@ class AssestmentPenilaianView extends GetView<AssestmentPenilaianController> {
                               }).toList(),
                             ),
                             const Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                text("Filter Tanggal", 14, Colors.black87,
+                                    FontWeight.normal, TextAlign.start),
+                                const Tooltip(
+                                  padding: EdgeInsets.all(5),
+                                  margin: EdgeInsets.symmetric(horizontal: 15),
+                                  message:
+                                      "Tipe Filter (Tanggal Awal dan Akhir harus diisi)\n-Harian akan dipilih dari tanggal awal.\n-Bulanan akan dipilih dari rentang waktu antara tanggal awal dan tanggal akhir.\n-Tahunan akan dipilih dari tanggal awal.",
+                                  child: Icon(Icons.info_outline, size: 20, color: Colors.orange,),
+                                )
+                              ],
+                            ),
+                            const Gap(5),
                             filterByDate(
                               FilterByDateProps(
                                 tipe: builder.tipeFilter.value,
@@ -104,7 +119,7 @@ class AssestmentPenilaianView extends GetView<AssestmentPenilaianController> {
                               ),
                             ),
                             const Gap(10),
-                            customButton("Terapkan", Colors.blue, 5, 10,
+                            customButton("Terapkan", Colors.orange, 5, 10,
                                 () => builder.getFilteredAssignByDate())
                           ],
                         ),

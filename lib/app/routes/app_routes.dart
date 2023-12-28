@@ -19,6 +19,8 @@ abstract class Routes {
   static const QR_VIEW = _Paths.QR_VIEW;
   static const QR_SCANNER = _Paths.QR_SCANNER;
   static const USER_VERIFICATION = _Paths.USER_VERIFICATION;
+  static const REPORT = _Paths.REPORT;
+  static const TRAINING = _Paths.TRAINING;
 }
 
 abstract class _Paths {
@@ -39,4 +41,6 @@ abstract class _Paths {
   static const QR_VIEW = '/qr-view';
   static const QR_SCANNER = '/qr-scanner';
   static const USER_VERIFICATION = '/user-verification';
+  static const REPORT = '/report';
+  static const TRAINING = '/training';
 }

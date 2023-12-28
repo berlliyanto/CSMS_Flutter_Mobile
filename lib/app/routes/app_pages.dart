@@ -1,5 +1,3 @@
-import 'package:flutter_mobile_csms/app/modules/other/bindings/qr_binding.dart';
-import 'package:flutter_mobile_csms/app/modules/other/view/qr_scanner.dart';
 import 'package:get/get.dart';
 
 import '../modules/assestment/bindings/assestment_binding.dart';
@@ -16,19 +14,25 @@ import '../modules/cleaningData/bindings/cleaning_data_binding.dart';
 import '../modules/cleaningData/views/cleaning_data_view.dart';
 import '../modules/cleaningDetail/bindings/cleaning_detail_binding.dart';
 import '../modules/cleaningDetail/views/cleaning_detail_view.dart';
-import '../modules/other/bindings/file_binding.dart';
-import '../modules/other/view/qr_view.dart';
-import '../modules/other/view/zoom_image.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/other/bindings/file_binding.dart';
+import '../modules/other/bindings/qr_binding.dart';
+import '../modules/other/view/qr_scanner.dart';
+import '../modules/other/view/qr_view.dart';
+import '../modules/other/view/zoom_image.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/report/bindings/report_binding.dart';
+import '../modules/report/views/report_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/training/bindings/training_binding.dart';
+import '../modules/training/views/training_view.dart';
 import '../modules/userVerification/bindings/user_verification_binding.dart';
 import '../modules/userVerification/views/user_verification_view.dart';
 
@@ -115,14 +119,23 @@ class AppPages {
       page: () => const QRView(),
     ),
     GetPage(
-      name: _Paths.QR_SCANNER,
-      page: () => const QRScanner(),
-      binding: QRBinding()
-    ),
+        name: _Paths.QR_SCANNER,
+        page: () => const QRScanner(),
+        binding: QRBinding()),
     GetPage(
       name: _Paths.USER_VERIFICATION,
       page: () => const UserVerificationView(),
       binding: UserVerificationBinding(),
+    ),
+    GetPage(
+      name: _Paths.REPORT,
+      page: () => const ReportView(),
+      binding: ReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRAINING,
+      page: () => const TrainingView(),
+      binding: TrainingBinding(),
     ),
   ];
 }

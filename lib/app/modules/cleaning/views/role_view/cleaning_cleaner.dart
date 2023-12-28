@@ -3,7 +3,6 @@ import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/controllers/cleaning_controller.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/widgets/card_task_cleaner.dart';
 import 'package:flutter_mobile_csms/app/widgets/text.dart';
-import 'package:gap/gap.dart';
 
 Widget cleaningCleaner(CleaningController controller) {
   return Container(
@@ -29,7 +28,7 @@ Widget cleaningCleaner(CleaningController controller) {
           const Divider(),
           text("Tugas Anda", 20, Colors.black87, FontWeight.w800,
               TextAlign.start),
-          const Gap(15),
+          controller.tasksByCleaner.isNotEmpty ? 
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -66,7 +65,7 @@ Widget cleaningCleaner(CleaningController controller) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
                       getStatusText(index),
                       style: TextStyle(
@@ -93,7 +92,8 @@ Widget cleaningCleaner(CleaningController controller) {
                 ],
               );
             },
-          ),
+          ) : 
+          const Padding(padding: EdgeInsets.only(top: 10), child: Center(child: Text("Anda Belum Memiliki Tugas Saat Ini"))),
         ],
       ),
     ),
@@ -133,7 +133,7 @@ Color getStatusColor(int index) {
 Widget accordion(
     List<TasksByCleanerModel> tasks, String title, Color color) {
   return Container(
-    margin: const EdgeInsets.only(bottom: 10),
+    margin: const EdgeInsets.only(bottom: 10, top: 10),
     decoration: BoxDecoration(
       color: Colors.white,
       borderRadius: BorderRadius.circular(10),

@@ -6,7 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:dio/dio.dart';
 
 class CleaningAssignmentService {
-  final url = "https://aplikasipms.com/api";
+  final url = "http://192.168.100.160:8080/api";
   Dio dio = Dio();
 
   String token() {
@@ -91,6 +91,41 @@ class CleaningAssignmentService {
       final response = await dio
           .get(
             "$url/assign_filter_date?type=$type&start_date=$startDate&end_date=$endDate",
+            options: Options(
+              headers: {
+                'Authorization': 'Bearer $token',
+                'Accept': 'application/json',
+              },
+              sendTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30)
+            ),
+          )
+          ;
+
+      if (response.statusCode == 200) {
+        return response;
+      } else {
+        throw DioException(
+            requestOptions: RequestOptions(path: url),
+            response: response,
+            type: DioExceptionType.connectionError,
+            message: response.data['message'].toString());
+      }
+    } on DioException catch (error) {
+      checkException(error, error.response != null ? error.response!.data['message'] : "Error");
+      return Response(statusCode: 400, requestOptions: RequestOptions());
+    } catch (e) {
+      return Response(statusCode: 400, requestOptions: RequestOptions());
+    }
+  }
+
+  Future<Response> getAssignmentAnalytics(String query) async {
+    final token = this.token();
+
+     try {
+      final response = await dio
+          .get(
+            "$url/assign_analytics?$query",
             options: Options(
               headers: {
                 'Authorization': 'Bearer $token',

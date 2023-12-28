@@ -23,6 +23,7 @@ class CleaningAssignmentDetailController extends GetxController {
   dynamic catatan = "-".obs;
   dynamic alasan = "-".obs;
   dynamic status = "-".obs;
+  DateTime? updatedAt;
 
   Rx<TaskAssignmentModel> task = TaskAssignmentModel().obs;
 

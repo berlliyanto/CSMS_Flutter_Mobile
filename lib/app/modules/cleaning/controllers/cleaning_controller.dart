@@ -6,7 +6,7 @@ import 'package:flutter_mobile_csms/app/models/task_by_cleaner_model.dart';
 import 'package:flutter_mobile_csms/app/models/task_assignment_model.dart';
 import 'package:flutter_mobile_csms/app/models/user_model.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_cleaner.dart';
-import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_danone.dart';
+import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_management.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_leader.dart';
 import 'package:flutter_mobile_csms/app/modules/cleaning/views/role_view/cleaning_supervisor.dart';
 import 'package:flutter_mobile_csms/app/services/Auth/auth_service.dart';
@@ -17,11 +17,9 @@ import 'package:flutter_mobile_csms/app/services/Location_Area/area_service.dart
 import 'package:flutter_mobile_csms/app/services/Location_Area/location_service.dart';
 import 'package:flutter_mobile_csms/app/services/Tasks/tasks_by_cleaner_service.dart';
 import 'package:flutter_mobile_csms/app/services/Users/cleaner_service.dart';
-import 'package:flutter_mobile_csms/app/widgets/loading.dart';
 import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 
 class CleaningController extends GetxController {
 
@@ -212,14 +210,10 @@ class CleaningController extends GetxController {
         return cleaningLeader(this);
       case 'Supervisor':
         return cleaningSupervisor(this);
-      case 'Danone':
-        return cleaningDanone(this);
+      case 'Management':
+        return cleaningManagement(this);
       default:
-        return LoadingOverlayPro(
-          isLoading: true,
-          progressIndicator: loading(),
-          child: const SizedBox()
-        );
+        return const SizedBox();
     }
   }
 

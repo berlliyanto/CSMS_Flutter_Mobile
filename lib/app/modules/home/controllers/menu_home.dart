@@ -48,11 +48,6 @@ abstract class MenuHome {
       'route': '/stockopname'
     },
     {
-      'title': 'User Verification',
-      'image': 'assets/images/userverification.png',
-      'route': '/user-verification'
-    },
-    {
       'title': 'Assesment',
       'image': 'assets/images/assesment.png',
       'route': '/assesment'

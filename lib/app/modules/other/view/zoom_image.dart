@@ -23,7 +23,7 @@ class FullScreenImagePage extends GetView<FileController> {
               child: Hero(
                 tag: imageUrl,
                 child: Image.network(
-                  "https://aplikasipms.com/api/images/$imageUrl",
+                  "http://192.168.100.160:8080/api/images/$imageUrl",
                   fit: BoxFit.contain,
                 ),
               ),

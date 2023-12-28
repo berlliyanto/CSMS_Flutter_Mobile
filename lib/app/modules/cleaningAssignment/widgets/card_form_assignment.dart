@@ -28,7 +28,8 @@ Widget cardFormAssignment(CleaningAssignmentDetailController controller) {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: (controller.task.value.tasksDetail ?? [])
-                  .map((e) => badgeNameCleaner(
+                  .map(
+                    (e) => badgeNameCleaner(
                       controller,
                       e.cleaner!.name!,
                       e.id!,
@@ -37,7 +38,10 @@ Widget cardFormAssignment(CleaningAssignmentDetailController controller) {
                       e.imageFinish,
                       e.status,
                       e.catatan,
-                      e.alasan))
+                      e.alasan,
+                      e.updatedAt,
+                    ),
+                  )
                   .toList(),
             ),
           ),
@@ -50,20 +54,19 @@ Widget cardFormAssignment(CleaningAssignmentDetailController controller) {
             : listTaskImage(controller.urlBefore, controller.urlProgress,
                 controller.urlFinish),
         const Divider(),
-        text(
-            "Status :", 16, Colors.black87, FontWeight.bold, TextAlign.start),
+        text("Status :", 16, Colors.black87, FontWeight.bold, TextAlign.start),
         text("${controller.status}", 16, Colors.black87, FontWeight.normal,
             TextAlign.start),
         const Gap(5),
-        text("Catatan :", 16, Colors.black87, FontWeight.bold,
-            TextAlign.start),
-        text("${controller.catatan ?? "-"}", 16, Colors.black87, FontWeight.normal,
-            TextAlign.start),
+        text("Catatan :", 16, Colors.black87, FontWeight.bold, TextAlign.start),
+        text("${controller.catatan ?? "-"}", 16, Colors.black87,
+            FontWeight.normal, TextAlign.start),
         const Gap(5),
         text("Alasan Tidak Selesai :", 16, Colors.black87, FontWeight.bold,
             TextAlign.start),
-        text("${controller.alasan ?? "-"}", 16, Colors.black87, FontWeight.normal,
-            TextAlign.start),
+        text("${controller.alasan ?? "-"}", 16, Colors.black87,
+            FontWeight.normal, TextAlign.start),
+        const Gap(5),
       ],
     ),
   );
@@ -78,7 +81,8 @@ GestureDetector badgeNameCleaner(
     dynamic urlAFinish,
     dynamic status,
     dynamic catatan,
-    dynamic alasan) {
+    dynamic alasan,
+    dynamic updatedAt) {
   return GestureDetector(
     onTap: () {
       controller.selectedCleaner.value = id;
@@ -88,6 +92,7 @@ GestureDetector badgeNameCleaner(
       controller.status = status;
       controller.catatan = catatan;
       controller.alasan = alasan;
+      controller.updatedAt = updatedAt;
       controller.update();
     },
     child: AnimatedContainer(
