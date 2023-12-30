@@ -3,17 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/models/assignment_analytics_model.dart';
 import 'package:flutter_mobile_csms/app/modules/report/controllers/report_controller.dart';
 import 'package:flutter_mobile_csms/app/services/CleaningAssignment/cleaning_assignment_service.dart';
+import 'package:flutter_mobile_csms/app/widgets/snackbar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CleaningReportController extends ReportController {
-  var isLocationAll = false.obs;
+
+  var isLocationAll = true.obs;
   var stateStartDate = false.obs;
   var stateEndDate = false.obs;
+  var location = 0.obs;
   RxString tipeFilter = "".obs;
   RxString formatedStartDate = "".obs;
   RxString formatedEndDate = "".obs;
-  RxString currentAnalyticsStatus = "Hari ini".obs;
+  RxString currentAnalyticsStatus = "".obs;
   DateTime? startDate, endDate;
   final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
 
@@ -35,7 +39,8 @@ class CleaningReportController extends ReportController {
           return PieChartSectionData(
             color: Colors.orange,
             value: assignAnalytics.statusOnProgress.toDouble(),
-            title: '${(assignAnalytics.statusOnProgress.toDouble() / assignAnalytics.total.toDouble() * 100).toStringAsFixed(1)}%',
+            title:
+                '${(assignAnalytics.statusOnProgress.toDouble() / assignAnalytics.total.toDouble() * 100).toStringAsFixed(1)}%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -49,7 +54,8 @@ class CleaningReportController extends ReportController {
           return PieChartSectionData(
             color: Colors.green,
             value: assignAnalytics.statusFinish.toDouble(),
-            title: '${(assignAnalytics.statusFinish.toDouble() / assignAnalytics.total.toDouble() * 100).toStringAsFixed(1)}%',
+            title:
+                '${(assignAnalytics.statusFinish.toDouble() / assignAnalytics.total.toDouble() * 100).toStringAsFixed(1)}%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -63,7 +69,8 @@ class CleaningReportController extends ReportController {
           return PieChartSectionData(
             color: Colors.red,
             value: assignAnalytics.statusNotFinish.toDouble(),
-            title: '${(assignAnalytics.statusNotFinish.toDouble() / assignAnalytics.total.toDouble() * 100).toStringAsFixed(1)}%',
+            title:
+                '${(assignAnalytics.statusNotFinish.toDouble() / assignAnalytics.total.toDouble() * 100).toStringAsFixed(1)}%',
             radius: radius,
             titleStyle: TextStyle(
               fontSize: fontSize,
@@ -123,8 +130,8 @@ class CleaningReportController extends ReportController {
     String dateNow = dateFormat.format(DateTime.now());
     isLoading.value = true;
     update();
-    final response =
-        await CleaningAssignmentService().getAssignmentAnalytics("type=Harian&start_date=$dateNow");
+    final response = await CleaningAssignmentService()
+        .getAssignmentAnalytics("type=Harian&start_date=$dateNow");
     if (response.statusCode == 200) {
       assignAnalytics = response.data != null
           ? AssignmentAnalyticsModel.fromJson(response.data['data'])
@@ -138,9 +145,84 @@ class CleaningReportController extends ReportController {
     update();
   }
 
+  Future<void> refetchAssignmentAnalytics() async {
+    if (startDate == null || endDate == null || tipeFilter.value == "") {
+      snackBar("Warning", "Tanggal harus diisi", SnackPosition.TOP, 10,
+          Colors.yellow, Colors.white);
+      return;
+    }
+    String query =
+        "type=${tipeFilter.value}&start_date=$formatedStartDate&end_date=$formatedEndDate";
+
+    String locationName = location.value == 3
+        ? "Wonoboyo"
+        : location.value == 4
+            ? "Jombor"
+            : location.value == 5
+                ? "Kemudo"
+                : "Semua Lokasi";
+
+    if (!isLocationAll.value) {
+      query += "&location=${location.value}";
+    }
+
+    if (tipeFilter.value == "Harian") {
+      currentAnalyticsStatus.value =
+          "Harian : $formatedStartDate ($locationName)";
+    } else if (tipeFilter.value == "Bulanan") {
+      currentAnalyticsStatus.value =
+          "Bulanan : $formatedStartDate - $formatedEndDate ($locationName)";
+    } else if (tipeFilter.value == "Tahunan") {
+      currentAnalyticsStatus.value =
+          "Tahunan : ${formatedStartDate.split("-").first} ($locationName)";
+    }
+
+    isLoading.value = true;
+    update();
+    final response =
+        await CleaningAssignmentService().getAssignmentAnalytics(query);
+    if (response.statusCode == 200) {
+      assignAnalytics = response.data != null
+          ? AssignmentAnalyticsModel.fromJson(response.data['data'])
+          : AssignmentAnalyticsModel(
+              total: 0,
+              statusFinish: 0,
+              statusNotFinish: 0,
+              statusOnProgress: 0);
+      Fluttertoast.showToast(msg: "Sukses Ambil Data");
+    }
+    isLoading.value = false;
+    update();
+  }
+
+  //FILE DOWNLOADER
+  void exportToExcel() {
+    String dateNow = dateFormat.format(DateTime.now());
+    String basePath = "/assign_export";
+    String queryDefault = "?type=Harian&start_date=$dateNow&end_date=$dateNow";
+    String query = "";
+    String path = "";
+
+    if (startDate == null && endDate == null && tipeFilter.value == "" && location.value == 0 && isLocationAll.value) {
+      path = basePath + queryDefault;
+    } else if(location.value != 0 && !isLocationAll.value && startDate == null && endDate == null && tipeFilter.value == ""){
+      path = "$basePath$queryDefault&location=${location.value}";
+    } else if(startDate !=null && endDate != null && tipeFilter.value != "" && location.value == 0 && isLocationAll.value) {
+      query = "?type=${tipeFilter.value}&start_date=$formatedStartDate&end_date=$formatedEndDate";
+      path = basePath + query;
+    } else if(startDate !=null && endDate != null && tipeFilter.value != "" && location.value != 0 && !isLocationAll.value) {
+      query = "?type=${tipeFilter.value}&start_date=$formatedStartDate&end_date=$formatedEndDate&location=${location.value}";
+      path = basePath + query;
+    }
+    
+    fileController.downloadExcel(path);
+  }
+
   @override
   void onInit() {
     super.onInit();
+    currentAnalyticsStatus.value =
+        "Hari Ini ${dateFormat.format(DateTime.now())}";
     getAssignmentAnalytics();
   }
 }

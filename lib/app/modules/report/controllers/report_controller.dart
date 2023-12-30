@@ -1,8 +1,10 @@
 import 'package:flutter_mobile_csms/app/models/location_model.dart';
+import 'package:flutter_mobile_csms/app/modules/other/controllers/file_controller.dart';
 import 'package:flutter_mobile_csms/app/services/Location_Area/location_service.dart';
 import 'package:get/get.dart';
 
 class ReportController extends GetxController {
+  final fileController = Get.find<FileController>();
   var isLoading = false.obs;
   List<LocationModel> locations = [];
 

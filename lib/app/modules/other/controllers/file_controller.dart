@@ -17,7 +17,13 @@ class FileController extends GetxController {
     showToast("Download Running");
   }
 
+  Future<void> downloadExcel(String path) async {
+    await FileDownloadService().downloadExcel(path);
+    showToast("Download Running");
+  }
+
   void showToast(String msg) => Fluttertoast.showToast(msg: msg);
+
 
   void sendUpdate(String id, DownloadTaskStatus downloadStatus, int progress) {
     final SendPort? send = IsolateNameServer.lookupPortByName('downloader');

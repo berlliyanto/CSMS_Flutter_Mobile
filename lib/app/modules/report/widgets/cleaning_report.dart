@@ -110,28 +110,39 @@ class CleaningReport extends StatelessWidget {
                       const Gap(10),
                       AspectRatio(
                         aspectRatio: 1.5,
-                        child: PieChart(
-                          PieChartData(
-                            pieTouchData: PieTouchData(
-                              touchCallback:
-                                  (FlTouchEvent event, pieTouchResponse) {
-                                if (!event.isInterestedForInteractions ||
-                                    pieTouchResponse == null ||
-                                    pieTouchResponse.touchedSection == null) {
-                                  controller.touchedIndex.value = -1;
-                                  return;
-                                }
-                                controller.touchedIndex.value = pieTouchResponse
-                                    .touchedSection!.touchedSectionIndex;
-                                controller.update();
-                              },
-                            ),
-                            borderData: FlBorderData(show: false),
-                            sectionsSpace: 0,
-                            centerSpaceRadius: 0,
-                            sections: controller.showingSections(),
-                          ),
-                        ),
+                        child: controller.assignAnalytics.total == 0
+                            ? Center(
+                                child: text(
+                                    "Tidak Ada Data",
+                                    20,
+                                    Colors.black87,
+                                    FontWeight.bold,
+                                    TextAlign.center),
+                              )
+                            : PieChart(
+                                PieChartData(
+                                  pieTouchData: PieTouchData(
+                                    touchCallback:
+                                        (FlTouchEvent event, pieTouchResponse) {
+                                      if (!event.isInterestedForInteractions ||
+                                          pieTouchResponse == null ||
+                                          pieTouchResponse.touchedSection ==
+                                              null) {
+                                        controller.touchedIndex.value = -1;
+                                        return;
+                                      }
+                                      controller.touchedIndex.value =
+                                          pieTouchResponse.touchedSection!
+                                              .touchedSectionIndex;
+                                      controller.update();
+                                    },
+                                  ),
+                                  borderData: FlBorderData(show: false),
+                                  sectionsSpace: 0,
+                                  centerSpaceRadius: 0,
+                                  sections: controller.showingSections(),
+                                ),
+                              ),
                       ),
                       const Gap(10),
                       Flex(
@@ -337,6 +348,7 @@ class CleaningReport extends StatelessWidget {
                             width: Get.width * 0.60,
                             hintText: "Lokasi",
                             enabled: !controller.isLocationAll.value,
+                            onSelected: (value) => controller.location.value = value!,
                             dropdownMenuEntries: controller.locations
                                 .map(
                                   (e) => DropdownMenuEntry(
@@ -372,14 +384,14 @@ class CleaningReport extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: Get.width * 0.15),
                         child:
-                            customButton("Terapkan", Colors.blue, 5, 10, () {}),
+                            customButton("Terapkan", Colors.blue, 5, 10, () => controller.refetchAssignmentAnalytics()),
                       ),
                       const Gap(10),
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: Get.width * 0.15),
                         child: customButton(
-                            "Download", Colors.green, 5, 10, () {}),
+                            "Export to Excel", Colors.green, 5, 10, () => controller.exportToExcel()),
                       )
                     ],
                   ),

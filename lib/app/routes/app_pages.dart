@@ -112,7 +112,7 @@ class AppPages {
     ),
     GetPage(
         name: _Paths.ZOOM_IMAGE,
-        page: () => const FullScreenImagePage(),
+        page: () => FullScreenImagePage(),
         binding: FileBindings()),
     GetPage(
       name: _Paths.QR_VIEW,

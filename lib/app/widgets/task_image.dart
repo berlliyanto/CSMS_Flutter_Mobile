@@ -27,7 +27,7 @@ Widget cardImageAPI(dynamic urlImage) {
     child: Center(
       child: FutureBuilder(
           future: GetConnect()
-              .get("http://192.168.100.160:8080/api/images/$urlImage"),
+              .get("http://192.168.1.12:8080/api/images/$urlImage"),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Container(
@@ -65,7 +65,7 @@ Widget cardImageAPI(dynamic urlImage) {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                         image: NetworkImage(
-                            "http://192.168.100.160:8080/api/images/$urlImage"),
+                            "http://192.168.1.12:8080/api/images/$urlImage"),
                         fit: BoxFit.cover),
                   ),
                 ),

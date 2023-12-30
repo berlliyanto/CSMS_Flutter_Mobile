@@ -8,7 +8,7 @@ import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AuthService {
-  final url = "http://192.168.100.160:8080/api";
+  final url = "http://192.168.1.12:8080/api";
   Dio dio = Dio();
 
   Future<Response> login(String username, String password) async {

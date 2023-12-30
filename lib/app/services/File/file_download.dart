@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class FileDownloadService {
-  final url = "http://192.168.100.160:8080/api";
+  final url = "http://192.168.1.12:8080/api";
   Dio dio = Dio();
 
   void showToast(String msg) => Fluttertoast.showToast(msg: msg);

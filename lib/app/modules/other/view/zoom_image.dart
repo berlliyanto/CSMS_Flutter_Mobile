@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobile_csms/app/modules/other/controllers/file_controller.dart';
 import 'package:get/get.dart';
 
-class FullScreenImagePage extends GetView<FileController> {
-  const FullScreenImagePage({super.key});
+class FullScreenImagePage extends StatelessWidget {
+  FullScreenImagePage({super.key});
+
+  final controller = Get.find<FileController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class FullScreenImagePage extends GetView<FileController> {
               child: Hero(
                 tag: imageUrl,
                 child: Image.network(
-                  "http://192.168.100.160:8080/api/images/$imageUrl",
+                  "http://192.168.1.12:8080/api/images/$imageUrl",
                   fit: BoxFit.contain,
                 ),
               ),
